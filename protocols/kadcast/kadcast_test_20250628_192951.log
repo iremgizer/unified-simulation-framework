@@ -1,0 +1,25 @@
+19:29:51.514 [ WARNING] UpdatedTestRunner   : ⚠️ No storage system available
+19:29:55.970 [    INFO] UpdatedTestRunner   : 🎯 KADCAST ENHANCED COMPREHENSIVE TEST (FIXED)
+19:29:55.971 [    INFO] UpdatedTestRunner   : ============================================================
+19:29:55.971 [    INFO] UpdatedTestRunner   : 
+============================================================
+19:29:55.971 [    INFO] UpdatedTestRunner   : 📋 TEST CONFIGURATION: DELAY_SYSTEM_CHECK
+19:29:55.971 [    INFO] UpdatedTestRunner   : 📝 Description: Verify delay calculations and block reconstruction
+19:29:55.971 [    INFO] UpdatedTestRunner   : ============================================================
+19:29:55.971 [    INFO] UpdatedTestRunner   : 🔍 DELAY SYSTEM & BLOCK CONTENT VERIFICATION (FIXED)
+19:29:55.971 [    INFO] UpdatedTestRunner   : ============================================================
+19:29:55.973 [   ERROR] UpdatedTestRunner   : ❌ Failed to import KadcastSimulator: No module named 'src'
+19:29:57.978 [    INFO] UpdatedTestRunner   : 
+================================================================================
+19:29:57.978 [    INFO] UpdatedTestRunner   : 🏆 ENHANCED COMPREHENSIVE TEST SUMMARY
+19:29:57.978 [    INFO] UpdatedTestRunner   : ================================================================================
+19:29:57.978 [    INFO] UpdatedTestRunner   : ✅ Successful tests: 0/1
+19:29:57.978 [    INFO] UpdatedTestRunner   : ❌ Failed tests: 1
+19:29:57.978 [    INFO] UpdatedTestRunner   : 
+❌ FAILED TESTS:
+19:29:57.978 [    INFO] UpdatedTestRunner   :    delay_system_check: Import error: No module named 'src'
+19:29:57.978 [    INFO] UpdatedTestRunner   : 
+💡 PERFORMANCE RECOMMENDATIONS:
+19:29:57.978 [    INFO] UpdatedTestRunner   : --------------------------------------------------
+19:29:57.978 [    INFO] UpdatedTestRunner   :    ❌ No successful tests to analyze
+19:29:57.984 [    INFO] UpdatedTestRunner   : 📁 Enhanced results saved to: kadcast_enhanced_test_results_20250628_192957.json

@@ -1,0 +1,9 @@
+{
+    "North America": ["New York", "San Francisco", "Toronto", "Chicago", "Seattle", "Austin"],
+    "Europe": ["London", "Berlin", "Paris", "Amsterdam", "Zurich", "Stockholm"],
+    "Asia": ["Tokyo", "Singapore", "Seoul", "Hong Kong", "Shanghai", "Bangalore"],
+    "South America": ["São Paulo", "Buenos Aires", "Santiago"],
+    "Oceania": ["Sydney", "Melbourne", "Auckland"],
+    "Africa": ["Johannesburg", "Nairobi", "Cape Town"]
+  }
+  
