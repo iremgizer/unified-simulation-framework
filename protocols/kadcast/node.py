@@ -264,12 +264,12 @@ class KadcastNode:
            is_complete = len(received_chunks) >= required_chunks
      
            if is_complete:
-               #logger.info(f"✅ Node {self.node_index}: Block {block_id} is complete ({len(received_chunks)}/{total_chunks} chunks, required: {required_chunks})")
+               #logger.info(f" Node {self.node_index}: Block {block_id} is complete ({len(received_chunks)}/{total_chunks} chunks, required: {required_chunks})")
                return is_complete
            else:
             # Debug için current progress göster
                if len(received_chunks) > 0:
-                   # logger.debug(f"📊 Node {self.node_index}: Block {block_id} progress: {len(received_chunks)}/{required_chunks} required chunks")
+                   # logger.debug(f" Node {self.node_index}: Block {block_id} progress: {len(received_chunks)}/{required_chunks} required chunks")
                    pass
      
            return is_complete
@@ -342,38 +342,35 @@ class KadcastNode:
         # Sender'ı peer olarak ekle
         self.add_peer(message.sender_id)
         
-        # PONG ile cevap ver
+    
         pong_message = PongMessage(sender_id=self.node_id, ping_sender_id=message.sender_id)
         self.send_message(message.sender_id, pong_message)
 
     def handle_pong(self, message: PongMessage):
-        """PONG mesajını işle (korundu ama kullanılmayacak)."""
+      
         # Sender'ı peer olarak ekle
         self.add_peer(message.sender_id)
 
     def handle_find_node(self, message: FindNodeMessage):
-        """FIND_NODE mesajını işle (korundu ama kullanılmayacak)."""
-        # Sender'ı peer olarak ekle
+       
+   
         self.add_peer(message.sender_id)
         
-        # En yakın node'ları bul
         closest_nodes = self.find_closest_nodes(message.target_id, count=self.k)
-        
-        # NODES mesajı ile cevap ver
+     
         nodes_info = [{"node_id": node_id} for node_id in closest_nodes]
         nodes_message = NodesMessage(sender_id=self.node_id, nodes=nodes_info)
         self.send_message(message.sender_id, nodes_message)
 
     def handle_nodes(self, message: NodesMessage):
         """NODES mesajını işle (korundu ama kullanılmayacak)."""
-        # Sender'ı peer olarak ekle
+
         self.add_peer(message.sender_id)
         
         if self.discovery_complete:
             logger.debug(f"Node {self.node_index}: Ignoring NODES - discovery already complete")
             return
-        
-        # Yeni node'ları öğren
+ 
         new_nodes_learned = False
         new_nodes = []
         
@@ -486,9 +483,9 @@ class KadcastNode:
                 # logger.debug(f"Node {self.node_index}: Block {block_id} already processed, skipping")
                return False
         
-            # logger.info(f"🔄 Node {self.node_index}: Starting block {block_id} reconstruction...")
+            # logger.info(f" Node {self.node_index}: Starting block {block_id} reconstruction...")
         
-        # Chunk'ları topla
+
            chunk_data = []
            received_chunks = self.block_chunks.get(block_id, set())
         
@@ -503,21 +500,21 @@ class KadcastNode:
                    chunk_data.append(chunk_message.full_chunk_bytes)
         
            if not chunk_data:
-               logger.error(f"❌ Node {self.node_index}: No chunk data found for block {block_id}")
+               logger.error(f" Node {self.node_index}: No chunk data found for block {block_id}")
                return False
         
            #  logger.debug(f"Node {self.node_index}: Collected {len(chunk_data)} chunks, attempting reconstruction...")
         
         # Block reconstruction (dechunkify) with improved error handling
            try:
-            # 🔧 FIX: Better exception catching around RaptorQ call
+        
                reconstructed_block, actual_block_id = self.chunk_generator.dechunkify_block(
                    chunks=chunk_data
                )
             
             # 🔧 FIX: Explicit success check
                if reconstructed_block is not None and len(reconstructed_block) > 0:
-                   #  logger.info(f"✅ Node {self.node_index}: Successfully reconstructed block {block_id} ({len(reconstructed_block)} bytes)")
+                   #  logger.info(f"Node {self.node_index}: Successfully reconstructed block {block_id} ({len(reconstructed_block)} bytes)")
                    
                 # Block'ı processed olarak işaretle
                    self.processed_blocks.add(block_id)
@@ -529,7 +526,7 @@ class KadcastNode:
                            current_time = self.simulation.event_queue.current_time
                         
                         # 🔧 FIX: Pre-callback log for debugging
-                           #  logger.info(f"📞 Node {self.node_index}: Calling block completion callback for block {block_id} at time {current_time:.3f}")
+                           #  logger.info(f"Node {self.node_index}: Calling block completion callback for block {block_id} at time {current_time:.3f}")
                         
                            self.simulation.on_block_completed(
                                self.node_index, 
@@ -538,44 +535,44 @@ class KadcastNode:
                            )
                         
                            callback_success = True
-                           #  logger.info(f"✅ Node {self.node_index}: Block completion callback SUCCESS for block {block_id}")
+                           #  logger.info(f" Node {self.node_index}: Block completion callback SUCCESS for block {block_id}")
                         
                        except AttributeError as e:
-                           logger.error(f"❌ Callback AttributeError for node {self.node_index}, block {block_id}: {e}")
+                           logger.error(f" Callback AttributeError for node {self.node_index}, block {block_id}: {e}")
                        except Exception as e:
-                           logger.error(f"❌ Callback Exception for node {self.node_index}, block {block_id}: {e}")
+                           logger.error(f" Callback Exception for node {self.node_index}, block {block_id}: {e}")
                            logger.error(f"   Exception type: {type(e).__name__}")
                            logger.error(f"   Exception args: {e.args}")
                    else:
-                       logger.error(f"❌ Node {self.node_index}: No simulation reference or on_block_completed method found")
+                       logger.error(f"Node {self.node_index}: No simulation reference or on_block_completed method found")
                        logger.error(f"   self.simulation: {self.simulation}")
                        if self.simulation:
                             logger.error(f"   hasattr on_block_completed: {hasattr(self.simulation, 'on_block_completed')}")
                 
                 # 🔧 FIX: Log final status
                    if callback_success:
-                      #   logger.info(f"🎯 Node {self.node_index}: Block {block_id} FULLY COMPLETED with callback")
+                      #   logger.info(f" Node {self.node_index}: Block {block_id} FULLY COMPLETED with callback")
                       pass
                    else:
-                       logger.error(f"⚠️ Node {self.node_index}: Block {block_id} reconstructed but callback FAILED")
+                       logger.error(f" Node {self.node_index}: Block {block_id} reconstructed but callback FAILED")
                 
                    return True
                 
                else:
-                   logger.error(f"❌ Node {self.node_index}: RaptorQ decoder returned empty result for block {block_id}")
+                   logger.error(f" Node {self.node_index}: RaptorQ decoder returned empty result for block {block_id}")
                    logger.error(f"   reconstructed_block: {reconstructed_block}")
                    logger.error(f"   actual_block_id: {actual_block_id}")
                    return False
                 
            except ValueError as e:
-               logger.error(f"❌ Node {self.node_index}: RaptorQ ValueError for block {block_id}: {e}")
+               logger.error(f" Node {self.node_index}: RaptorQ ValueError for block {block_id}: {e}")
                return False
            except Exception as e:
-               logger.error(f"❌ Node {self.node_index}: Unexpected reconstruction error for block {block_id}: {e}")
+               logger.error(f"self.node_index}: Unexpected reconstruction error for block {block_id}: {e}")
                logger.error(f"   Exception type: {type(e).__name__}")
                return False
         
        except Exception as e:
-           logger.error(f"❌ Node {self.node_index}: Fatal error in _process_complete_block for block {block_id}: {e}")
+           logger.error(f" Node {self.node_index}: Fatal error in _process_complete_block for block {block_id}: {e}")
            logger.error(f"   Exception type: {type(e).__name__}")
            return False
