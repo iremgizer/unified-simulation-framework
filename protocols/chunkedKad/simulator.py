@@ -33,37 +33,28 @@ class ChunkedKadSimulator:
     """
     ChunkedKad Protocol Simulator - FULLY OPTIMIZED CASCADE SEEDING IMPLEMENTATION
     
-    🔥 OPTIMIZATION STRATEGY: "Cascade Seeding Protocol" + Bug Fixes
+    OPTIMIZATION STRATEGY: "Cascade Seeding Protocol" + Bug Fixes
     
-    ✅ PHASE 1: Aggressive Initial Seeding (0-2 seconds)
+     PHASE 1: Aggressive Initial Seeding (0-2 seconds)
     - Each chunk sent to 15 recipients (up from 5)
     - Geographic and cluster diversity
     - Ensures ALL chunks enter the network
     
-    ✅ PHASE 2: Delayed Cluster Assignment (2-3 seconds) 
+     PHASE 2: Delayed Cluster Assignment (2-3 seconds) 
     - Wait for chunks to propagate before coordination
     - Eliminates race condition
     
-    ✅ PHASE 3: Smart Proactive Exchanges (3-8 seconds)
+     PHASE 3: Smart Proactive Exchanges (3-8 seconds)
     - Chunk availability verification
     - Retry mechanism for failed exchanges
     - Up to 5 concurrent exchanges per node
     
-    ✅ PHASE 4: Adaptive Coverage Monitoring
+     PHASE 4: Adaptive Coverage Monitoring
     - Real-time coverage tracking
     - Emergency fallback if needed
     
-    🔥 NEW BUG FIXES:
-    ✅ Duplicate assignment prevention
-    ✅ Balanced cluster assignment (fixes %68 coverage stuck)
-    ✅ Propagation loop prevention with TTL
-    ✅ Empty cluster handling
-    
-    Expected Results:
-    - 100% coverage (vs current 68% stuck)
-    - 98% exchange success rate
-    - Maintained 87% bandwidth efficiency
-    - Zero infinite loops
+   
+  
     """
     
     def __init__(self, config: Dict[str, Any]):
@@ -129,7 +120,7 @@ class ChunkedKadSimulator:
         self.generated_blocks_content = {}
 
         # ==================================================================================
-        # 🔥 OPTIMIZED TRACKING SYSTEMS
+        # TRACKING SYSTEMS
         # ==================================================================================
         
         self.global_cluster_assignments = {}
@@ -143,12 +134,12 @@ class ChunkedKadSimulator:
             "bandwidth_saved_bytes": 0,
             "chunks_exchanged": 0,
             "traditional_forwards_eliminated": 0,
-            "delayed_exchanges": 0,  # NEW: Track delayed exchanges
-            "retry_attempts": 0,     # NEW: Track retry attempts
-            "cascade_seeding_events": 0,  # NEW: Track cascade seeding
-            "duplicate_assignments_prevented": 0,  # 🔥 NEW
-            "propagation_loops_prevented": 0,  # 🔥 NEW
-            "balanced_cluster_assignments": 0  # 🔥 NEW
+            "delayed_exchanges": 0, 
+            "retry_attempts": 0,    
+            "cascade_seeding_events": 0, 
+            "duplicate_assignments_prevented": 0,  
+            "propagation_loops_prevented": 0, 
+            "balanced_cluster_assignments": 0 
         }
         
         self.chunkedkad_metrics = {
@@ -161,9 +152,9 @@ class ChunkedKadSimulator:
             "parallel_header_validations": 0,
             "traditional_forwarding_events": 0,
             "pure_protocol_efficiency": 0.0,
-            "cascade_seeding_efficiency": 0.0,  # NEW
-            "delayed_exchange_success_rate": 0.0,  # NEW
-            "coverage_stuck_fixes": 0  # 🔥 NEW
+            "cascade_seeding_efficiency": 0.0, 
+            "delayed_exchange_success_rate": 0.0,  
+            "coverage_stuck_fixes": 0 
         }
 
         self.real_time_metrics = {
@@ -205,15 +196,15 @@ class ChunkedKadSimulator:
         }
         
         logger.info(f"ChunkedKad FULLY OPTIMIZED simulator initialized with {self.node_count} nodes")
-        logger.info(f"🔥 FULLY OPTIMIZED ChunkedKad Configuration:")
+        logger.info(f"FULLY OPTIMIZED ChunkedKad Configuration:")
         logger.info(f"   - Cascade Seeding Strategy enabled")
         logger.info(f"   - Aggressive initial seeding: 15 recipients per chunk")
         logger.info(f"   - Delayed cluster assignment: 2s delay")
         logger.info(f"   - Smart proactive exchanges: 3s delay")
         logger.info(f"   - Coverage threshold: {self.coverage_threshold}%")
-        logger.info(f"   - 🔥 NEW: Duplicate assignment prevention")
-        logger.info(f"   - 🔥 NEW: Balanced cluster assignment")
-        logger.info(f"   - 🔥 NEW: Propagation loop prevention")
+        logger.info(f"   -  Duplicate assignment prevention")
+        logger.info(f"   - Balanced cluster assignment")
+        logger.info(f"   -Propagation loop prevention")
 
     def _setup_default_config(self, config: Dict[str, Any]) -> Dict[str, Any]:
         """Setup default configuration with optimized parameters."""
@@ -233,7 +224,7 @@ class ChunkedKadSimulator:
             "nodePerformanceVariation": 0.1,
             "deterministicPerformance": True,
             "randomSeed": 42,
-            # 🔥 OPTIMIZED: More aggressive early termination
+          
             "early_termination_enabled": True,
             "coverage_threshold": 85.0,  # Lowered from 88
             "coverage_check_interval": 1.0  # Faster checks
@@ -258,7 +249,7 @@ class ChunkedKadSimulator:
         return coverage
 
     def check_and_terminate_if_needed(self, current_time: float):
-        """🔥 OPTIMIZED: More aggressive early termination."""
+       
         if not self.early_termination_enabled:
             return
             
@@ -274,7 +265,7 @@ class ChunkedKadSimulator:
                 
             coverage = self.calculate_current_coverage(block_id)
             
-            # 🔥 OPTIMIZED: Adaptive thresholds based on time
+    
             block_age = current_time - self.block_metrics[block_id]["start_time"]
             
             if block_age < 5.0:
@@ -285,7 +276,7 @@ class ChunkedKadSimulator:
                 termination_threshold = 75.0  # More aggressive for old blocks
             
             if coverage >= termination_threshold:
-                logger.info(f"🔥 ChunkedKad OPTIMIZED TERMINATION: Block {block_id}: {coverage:.1f}% "
+                logger.info(f"ChunkedKad OPTIMIZED TERMINATION: Block {block_id}: {coverage:.1f}% "
                         f"(threshold: {termination_threshold}%, age: {block_age:.1f}s)")
                 
                 events_saved = self.terminate_block_propagation(block_id)
@@ -315,7 +306,7 @@ class ChunkedKadSimulator:
         if block_id in self.active_blocks:
             self.active_blocks.remove(block_id)
         
-        logger.info(f"✅ ChunkedKad OPTIMIZED terminated {terminated_events} events for block {block_id}")
+        logger.info(f" ChunkedKad OPTIMIZED terminated {terminated_events} events for block {block_id}")
         
         self.exchange_statistics["bandwidth_saved_bytes"] += terminated_events * 65536
         self.exchange_statistics["traditional_forwards_eliminated"] += terminated_events
@@ -347,7 +338,7 @@ class ChunkedKadSimulator:
                 if hasattr(message, 'block_id') and message.block_id == block_id:
                     return True
             
-            # 🔥 NEW: Handle delayed exchange events
+         
             elif hasattr(event.event_type, 'name') and 'DELAYED_EXCHANGE' in str(event.event_type):
                 if event.data.get("block_id") == block_id:
                     return True
@@ -384,7 +375,7 @@ class ChunkedKadSimulator:
         for perf_type in assignments.values():
             type_counts[perf_type] = type_counts.get(perf_type, 0) + 1
         
-        logger.info("🎯 ChunkedKad OPTIMIZED Node Performance Assignment:")
+        logger.info(" ChunkedKad OPTIMIZED Node Performance Assignment:")
         for perf_type, count in type_counts.items():
             percentage = (count / self.node_count) * 100
             logger.info(f"   - {perf_type}: {count} nodes ({percentage:.1f}%)")
@@ -470,7 +461,7 @@ class ChunkedKadSimulator:
             self._analyze_id_distribution()
             self._check_all_nodes_completion()
 
-            # 🔥 NEW: RTT-based clustering initialization
+          
             self._initialize_rtt_clustering()
 
             self._send_update("network_initialized", {
@@ -491,21 +482,21 @@ class ChunkedKadSimulator:
                 },
                 "chunkedkadOptimizedConfig": {
                     "cascadeSeedingEnabled": True,
-                    "aggressiveInitialSeeding": 15,  # recipients per chunk
-                    "delayedClusterAssignment": 2.0,  # seconds
-                    "smartProactiveExchanges": 3.0,  # seconds
-                    "targetCoverage": 100.0,  # 🔥 NEW: 100% achievable
+                    "aggressiveInitialSeeding": 15,  
+                    "delayedClusterAssignment": 2.0, 
+                    "smartProactiveExchanges": 3.0,  
+                    "targetCoverage": 100.0, 
                     "targetExchangeSuccessRate": 98.0,
-                    "optimizationStrategy": "RTT-Based Cascade Seeding Protocol + Bug Fixes",  # 🔥 UPDATED
-                    "duplicateAssignmentPrevention": True,  # 🔥 NEW
-                    "balancedClusterAssignment": True,  # 🔥 NEW
-                    "propagationLoopPrevention": True,  # 🔥 NEW
-                    "rttBasedClustering": True  # 🔥 NEW: RTT-based approach
+                    "optimizationStrategy": "RTT-Based Cascade Seeding Protocol + Bug Fixes",
+                    "duplicateAssignmentPrevention": True,  
+                    "balancedClusterAssignment": True, 
+                    "propagationLoopPrevention": True,  
+                    "rttBasedClustering": True 
                 }
             })
 
             logger.info(f"ChunkedKad OPTIMIZED network initialized with {self.node_count} nodes")
-            logger.info(f"🔥 RTT-based clustering: Bitcoin-native geographic diversity achieved!")
+            logger.info(f"RTT-based clustering: Bitcoin-native geographic diversity achieved!")
             return True
         
         except Exception as e:
@@ -514,7 +505,7 @@ class ChunkedKadSimulator:
 
     def _initialize_rtt_clustering(self):
         """
-        🔥 NEW: Initialize RTT-based clustering for all nodes.
+       
         
         This creates Bitcoin-native geographic diversity without location tracking:
         - Uses existing geo_data_provider RTT matrix
@@ -523,7 +514,7 @@ class ChunkedKadSimulator:
         - Provides same diversity as geographic approach
         """
         try:
-            logger.info("🔥 Initializing RTT-based clustering for Bitcoin-native diversity...")
+            logger.info(" Initializing RTT-based clustering for Bitcoin-native diversity...")
             
             total_close = 0
             total_medium = 0
@@ -560,13 +551,13 @@ class ChunkedKadSimulator:
             avg_medium = total_medium / len(self.nodes) if self.nodes else 0
             avg_far = total_far / len(self.nodes) if self.nodes else 0
             
-            logger.info(f"🔥 RTT-based clustering completed:")
+            logger.info(f" RTT-based clustering completed:")
             logger.info(f"   - Average close peers (<50ms): {avg_close:.1f}")
             logger.info(f"   - Average medium peers (50-150ms): {avg_medium:.1f}")
             logger.info(f"   - Average far peers (>150ms): {avg_far:.1f}")
             logger.info(f"   - Geographic diversity achieved without location tracking!")
-            logger.info(f"   - Bitcoin-compatible: ✅ Privacy preserved")
-            logger.info(f"   - Network efficiency: ✅ Same diversity as geographic")
+            logger.info(f"   - Bitcoin-compatible:  Privacy preserved")
+            logger.info(f"   - Network efficiency:  Same diversity as geographic")
             
         except Exception as e:
             logger.error(f"Error initializing RTT-based clustering: {e}")
@@ -581,19 +572,19 @@ class ChunkedKadSimulator:
                 completed_count += 1
                 self.peer_discovery_flags[node.node_index] = True
         
-        logger.info(f"📊 ChunkedKad OPTIMIZED initial completion: {completed_count}/{len(self.nodes)} nodes")
+        logger.info(f" ChunkedKad OPTIMIZED initial completion: {completed_count}/{len(self.nodes)} nodes")
         
         total_peers = sum(len(node.peers) for node in self.nodes.values())
         avg_peers = total_peers / len(self.nodes) if self.nodes else 0
         total_buckets = sum(node.get_filled_bucket_count() for node in self.nodes.values())
         avg_buckets = total_buckets / len(self.nodes) if self.nodes else 0
         
-        logger.info(f"📊 ChunkedKad OPTIMIZED network stats: Avg peers: {avg_peers:.1f}, Avg buckets: {avg_buckets:.1f}")
+        logger.info(f" ChunkedKad OPTIMIZED network stats: Avg peers: {avg_peers:.1f}, Avg buckets: {avg_buckets:.1f}")
 
     def _analyze_id_distribution(self):
         """Analyze ID distribution."""
         try:
-            logger.info("🔍 Analyzing ChunkedKad OPTIMIZED ID distribution...")
+            logger.info(" Analyzing ChunkedKad OPTIMIZED ID distribution...")
             
             sample_nodes = list(self.nodes.values())[:5]
             
@@ -648,12 +639,12 @@ class ChunkedKadSimulator:
     def start_broadcasting(self) -> bool:
         """Start ChunkedKad OPTIMIZED broadcasting phase - FREQUENCY FIXED."""
         try:
-            logger.info("🔥 Starting ChunkedKad FULLY OPTIMIZED broadcasting phase...")
+            logger.info("Starting ChunkedKad FULLY OPTIMIZED broadcasting phase...")
             self.phase = "broadcasting"
 
             duration = self.config.get('duration', 300.0)
             
-            # 🔥 FIX 4: Ensure broadcastFrequency is used correctly
+
             broadcast_frequency = self.config.get('broadcastFrequency', 10)
             if broadcast_frequency <= 0:
                 broadcast_frequency = 10  # Default fallback
@@ -662,9 +653,9 @@ class ChunkedKadSimulator:
             total_blocks = int((duration / 60.0) * broadcast_frequency)
             block_interval = duration / total_blocks if total_blocks > 0 else 60.0
             
-            logger.info(f"📊 ChunkedKad OPTIMIZED Broadcasting Configuration:")
+            logger.info(f" ChunkedKad OPTIMIZED Broadcasting Configuration:")
             logger.info(f"   - Duration: {duration}s")
-            logger.info(f"   - Frequency: {broadcast_frequency} blocks/minute")  # 🔥 FIX: Use actual value
+            logger.info(f"   - Frequency: {broadcast_frequency} blocks/minute") 
             logger.info(f"   - Total blocks: {total_blocks}")
             logger.info(f"   - Block interval: {block_interval:.2f}s")
             
@@ -702,16 +693,13 @@ class ChunkedKadSimulator:
                 data={"timeout_type": "broadcasting_complete"}
             )
             
-            logger.info(f"📅 ChunkedKad OPTIMIZED scheduled {total_blocks} blocks for generation")
+            logger.info(f" ChunkedKad OPTIMIZED scheduled {total_blocks} blocks for generation")
             return True
             
         except Exception as e:
             logger.error(f"Failed to start ChunkedKad OPTIMIZED broadcasting: {e}")
             return False
 
-    # ==================================================================================
-    # 🔥 FULLY OPTIMIZED EVENT HANDLERS
-    # ==================================================================================
 
     def _handle_block_generate_event(self, event: Event):
         """Handle block generation with ChunkedKad OPTIMIZED."""
@@ -720,7 +708,7 @@ class ChunkedKadSimulator:
             source_node_index = event.data.get("source_node_index")
             block_size = event.data.get("block_size", self.block_size)
             
-            logger.info(f"🔥 ChunkedKad OPTIMIZED generating block {block_id} from node {source_node_index}")
+            logger.info(f"ChunkedKad OPTIMIZED generating block {block_id} from node {source_node_index}")
             
             prev_hash = f"0x{'0' * 64}" if block_id == 0 else f"0x{hash(str(block_id - 1)):016x}{'0' * 48}"
             header, transactions = self.block_generator.generate_block(
@@ -777,7 +765,7 @@ class ChunkedKadSimulator:
             logger.error(f"ChunkedKad OPTIMIZED block generation error: {e}")
 
     def _handle_chunk_send_event(self, event: Event):
-        """🔥 FULLY OPTIMIZED: Handle chunk sending with Fixed Cascade Seeding."""
+       
         try:
             block_id = event.data.get("block_id")
             source_node_index = event.data.get("source_node_index")
@@ -793,7 +781,7 @@ class ChunkedKadSimulator:
                 fec_ratio=self.fec_ratio
             )
             
-            logger.info(f"📦 ChunkedKad OPTIMIZED Block {block_id}: {actual_size} bytes → {len(chunks)} chunks")
+            logger.info(f"ChunkedKad OPTIMIZED Block {block_id}: {actual_size} bytes → {len(chunks)} chunks")
             
             self.block_metrics[block_id] = {
                 "block_id": block_id,
@@ -817,20 +805,19 @@ class ChunkedKadSimulator:
                 "protocol_purity": 100.0,
                 "cascade_seeding_events": 0,
                 "delayed_exchanges": 0,
-                "balanced_cluster_fix": 0  # 🔥 NEW
+                "balanced_cluster_fix": 0  
             }
             
             self.active_blocks.add(block_id)
             self.blocks_generated += 1
             self.real_time_metrics["blocks_generated"] = self.blocks_generated
             
-            # 🔥 FULLY FIXED: Create balanced cluster assignments
+           
             self._create_k_bucket_based_cluster_assignments(source_node_index, block_id, len(chunks))
             
-            # 🔥 OPTIMIZED: Start parallel header broadcasting
             self._start_parallel_header_broadcasting(block_id, header, len(chunks), source_node_index)
             
-            # 🔥 OPTIMIZED: Start CASCADE SEEDING broadcasting
+       
             source_node = self.nodes[source_node_index]
             self._start_cascade_seeding_broadcasting(source_node, chunks, block_id)
             
@@ -841,15 +828,15 @@ class ChunkedKadSimulator:
 
     def _create_k_bucket_based_cluster_assignments(self, source_node_index: int, block_id: int, total_chunks: int):
         """
-        🔥 K-BUCKET REALISTIC: Create clusters using only source node's k-bucket peers with RTT-based clustering.
+         K-BUCKET REALISTIC: Create clusters using only source node's k-bucket peers with RTT-based clustering.
         """
         try:
             source_node = self.nodes[source_node_index]
             
-            # 🔥 DEĞİŞİKLİK: Sadece k-bucket'lardaki node'ları kullan
+  
             k_bucket_peers = source_node.get_known_peers_from_buckets()
             
-            logger.info(f"🎯 K-BUCKET CLUSTERING: Source node {source_node_index} creating clusters from {len(k_bucket_peers)} k-bucket peers (not all {self.node_count} nodes)")
+            logger.info(f" K-BUCKET CLUSTERING: Source node {source_node_index} creating clusters from {len(k_bucket_peers)} k-bucket peers (not all {self.node_count} nodes)")
             
             if len(k_bucket_peers) < self.beta:
                 logger.warning(f"Insufficient k-bucket peers ({len(k_bucket_peers)}) for {self.beta} clusters! Using all available.")
@@ -857,7 +844,7 @@ class ChunkedKadSimulator:
             else:
                 effective_beta = self.beta
             
-            # 🔥 RTT-BASED CLUSTERING: K-bucket peer'ları RTT'ye göre cluster'la
+            #  RTT-BASED CLUSTERING
             rtt_clustered_peers = self._perform_rtt_based_clustering(source_node, k_bucket_peers, effective_beta)
             
             # Initialize data structures
@@ -879,7 +866,7 @@ class ChunkedKadSimulator:
                     fallback_chunk = cluster_id % total_chunks
                     chunk_assignments[cluster_id] = [fallback_chunk]
                     self.exchange_statistics["balanced_cluster_assignments"] += 1
-                    logger.info(f"🔥 K-BUCKET FIX: Assigned fallback chunk {fallback_chunk} to empty cluster {cluster_id}")
+                    logger.info(f" K-BUCKET FIX: Assigned fallback chunk {fallback_chunk} to empty cluster {cluster_id}")
             
             # Store cluster assignments
             bucket_key = "main_bucket"
@@ -900,24 +887,24 @@ class ChunkedKadSimulator:
                         self.global_chunk_mappings[block_id][chunk_id] = []
                     self.global_chunk_mappings[block_id][chunk_id].extend(cluster_nodes)
                 
-                logger.info(f"🔥 K-BUCKET Cluster {cluster_id}: {len(cluster_nodes)} nodes, chunks {assigned_chunks}")
+                logger.info(f" K-BUCKET Cluster {cluster_id}: {len(cluster_nodes)} nodes, chunks {assigned_chunks}")
             
             # Verify no empty mappings
             empty_chunks = [cid for cid in range(total_chunks) 
                         if cid not in self.global_chunk_mappings[block_id]]
             
             if empty_chunks:
-                logger.error(f"🚨 CRITICAL: Empty chunk mappings detected: {empty_chunks}")
+                logger.error(f" CRITICAL: Empty chunk mappings detected: {empty_chunks}")
                 # Emergency fix: assign to cluster 0
                 for chunk_id in empty_chunks:
                     self.global_chunk_mappings[block_id][chunk_id] = rtt_clustered_peers[0]
                     self.exchange_statistics["balanced_cluster_assignments"] += 1
             
-            logger.info(f"🔥 K-BUCKET CLUSTERING SUCCESS:")
+            logger.info(f" K-BUCKET CLUSTERING SUCCESS:")
             logger.info(f"   - K-bucket peers used: {len(k_bucket_peers)}/{self.node_count} ({(len(k_bucket_peers)/self.node_count)*100:.1f}%)")
             logger.info(f"   - Clusters created: {effective_beta}")
             logger.info(f"   - Chunk assignments: {len(self.global_chunk_mappings[block_id])} chunks mapped")
-            logger.info(f"   - Realistic ChunkedKad: ✅ Only k-bucket knowledge used")
+            logger.info(f"   - Realistic ChunkedKad:  Only k-bucket knowledge used")
             
             self.chunkedkad_metrics["cluster_assignments_sent"] += 1
             self.chunkedkad_metrics["coverage_stuck_fixes"] += 1
@@ -931,7 +918,7 @@ class ChunkedKadSimulator:
 
     def _perform_rtt_based_clustering(self, source_node, k_bucket_peers, effective_beta):
         """
-        🔥 RTT-based clustering of k-bucket peers using centralized RTT calculation.
+        RTT-based clustering of k-bucket peers using centralized RTT calculation.
         """
         try:
             # Calculate RTT to each k-bucket peer
@@ -961,7 +948,7 @@ class ChunkedKadSimulator:
             medium_peers = len([rtt for rtt in peer_rtts.values() if 50 <= rtt < 150])
             far_peers = len([rtt for rtt in peer_rtts.values() if rtt >= 150])
             
-            logger.info(f"🔥 K-BUCKET RTT clustering: Close(<50ms): {close_peers}, Medium(50-150ms): {medium_peers}, Far(>150ms): {far_peers}")
+            logger.info(f" K-BUCKET RTT clustering: Close(<50ms): {close_peers}, Medium(50-150ms): {medium_peers}, Far(>150ms): {far_peers}")
             
             return clusters
             
@@ -982,9 +969,7 @@ class ChunkedKadSimulator:
 
     def _start_parallel_header_broadcasting(self, block_id: int, header: Dict, 
                                       total_chunks: int, source_node_index: int):
-        """
-        🔥 FIXED: Start parallel header broadcasting with controlled propagation.
-        """
+       
         try:
             source_node = self.nodes[source_node_index]
             
@@ -997,13 +982,12 @@ class ChunkedKadSimulator:
             header_msg.chunk_size = self.chunk_size
             header_msg.fec_ratio = self.fec_ratio
             header_msg.block_size = len(self.block_generator.serialize_block(header, []))
-            
-            # 🔥 FIX 7: Add TTL to initial header
+           
             header_msg.forwarding_ttl = 2
             
             header_candidates = source_node.get_exchange_candidates(block_id)
             
-            # 🔥 FIX 8: Reduce initial header recipients (10 → 3)
+           
             max_header_recipients = min(3, len(header_candidates))
             selected_candidates = header_candidates[:max_header_recipients]
             
@@ -1045,13 +1029,12 @@ class ChunkedKadSimulator:
     def _start_cascade_seeding_broadcasting(self, source_node: ChunkedKadNode, 
                                           chunks: List[bytes], block_id: int):
         """
-        🔥 FULLY OPTIMIZED: Start CASCADE SEEDING broadcasting with balanced assignment fix.
+         Start CASCADE SEEDING broadcasting with balanced assignment fix.
         """
         try:
-            logger.info(f"🔥 CASCADE SEEDING: Starting FULLY OPTIMIZED broadcasting for block {block_id} "
+            logger.info(f"CASCADE SEEDING: Starting FULLY OPTIMIZED broadcasting for block {block_id} "
                     f"from node {source_node.node_index} with {len(chunks)} chunks")
-            
-            # 🔥 PHASE 1: AGGRESSIVE INITIAL SEEDING
+         
             assignment_candidates = source_node.get_exchange_candidates(block_id)
 
             logger.info(f"🎯 CASCADE SEEDING PHASE 1: Aggressive seeding to {len(assignment_candidates)} candidates")
@@ -1063,7 +1046,7 @@ class ChunkedKadSimulator:
             for chunk_index, chunk_bytes in enumerate(chunks):
                 chunk_message = ChunkMessage(sender_id=source_node.node_id, chunk_bytes=chunk_bytes)
                 
-                # 🔥 OPTIMIZATION: Select diverse recipients with increased count
+               
                 recipients = self._select_diverse_recipients_optimized(
                     chunk_index, assignment_candidates, block_id
                 )
@@ -1103,18 +1086,18 @@ class ChunkedKadSimulator:
                 self.real_time_metrics["chunks_transmitted"] += sent_to_count
                 self.exchange_statistics["cascade_seeding_events"] += sent_to_count
                 
-                logger.debug(f"🔥 CASCADE SEEDING: Chunk {chunk_index} sent to {sent_to_count} diverse recipients")
+                logger.debug(f" CASCADE SEEDING: Chunk {chunk_index} sent to {sent_to_count} diverse recipients")
             
-            # 🔥 PHASE 2: DELAYED CLUSTER ASSIGNMENT (2 seconds)
+          
             self._schedule_delayed_cluster_assignment(source_node, block_id, delay=0.2)
             
-            logger.info(f"🔥 CASCADE SEEDING PHASE 1 COMPLETE:")
+            logger.info(f" CASCADE SEEDING PHASE 1 COMPLETE:")
             logger.info(f"   - Total chunks: {len(chunks)}")
             logger.info(f"   - Total transmissions: {total_transmissions}")
             logger.info(f"   - Average recipients per chunk: {total_transmissions / len(chunks):.1f}")
             logger.info(f"   - Strategy: Aggressive geographic + cluster diversity")
-            logger.info(f"🔥 PHASE 2: Balanced cluster assignment scheduled in 2s")
-            logger.info(f"🔥 PHASE 3: Smart proactive exchanges will start in 3s")
+            logger.info(f" PHASE 2: Balanced cluster assignment scheduled in 2s")
+            logger.info(f" PHASE 3: Smart proactive exchanges will start in 3s")
             
             # Track cascade seeding performance
             self.block_metrics[block_id]["cascade_seeding_events"] = total_transmissions
@@ -1128,13 +1111,11 @@ class ChunkedKadSimulator:
 
     def _select_diverse_recipients_optimized(self, chunk_index: int, candidates: List[str], 
                                            block_id: int) -> List[str]:
-        """
-        🔥 OPTIMIZED: Select diverse recipients with increased count and better strategy.
-        """
+        
         if not candidates:
             return []
         
-        # 🔥 OPTIMIZATION: Increase recipients per chunk (5 → 15)
+        # OPTIMIZATION: Increase recipients per chunk (5 → 15)
         max_recipients = min(30, max(22, len(candidates)))
         
         recipients = []
@@ -1150,7 +1131,7 @@ class ChunkedKadSimulator:
                 if len(recipients) >= max_recipients // 2:
                     break
         
-        # Phase 2: Balanced cluster diversity (🔥 FIXED)
+        # Phase 2: Balanced cluster diversity 
         if block_id in self.global_cluster_assignments:
             for bucket_key, clusters in self.global_cluster_assignments[block_id].items():
                 # Try to include nodes from ALL clusters, not just target cluster
@@ -1172,7 +1153,7 @@ class ChunkedKadSimulator:
             if candidate_id not in recipients:
                 recipients.append(candidate_id)
         
-        # 🔥 OPTIMIZATION: Ensure minimum recipients
+     
         final_recipients = recipients[:max_recipients]
         
         # Fallback: If we don't have enough, add more randomly
@@ -1184,7 +1165,7 @@ class ChunkedKadSimulator:
                                          min(additional_needed, len(additional_candidates)))
                 final_recipients.extend(additional)
         
-        logger.debug(f"🎯 Diverse recipient selection for chunk {chunk_index}: "
+        logger.debug(f"Diverse recipient selection for chunk {chunk_index}: "
                     f"{len(final_recipients)} recipients selected from {len(candidates)} candidates")
         
         return final_recipients
@@ -1192,12 +1173,12 @@ class ChunkedKadSimulator:
     def _schedule_delayed_cluster_assignment(self, source_node: ChunkedKadNode, 
                                         block_id: int, delay: float):
             """
-            🔥 PHASE 2: Schedule delayed cluster assignment with OPTIMIZED TIMING.
+            PHASE 2: Schedule delayed cluster assignment with OPTIMIZED TIMING.
             
             🔧 TIMING FIX: 2.0s → 0.2s (10x faster for better coordination)
             """
             try:
-                # 🔥 OPTIMIZED TIMING: Much faster cluster assignment
+                #  OPTIMIZED TIMING: Much faster cluster assignment
                 optimized_delay = 0.05  # Was: 2.0s → Now: 0.2s (10x faster!)
                 
                 # Schedule delayed cluster assignment
@@ -1211,7 +1192,7 @@ class ChunkedKadSimulator:
                     }
                 )
                 
-                logger.debug(f"🔥 CASCADE SEEDING PHASE 2: OPTIMIZED cluster assignment scheduled "
+                logger.debug(f" CASCADE SEEDING PHASE 2: OPTIMIZED cluster assignment scheduled "
                             f"for block {block_id} in {optimized_delay}s (was {delay}s)")
                 
             except Exception as e:
@@ -1219,13 +1200,13 @@ class ChunkedKadSimulator:
                 
     def _handle_delayed_cluster_assignment_event(self, event: Event):
         """
-        🔥 PHASE 2: Handle delayed cluster assignment event with loop prevention.
+        PHASE 2: Handle delayed cluster assignment event with loop prevention.
         """
         try:
             block_id = event.data.get("block_id")
             source_node_id = event.data.get("source_node_id")
             
-            logger.info(f"🔥 CASCADE SEEDING PHASE 2: Executing delayed cluster assignment for block {block_id}")
+            logger.info(f"CASCADE SEEDING PHASE 2: Executing delayed cluster assignment for block {block_id}")
             
             source_node = self._get_node_by_id(source_node_id)
             if not source_node:
@@ -1254,10 +1235,10 @@ class ChunkedKadSimulator:
                     assignment_msg.total_chunks = len(self.global_chunk_mappings[block_id])
                     assignment_msg.block_size = self.block_size
                     
-                    # 🔥 FIX: Add TTL to prevent infinite loops
+                    #  FIX: Add TTL to prevent infinite loops
                     assignment_msg.propagation_ttl = 2
                     
-                    # 🔥 OPTIMIZATION: Send to fewer candidates to prevent explosion (12 → 8)
+                    # OPTIMIZATION: Send to fewer candidates to prevent explosion (12 → 8)
                     max_assignments = min(8, len(assignment_candidates))
                     for peer_id in assignment_candidates[:max_assignments]:
                         peer_node = self._get_node_by_id(peer_id)
@@ -1266,15 +1247,15 @@ class ChunkedKadSimulator:
                     
                     break
             
-            logger.info(f"🔥 CASCADE SEEDING PHASE 2 COMPLETE: Balanced cluster assignments sent for block {block_id}")
-            logger.info(f"🔥 PHASE 3: Smart proactive exchanges will start automatically when nodes receive assignments")
+            logger.info(f" CASCADE SEEDING PHASE 2 COMPLETE: Balanced cluster assignments sent for block {block_id}")
+            logger.info(f" PHASE 3: Smart proactive exchanges will start automatically when nodes receive assignments")
             
         except Exception as e:
             logger.error(f"Error handling delayed cluster assignment: {e}")
 
     def _handle_delayed_exchange_initiation_event(self, event: Event):
         """
-        🔥 PHASE 3: Handle delayed exchange initiation event.
+        PHASE 3: Handle delayed exchange initiation event.
         """
         try:
             block_id = event.data.get("block_id")
@@ -1282,7 +1263,7 @@ class ChunkedKadSimulator:
             
             if node_index in self.nodes:
                 node = self.nodes[node_index]
-                logger.debug(f"🔥 CASCADE SEEDING PHASE 3: Executing delayed exchange for block {block_id} on node {node_index}")
+                logger.debug(f" CASCADE SEEDING PHASE 3: Executing delayed exchange for block {block_id} on node {node_index}")
                 node.handle_delayed_exchange_initiation(block_id)
                 
                 # Track delayed exchange
@@ -1522,10 +1503,10 @@ class ChunkedKadSimulator:
         """Run complete ChunkedKad FULLY OPTIMIZED simulation."""
         try:
             self.running = True
-            logger.info(f"🔥 Starting ChunkedKad FULLY OPTIMIZED simulation {self.simulation_id}")
+            logger.info(f"Starting ChunkedKad FULLY OPTIMIZED simulation {self.simulation_id}")
             
             if self.early_termination_enabled:
-                logger.info(f"🎯 ChunkedKad OPTIMIZED early termination: {self.coverage_threshold}% threshold, "
+                logger.info(f" ChunkedKad OPTIMIZED early termination: {self.coverage_threshold}% threshold, "
                            f"{self.coverage_check_interval}s intervals")
             
             self._register_event_handlers()
@@ -1565,10 +1546,10 @@ class ChunkedKadSimulator:
                         cascade_events = self.exchange_statistics["cascade_seeding_events"]
                         coverage_fixes = self.chunkedkad_metrics["coverage_stuck_fixes"]
                         
-                        logger.info(f"📊 ChunkedKad OPTIMIZED Progress: t={current_time:.1f}s, events={event_count}, "
+                        logger.info(f" ChunkedKad OPTIMIZED Progress: t={current_time:.1f}s, events={event_count}, "
                                 f"queue={queue_size}, blocks={active_blocks}, "
                                 f"terminated={terminated_blocks}, exchanges={exchanges_completed}")
-                        logger.info(f"🔥 FULLY OPTIMIZED: cascade_events={cascade_events}, "
+                        logger.info(f" FULLY OPTIMIZED: cascade_events={cascade_events}, "
                                 f"coverage_fixes={coverage_fixes}, "
                                 f"delayed_exchanges={self.exchange_statistics['delayed_exchanges']}, "
                                 f"purity={self._calculate_protocol_purity():.1f}%")
@@ -1578,20 +1559,20 @@ class ChunkedKadSimulator:
                     if self.update_callback:
                         self.update_callback(self._get_real_time_status())
             
-            logger.info("✅ ChunkedKad FULLY OPTIMIZED simulation completed successfully")
+            logger.info(" ChunkedKad FULLY OPTIMIZED simulation completed successfully")
             
             if self.early_termination_enabled:
                 termination_stats = self.metrics_collector.get_termination_statistics()
                 if termination_stats.get("enabled", False):
-                    logger.info(f"🎯 ChunkedKad OPTIMIZED early termination saved {termination_stats['total_events_saved']} events")
-                    logger.info(f"🎯 {termination_stats['blocks_terminated']} blocks terminated early")
+                    logger.info(f" ChunkedKad OPTIMIZED early termination saved {termination_stats['total_events_saved']} events")
+                    logger.info(f" {termination_stats['blocks_terminated']} blocks terminated early")
             
             self._log_chunkedkad_fully_optimized_achievements()
             
             return True
             
         except Exception as e:
-            logger.error(f"❌ ChunkedKad FULLY OPTIMIZED simulation failed: {e}")
+            logger.error(f" ChunkedKad FULLY OPTIMIZED simulation failed: {e}")
             self.running = False
             return False
 
@@ -1619,7 +1600,7 @@ class ChunkedKadSimulator:
             "delayed_exchanges": self.exchange_statistics["delayed_exchanges"],
             "retry_attempts": self.exchange_statistics["retry_attempts"],
             "cascade_seeding_performance": self.real_time_metrics["cascade_seeding_performance"],
-            # 🔥 NEW: Bug fix tracking
+        
             "duplicate_assignments_prevented": self.exchange_statistics["duplicate_assignments_prevented"],
             "propagation_loops_prevented": self.exchange_statistics["propagation_loops_prevented"],
             "balanced_cluster_assignments": self.exchange_statistics["balanced_cluster_assignments"],
@@ -1655,7 +1636,7 @@ class ChunkedKadSimulator:
 
     def _log_chunkedkad_fully_optimized_achievements(self):
         """Log ChunkedKad FULLY OPTIMIZED specific achievements."""
-        logger.info("🔥 ChunkedKad FULLY OPTIMIZED Protocol Achievements:")
+        logger.info(" ChunkedKad FULLY OPTIMIZED Protocol Achievements:")
         logger.info(f"   - Protocol purity: {self._calculate_protocol_purity():.1f}% (target: 100%)")
         logger.info(f"   - CASCADE SEEDING events: {self.exchange_statistics['cascade_seeding_events']}")
         logger.info(f"   - Delayed exchanges: {self.exchange_statistics['delayed_exchanges']}")
@@ -1668,27 +1649,27 @@ class ChunkedKadSimulator:
         logger.info(f"   - Cluster assignments: {self.chunkedkad_metrics['cluster_assignments_sent']}")
         logger.info(f"   - Total bandwidth saved: {self.exchange_statistics['bandwidth_saved_bytes'] // (1024*1024)}MB")
         
-        # 🔥 NEW: Bug fix achievements
-        logger.info(f"   - 🔥 BUG FIXES APPLIED:")
-        logger.info(f"     ✅ Duplicate assignments prevented: {self.exchange_statistics['duplicate_assignments_prevented']}")
-        logger.info(f"     ✅ Propagation loops prevented: {self.exchange_statistics['propagation_loops_prevented']}")
-        logger.info(f"     ✅ Balanced cluster assignments: {self.exchange_statistics['balanced_cluster_assignments']}")
-        logger.info(f"     ✅ Coverage stuck fixes: {self.chunkedkad_metrics['coverage_stuck_fixes']}")
+        
+        logger.info(f"   -  BUG FIXES APPLIED:")
+        logger.info(f"      Duplicate assignments prevented: {self.exchange_statistics['duplicate_assignments_prevented']}")
+        logger.info(f"      Propagation loops prevented: {self.exchange_statistics['propagation_loops_prevented']}")
+        logger.info(f"      Balanced cluster assignments: {self.exchange_statistics['balanced_cluster_assignments']}")
+        logger.info(f"      Coverage stuck fixes: {self.chunkedkad_metrics['coverage_stuck_fixes']}")
         
         # Verify optimization strategy effectiveness
         cascade_events = self.exchange_statistics["cascade_seeding_events"]
         if cascade_events > 0:
-            logger.info(f"   ✅ CASCADE SEEDING STRATEGY: {cascade_events} aggressive seeding events")
+            logger.info(f"   CASCADE SEEDING STRATEGY: {cascade_events} aggressive seeding events")
         
         delayed_exchanges = self.exchange_statistics["delayed_exchanges"]
         if delayed_exchanges > 0:
-            logger.info(f"   ✅ DELAYED EXCHANGE STRATEGY: {delayed_exchanges} delayed exchanges")
+            logger.info(f"    DELAYED EXCHANGE STRATEGY: {delayed_exchanges} delayed exchanges")
         
         traditional_events = self.chunkedkad_metrics["traditional_forwarding_events"]
         if traditional_events == 0:
-            logger.info(f"   ✅ VERIFIED: Zero traditional forwarding events (PURE implementation)")
+            logger.info(f"    VERIFIED: Zero traditional forwarding events (PURE implementation)")
         else:
-            logger.warning(f"   ⚠️  WARNING: {traditional_events} traditional forwarding events detected")
+            logger.warning(f"     WARNING: {traditional_events} traditional forwarding events detected")
 
     # ==================================================================================
     # EVENT HANDLER REGISTRATION
@@ -1705,7 +1686,7 @@ class ChunkedKadSimulator:
         self.engine.register_handler(EventType.CHUNK_RECEIVE, self._handle_chunk_receive_event)
         self.engine.register_handler(EventType.BLOCK_PROCESSED, self._handle_block_processed_event)
         
-        # 🔥 NEW: Register optimized event handlers
+      
         self.engine.register_handler(EventType.DELAYED_CLUSTER_ASSIGNMENT, self._handle_delayed_cluster_assignment_event)
         self.engine.register_handler(EventType.DELAYED_EXCHANGE_INITIATION, self._handle_delayed_exchange_initiation_event)
 
@@ -1713,7 +1694,7 @@ class ChunkedKadSimulator:
         """Handle timeout events."""
         timeout_type = event.data.get("timeout_type")
         
-        logger.info(f"🕐 ChunkedKad OPTIMIZED timeout: {timeout_type}")
+        logger.info(f" ChunkedKad OPTIMIZED timeout: {timeout_type}")
         
         if timeout_type == "peer_discovery_complete":
             self._complete_peer_discovery()
@@ -1837,9 +1818,9 @@ class ChunkedKadSimulator:
                 total_nodes = self.node_count
                 coverage = (completed_nodes / total_nodes) * 100.0
                 
-                # 🔥 OPTIMIZED: More aggressive termination for high coverage
+                #  OPTIMIZED: More aggressive termination for high coverage
                 if coverage >= 95.0 and block_id in self.active_blocks:
-                    logger.info(f"🔥 ChunkedKad OPTIMIZED Block {block_id} reached {coverage:.1f}% - IMMEDIATE TERMINATION!")
+                    logger.info(f" ChunkedKad OPTIMIZED Block {block_id} reached {coverage:.1f}% - IMMEDIATE TERMINATION!")
                     events_saved = self.terminate_block_propagation(block_id)
                     self.early_terminated_blocks.add(block_id)
                     
@@ -1859,7 +1840,7 @@ class ChunkedKadSimulator:
                     self.real_time_metrics["memory_efficiency"] = node_stats.get("memory_efficiency", 0.0)
                     self.real_time_metrics["pure_protocol_performance"] = self._calculate_protocol_purity()
                     
-                    # 🔥 NEW: Update cascade seeding performance
+                 
                     cascade_events = self.exchange_statistics.get("cascade_seeding_events", 0)
                     if cascade_events > 0:
                         self.real_time_metrics["cascade_seeding_performance"] = cascade_events / max(1, self.blocks_generated)
@@ -1869,7 +1850,7 @@ class ChunkedKadSimulator:
                 
                 # Log important milestones
                 if coverage >= 85.0:
-                    logger.info(f"🔥 ChunkedKad OPTIMIZED Block {block_id} reached {coverage:.1f}% completion "
+                    logger.info(f" ChunkedKad OPTIMIZED Block {block_id} reached {coverage:.1f}% completion "
                               f"({completed_nodes}/{total_nodes} nodes)")
         
         except Exception as e:
@@ -1882,7 +1863,7 @@ class ChunkedKadSimulator:
     def _calculate_final_metrics(self) -> Dict[str, Any]:
         """Calculate final ChunkedKad OPTIMIZED simulation metrics."""
         try:
-            logger.info("📊 Calculating ChunkedKad OPTIMIZED final metrics...")
+            logger.info(" Calculating ChunkedKad OPTIMIZED final metrics...")
             
             total_blocks = len(self.block_metrics)
             total_chunks = sum(metrics["chunks_sent"] for metrics in self.block_metrics.values())
@@ -1912,7 +1893,6 @@ class ChunkedKadSimulator:
             perf_summary = self.delay_calculator.computational_calculator.get_performance_distribution_summary()
             termination_stats = self.metrics_collector.get_termination_statistics()
             
-            # 🔥 OPTIMIZED: Enhanced metrics calculation
             optimized_specific = self._calculate_chunkedkad_optimized_specific_metrics()
             
             final_metrics = {
@@ -1937,7 +1917,7 @@ class ChunkedKadSimulator:
                 "chunkedkad_optimized_specific": optimized_specific
             }
             
-            logger.info(f"📈 ChunkedKad OPTIMIZED Final Statistics:")
+            logger.info(f" ChunkedKad OPTIMIZED Final Statistics:")
             logger.info(f"   - Total blocks: {total_blocks}")
             logger.info(f"   - Total chunks: {total_chunks}")
             logger.info(f"   - Average latency: {avg_latency:.3f}s")
@@ -2001,12 +1981,12 @@ class ChunkedKadSimulator:
             exchange_success_rate = (self.exchange_statistics["successful_exchanges"] / total_exchanges * 100 
                                    if total_exchanges > 0 else 0.0)
             
-            # 🔥 NEW: Calculate cascade seeding efficiency
+            #  Calculate cascade seeding efficiency
             cascade_efficiency = 0.0
             if self.blocks_generated > 0:
                 cascade_efficiency = (cascade_seeding_events / (self.blocks_generated * 50)) * 100  # Assuming ~50 chunks per block
             
-            # 🔥 NEW: Calculate delayed exchange success rate
+            # Calculate delayed exchange success rate
             delayed_exchange_success_rate = 0.0
             delayed_exchanges = self.exchange_statistics["delayed_exchanges"]
             if delayed_exchanges > 0:
@@ -2027,7 +2007,7 @@ class ChunkedKadSimulator:
                 "total_bandwidth_saved_mb": self.exchange_statistics["bandwidth_saved_bytes"] / (1024 * 1024),
                 "chunks_exchanged_vs_sent_ratio": (chunks_via_exchange / max(1, total_chunks_sent)),
                 
-                # 🔥 NEW: Optimization-specific metrics
+                #  Optimization-specific metrics
                 "cascade_seeding_efficiency": min(100.0, cascade_efficiency),
                 "cascade_seeding_events": cascade_seeding_events,
                 "delayed_exchanges": delayed_exchanges,
@@ -2035,7 +2015,7 @@ class ChunkedKadSimulator:
                 "retry_attempts": self.exchange_statistics["retry_attempts"],
                 "optimization_strategy": "Cascade Seeding Protocol + Bug Fixes",
                 
-                # 🔥 NEW: Bug fix metrics
+                #  Bug fix metrics
                 "bug_fixes_applied": {
                     "duplicate_assignments_prevented": self.exchange_statistics["duplicate_assignments_prevented"],
                     "propagation_loops_prevented": self.exchange_statistics["propagation_loops_prevented"],
@@ -2118,14 +2098,14 @@ class ChunkedKadSimulator:
             "beta_clusters": self.beta,
             "chunk_size_kb": self.chunk_size // 1024,
             
-            # 🔥 OPTIMIZATION TARGETS
-            "target_coverage": 100.0,  # 🔥 NEW: Achievable with fixes
+        
+            "target_coverage": 100.0,  
             "target_exchange_success_rate": 98.0,
             "target_bandwidth_reduction": 87.0,
             "target_memory_reduction": 50.0,
             "target_protocol_purity": 100.0,
             
-            # 🔥 OPTIMIZATION STRATEGY
+          
             "optimization_strategy": "Cascade Seeding Protocol + Bug Fixes",
             "cascade_seeding_enabled": True,
             "aggressive_initial_seeding": 15,  # recipients per chunk
@@ -2134,7 +2114,7 @@ class ChunkedKadSimulator:
             "adaptive_coverage_monitoring": True,
             "emergency_coverage_boost": True,
             
-            # 🔥 BUG FIXES APPLIED
+        
             "bug_fixes_applied": {
                 "duplicate_assignment_prevention": True,
                 "balanced_cluster_assignment": True,
@@ -2144,7 +2124,7 @@ class ChunkedKadSimulator:
                 "chunk_availability_verification": True
             },
             
-            # 🔥 ACHIEVED METRICS
+         
             "protocol_purity_achieved": self._calculate_protocol_purity(),
             "cascade_seeding_events": self.exchange_statistics["cascade_seeding_events"],
             "delayed_exchanges": self.exchange_statistics["delayed_exchanges"],
@@ -2183,13 +2163,13 @@ class ChunkedKadSimulator:
                     del self.global_chunk_mappings[block_id]
             
             if blocks_cleaned > 0 or old_assignments:
-                logger.info(f"🧹 ChunkedKad OPTIMIZED cleaned up {blocks_cleaned} blocks, "
+                logger.info(f" ChunkedKad OPTIMIZED cleaned up {blocks_cleaned} blocks, "
                            f"{len(old_assignments)} assignments")
             
             import gc
             collected = gc.collect()
             if collected > 0:
-                logger.debug(f"🧹 ChunkedKad OPTIMIZED garbage collected {collected} objects")
+                logger.debug(f" ChunkedKad OPTIMIZED garbage collected {collected} objects")
             
             self._last_cleanup_time = current_time
 
@@ -2246,17 +2226,17 @@ class ChunkedKadSimulator:
                     'bandwidth_saved': block_metrics.get('bandwidth_saved', 0),
                     'memory_saved': block_metrics.get('memory_saved', 0),
                     'protocol_purity': block_metrics.get('protocol_purity', 100.0),
-                    'cascade_seeding_events': block_metrics.get('cascade_seeding_events', 0),  # NEW
-                    'delayed_exchanges': block_metrics.get('delayed_exchanges', 0),  # NEW
-                    'balanced_cluster_fix': block_metrics.get('balanced_cluster_fix', 0),  # 🔥 NEW
+                    'cascade_seeding_events': block_metrics.get('cascade_seeding_events', 0),  
+                    'delayed_exchanges': block_metrics.get('delayed_exchanges', 0), 
+                    'balanced_cluster_fix': block_metrics.get('balanced_cluster_fix', 0), 
                     
-                    # 🔥 OPTIMIZATION PERFORMANCE
+                
                     'optimization_strategy': 'Cascade Seeding Protocol + Bug Fixes',
                     'exchange_efficiency': (exchange_chunks / max(1, exchange_chunks + traditional_chunks)) * 100,
-                    'cascade_seeding_efficiency': (cascade_chunks / max(1, cascade_chunks + traditional_chunks)) * 100,  # NEW
+                    'cascade_seeding_efficiency': (cascade_chunks / max(1, cascade_chunks + traditional_chunks)) * 100,  
                     'pure_protocol_performance': ((exchange_chunks + cascade_chunks) / max(1, exchange_chunks + cascade_chunks + traditional_chunks)) * 100,
                     'traditional_forwarding_elimination_rate': (traditional_eliminated / max(1, traditional_eliminated + traditional_chunks)) * 100,
-                    'coverage_stuck_prevention': block_metrics.get('balanced_cluster_fix', 0) > 0  # 🔥 NEW
+                    'coverage_stuck_prevention': block_metrics.get('balanced_cluster_fix', 0) > 0  
                 }
             }
             
@@ -2264,7 +2244,7 @@ class ChunkedKadSimulator:
         
         exported_blocks.sort(key=lambda x: x['block_id'])
         
-        logger.info(f"📊 ChunkedKad OPTIMIZED exported {len(exported_blocks)} blocks with full optimization metrics")
+        logger.info(f" ChunkedKad OPTIMIZED exported {len(exported_blocks)} blocks with full optimization metrics")
         return exported_blocks
     
 
