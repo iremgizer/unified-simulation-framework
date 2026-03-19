@@ -1,16 +1,16 @@
 #!/usr/bin/env python3
 """
 OPTIMIZED UNIFIED FAIR COMPARISON TEST SYSTEM WITH CHUNKEDKAD INTEGRATION - 250 NODE BASELINE
-🎯 Fair comparison için tüm protokollerde aynı koşullar
-📊 OPTIMIZED: Shorter durations, fewer blocks, practical testing
-⚖️ Identical network conditions across Kadcast, Cougar, Mercury, ChunkedKad
-🔧 Enhanced with ChunkedKad cascade seeding support
-📈 Realistic network support (250 nodes baseline) - MERCURY OPTIMIZED
-📋 Comprehensive block-level and transaction-level data tracking
-✅ INTEGRATED with Real Block Data Capture system
-🌟 ALL PROTOCOLS: Kadcast, Cougar, Mercury, ChunkedKad working together
-⚡ OPTIMIZED: 60-90 second tests instead of 16-hour marathons!
-🐍 MERCURY PERFORMANCE: 250 node baseline for stable Mercury testing
+ Fair comparison için tüm protokollerde aynı koşullar
+ OPTIMIZED: Shorter durations, fewer blocks, practical testing
+ Identical network conditions across Kadcast, Cougar, Mercury, ChunkedKad
+ Enhanced with ChunkedKad cascade seeding support
+ Realistic network support (250 nodes baseline) - MERCURY OPTIMIZED
+ Comprehensive block-level and transaction-level data tracking
+ INTEGRATED with Real Block Data Capture system
+ ALL PROTOCOLS: Kadcast, Cougar, Mercury, ChunkedKad working together
+ OPTIMIZED: 60-90 second tests instead of 16-hour marathons!
+ MERCURY PERFORMANCE: 250 node baseline for stable Mercury testing
 """
 
 from typing import Dict, List, Optional, Tuple, Any
@@ -62,59 +62,59 @@ def setup_unified_logging():
     root_logger.addHandler(console_handler)
     root_logger.addHandler(file_handler)
     
-    print(f"📁 Optimized unified log file created: {log_filename}")
-    logging.info("🎯 Optimized Unified Test System logging initialized")
+    print(f" Optimized unified log file created: {log_filename}")
+    logging.info(" Optimized Unified Test System logging initialized")
     
     return log_filename
 
-# ✅ ENHANCED: Import test runners with Real Data Capture support
+
 try:
     from test_runner import EnhancedTestRunner, setup_advanced_logging
     KADCAST_AVAILABLE = True
-    print("✅ Kadcast EnhancedTestRunner available (with Real Data Capture)")
+    print(" Kadcast EnhancedTestRunner available (with Real Data Capture)")
 except ImportError as e:
     KADCAST_AVAILABLE = False
-    print(f"⚠️  Kadcast EnhancedTestRunner not available: {e}")
+    print(f"  Kadcast EnhancedTestRunner not available: {e}")
 
 try:
     from test_runner_cougar import CougarTestRunner
     COUGAR_AVAILABLE = True
-    print("✅ Cougar CougarTestRunner available (with Real Data Capture)")
+    print(" Cougar CougarTestRunner available (with Real Data Capture)")
 except ImportError as e:
     COUGAR_AVAILABLE = False
-    print(f"⚠️  Cougar CougarTestRunner not available: {e}")
+    print(f"  Cougar CougarTestRunner not available: {e}")
 
 try:
     from test_runner_mercury import MercuryTestRunner
     MERCURY_AVAILABLE = True
-    print("✅ Mercury MercuryTestRunner available (with Real Data Capture)")
+    print(" Mercury MercuryTestRunner available (with Real Data Capture)")
 except ImportError as e:
     MERCURY_AVAILABLE = False
-    print(f"⚠️  Mercury MercuryTestRunner not available: {e}")
+    print(f"  Mercury MercuryTestRunner not available: {e}")
 
-# ✅ NEW: ChunkedKad Integration
+
 try:
     from test_runner_chunkedkad import ChunkedKadTestRunner
     CHUNKEDKAD_AVAILABLE = True
-    print("✅ ChunkedKad TestRunner available (with Cascade Seeding)")
+    print("ChunkedKad TestRunner available (with Cascade Seeding)")
 except ImportError as e:
     CHUNKEDKAD_AVAILABLE = False
-    print(f"⚠️  ChunkedKad TestRunner not available: {e}")
+    print(f"  ChunkedKad TestRunner not available: {e}")
 
 class OptimizedUnifiedTestConfigGenerator:
     """
     OPTIMIZED unified test configuration generator with PRACTICAL testing parameters.
-    🔧 SHORTER DURATIONS: 60-90 seconds instead of 3+ minutes
-    📊 FEWER BLOCKS: 2-3 blocks instead of 30-40 blocks  
-    ⚖️ TRUE FAIR COMPARISON: Only ONE parameter changes per category
-    ⚡ PRACTICAL TESTING: Real-world usable test times
-    🐍 MERCURY OPTIMIZED: 250 node baseline for Mercury stability
+     SHORTER DURATIONS: 60-90 seconds instead of 3+ minutes
+     FEWER BLOCKS: 2-3 blocks instead of 30-40 blocks  
+     TRUE FAIR COMPARISON: Only ONE parameter changes per category
+     PRACTICAL TESTING: Real-world usable test times
+     MERCURY OPTIMIZED: 250 node baseline for Mercury stability
     """
     
     def __init__(self):
         self.logger = logging.getLogger("OptimizedUnifiedTestConfig")
         
-        # 🎯 OPTIMIZED BASE CONFIGURATION - MERCURY PERFORMANCE FOCUSED
+        # OPTIMIZED BASE CONFIGURATION - MERCURY PERFORMANCE FOCUSED
         self.base_config = {
             # Network parameters (Optimized for Mercury performance)
             "nodeCount": 250,                   # 250 nodes baseline (Mercury optimized)
@@ -157,7 +157,7 @@ class OptimizedUnifiedTestConfigGenerator:
                 "source_fanout": 24,            # OPTIMIZED: Reduced fanout for 250 nodes (was 32)
                 "fec_ratio": 0.0                # Mercury: no FEC
             },
-            # ✅ NEW: ChunkedKad Configuration
+         
             "chunkedkad": {
                 "fecRatio": 0.20,              # 20% FEC
                 "beta": 3,                     # 3 clusters (optimal)
@@ -168,21 +168,21 @@ class OptimizedUnifiedTestConfigGenerator:
             }
         }
         
-        self.logger.info("🎯 OptimizedUnifiedTestConfigGenerator initialized with MERCURY-OPTIMIZED settings")
-        self.logger.info("⚡ 250 node baseline, Duration: 60s, Frequency: 3 blocks/min = 3 blocks total per test")
-        self.logger.info("🐍 Mercury performance optimized: K=6, fanout=24, rounds=20")
-        self.logger.info("🚀 Test time reduced from 16 hours to ~2-3 minutes per protocol!")
+        self.logger.info("OptimizedUnifiedTestConfigGenerator initialized with MERCURY-OPTIMIZED settings")
+        self.logger.info(" 250 node baseline, Duration: 60s, Frequency: 3 blocks/min = 3 blocks total per test")
+        self.logger.info(" Mercury performance optimized: K=6, fanout=24, rounds=20")
+        self.logger.info(" Test time reduced from 16 hours to ~2-3 minutes per protocol!")
     
     def get_test_categories(self) -> Dict[str, Dict]:
         """
         Get optimized test categories with MERCURY-OPTIMIZED parameters.
-        🔧 OPTIMIZED: Much shorter durations and fewer blocks for practical testing
-        ⚡ 2-3 blocks per test instead of 30-40 blocks
-        🐍 250 node baseline for Mercury stability
+         OPTIMIZED: Much shorter durations and fewer blocks for practical testing
+         2-3 blocks per test instead of 30-40 blocks
+         250 node baseline for Mercury stability
         """
         
         categories = {
-            # 🔢 NETWORK SIZE COMPARISON - MERCURY OPTIMIZED
+            # NETWORK SIZE COMPARISON - MERCURY OPTIMIZED
             "network_size": {
                 "name": "Network Size Comparison (Mercury Optimized)",
                 "description": "Compare protocols across different network sizes - Mercury optimized baseline",
@@ -221,7 +221,7 @@ class OptimizedUnifiedTestConfigGenerator:
                 }
             },
             
-            # 📦 BLOCK SIZE COMPARISON - PRACTICAL TESTING
+        # BLOCK SIZE COMPARISON - PRACTICAL TESTING
             "block_size": {
                 "name": "Block Size Comparison (Practical Testing)",
                 "description": "Compare protocols with different block sizes - optimized for speed",
@@ -255,7 +255,7 @@ class OptimizedUnifiedTestConfigGenerator:
                 }
             },
             
-            # ⚡ BROADCAST FREQUENCY COMPARISON - PRACTICAL TESTING
+            #  BROADCAST FREQUENCY COMPARISON - PRACTICAL TESTING
             "broadcast_frequency": {
                 "name": "Broadcast Frequency Comparison (Practical)",
                 "description": "Compare protocols under different broadcast rates - optimized testing",
@@ -364,7 +364,7 @@ class OptimizedUnifiedTestConfigGenerator:
                 }
             },
             
-            # 🐱 COUGAR PARALLELISM COMPARISON
+            #  COUGAR PARALLELISM COMPARISON
             "cougar_parallelism": {
                 "name": "Cougar Parallelism (P Parameter)",
                 "description": "Compare Cougar P parameter effectiveness",
@@ -399,7 +399,7 @@ class OptimizedUnifiedTestConfigGenerator:
                 }
             },
             
-            # 💫 MERCURY CLUSTERING COMPARISON - OPTIMIZED FOR 250 NODES
+            #  MERCURY CLUSTERING COMPARISON - OPTIMIZED FOR 250 NODES
             "mercury_clustering": {
                 "name": "Mercury Clustering (K Parameter) - 250 Node Optimized",
                 "description": "Compare Mercury K-means clustering effectiveness for 250 nodes",
@@ -429,7 +429,7 @@ class OptimizedUnifiedTestConfigGenerator:
                 }
             },
             
-            # 🔄 CHUNKEDKAD BETA CLUSTERING COMPARISON (ChunkedKad specific)
+            #  CHUNKEDKAD BETA CLUSTERING COMPARISON (ChunkedKad specific)
             "chunkedkad_beta": {
                 "name": "ChunkedKad Beta Clustering (Cascade Seeding)",
                 "description": "Compare ChunkedKad beta clustering effectiveness with cascade seeding",
@@ -465,8 +465,8 @@ class OptimizedUnifiedTestConfigGenerator:
     def generate_config(self, protocol: str, category: str, option: str) -> Dict:
         """
         Generate an optimized configuration for specific protocol, category, and option.
-        🔧 OPTIMIZED: True fair comparison with practical parameters
-        🐍 MERCURY OPTIMIZED: 250 node baseline for stability
+         OPTIMIZED: True fair comparison with practical parameters
+         MERCURY OPTIMIZED: 250 node baseline for stability
         """
         
         self.logger.info(f"🔧 Generating OPTIMIZED config for {protocol} - {category} - {option}")
@@ -595,8 +595,8 @@ class OptimizedUnifiedTestConfigGenerator:
             "randomSeed": config["randomSeed"]
         }
         
-        self.logger.debug(f"📋 Generated OPTIMIZED Mercury config: {result['name']}")
-        self.logger.debug(f"🐍 Mercury optimized for {config['nodeCount']} nodes: K={result['K']}, fanout={result['source_fanout']}")
+        self.logger.debug(f" Generated OPTIMIZED Mercury config: {result['name']}")
+        self.logger.debug(f" Mercury optimized for {config['nodeCount']} nodes: K={result['K']}, fanout={result['source_fanout']}")
         return result
     
     def _to_chunkedkad_config(self, config: Dict, category: str, option: str) -> Dict:
@@ -609,7 +609,7 @@ class OptimizedUnifiedTestConfigGenerator:
             "nodeCount": config["nodeCount"],
             "blockSize": config["blockSize"],
             
-            # 🔥 FIX 1: Ensure broadcastFrequency is properly mapped
+            #  FIX 1: Ensure broadcastFrequency is properly mapped
             "broadcastFrequency": config["broadcastFrequency"],  # This was missing proper mapping
             "duration": config["duration"],
             
@@ -638,20 +638,20 @@ class OptimizedUnifiedTestConfigGenerator:
         categories = self.get_test_categories()
         
         if category not in categories:
-            print(f"❌ Unknown category: {category}")
+            print(f" Unknown category: {category}")
             return
         
         cat_info = categories[category]
         
-        print(f"\n📋 {cat_info['name']}")
-        print(f"📝 {cat_info['description']}")
-        print(f"🔧 Variable Parameter: {cat_info['variable_parameter']}")
-        print(f"⚖️  Fair Comparison: All other parameters remain IDENTICAL")
-        print(f"⚡ OPTIMIZED: Tests complete in 60-90 seconds with 2-3 blocks")
-        print(f"🐍 MERCURY BASELINE: 250 nodes for optimal Mercury performance")
+        print(f"\n {cat_info['name']}")
+        print(f" {cat_info['description']}")
+        print(f" Variable Parameter: {cat_info['variable_parameter']}")
+        print(f"  Fair Comparison: All other parameters remain IDENTICAL")
+        print(f" OPTIMIZED: Tests complete in 60-90 seconds with 2-3 blocks")
+        print(f" MERCURY BASELINE: 250 nodes for optimal Mercury performance")
         
         if "protocol_specific" in cat_info:
-            print(f"🎯 Protocol Specific: {cat_info['protocol_specific'].upper()}")
+            print(f" Protocol Specific: {cat_info['protocol_specific'].upper()}")
         
         print(f"\n   Options (optimized for speed):")
         for option_name, option_info in cat_info["options"].items():
@@ -660,7 +660,7 @@ class OptimizedUnifiedTestConfigGenerator:
             frequency = adjustments.get('broadcastFrequency', 3)
             expected_blocks = int(duration / 60 * frequency)
             print(f"   {option_name}: {option_info['description']}")
-            print(f"      ⚡ {duration}s, {expected_blocks} blocks")
+            print(f"       {duration}s, {expected_blocks} blocks")
 
 # Import the RealDataAwareJSONExporter from the original file
 class RealDataAwareJSONExporter:
@@ -703,13 +703,13 @@ class RealDataAwareJSONExporter:
             with open(json_filename, 'w', encoding='utf-8') as f:
                 json.dump(json_data, f, indent=2, default=str)
             
-            self.logger.info(f"📊 Optimized JSON data exported to: {json_filename}")
-            print(f"📊 Optimized simulation data saved to: {json_filename}")
+            self.logger.info(f" Optimized JSON data exported to: {json_filename}")
+            print(f" Optimized simulation data saved to: {json_filename}")
             
             return json_filename
             
         except Exception as e:
-            self.logger.error(f"❌ Failed to export JSON: {e}")
+            self.logger.error(f" Failed to export JSON: {e}")
             return ""
 
 def debug_latency_fields(result):
@@ -718,7 +718,7 @@ def debug_latency_fields(result):
         metrics = result['result'].get('metrics', {})
         basic = metrics.get('basic', {})
         
-        print(f"\n🔍 DEBUG - {result['protocol'].upper()} LATENCY FIELDS:")
+        print(f"\n DEBUG - {result['protocol'].upper()} LATENCY FIELDS:")
         print(f"   basic['latency']: {basic.get('latency', 'YOK')}")
         print(f"   basic['avg_latency']: {basic.get('avg_latency', 'YOK')}")
         print(f"   basic['real_duration']: {basic.get('real_duration', 'YOK')}")
@@ -746,8 +746,8 @@ def display_test_results(results: List[Dict]):
     logger = logging.getLogger("OptimizedResultsDisplay")
     
     print("\n" + "="*80)
-    print("📊 OPTIMIZED FAIR COMPARISON TEST RESULTS WITH DETAILED METRICS")
-    print("🐍 MERCURY OPTIMIZED: 250 node baseline for stable performance")
+    print(" OPTIMIZED FAIR COMPARISON TEST RESULTS WITH DETAILED METRICS")
+    print(" MERCURY OPTIMIZED: 250 node baseline for stable performance")
     print("="*80)
     
     logger.info("📊 Displaying optimized fair comparison test results with detailed metrics")
@@ -762,13 +762,13 @@ def display_test_results(results: List[Dict]):
         'protocols_with_real_data': set()
     }
     
-    # ✅ HELPER FUNCTION: Extract latency properly for all protocols
+    #  HELPER FUNCTION: Extract latency properly for all protocols
     def extract_proper_latency(result: Dict) -> float:
         """Extract latency with protocol-specific logic - CHUNKEDKAD FIXED."""
         protocol = result.get('protocol', '').upper()
         
         if protocol == 'CHUNKEDKAD':
-            # 🔥 FIX 2: ChunkedKad-specific latency extraction
+            #  FIX 2: ChunkedKad-specific latency extraction
             if 'result' in result and result['result']:
                 test_result = result['result']
                 
@@ -816,7 +816,7 @@ def display_test_results(results: List[Dict]):
                 return result['avg_latency']
                 
         elif protocol == 'MERCURY':
-            # ✅ MERCURY-SPECIFIC LATENCY EXTRACTION (unchanged)
+            #  MERCURY-SPECIFIC LATENCY EXTRACTION (unchanged)
             if 'result' in result and result['result']:
                 test_result = result['result']
                 
@@ -852,13 +852,13 @@ def display_test_results(results: List[Dict]):
                 return result['avg_latency']
         
         return 0.0
-    # ✅ HELPER FUNCTION: Extract coverage properly for all protocols  
+    #  HELPER FUNCTION: Extract coverage properly for all protocols  
     def extract_proper_coverage(result: Dict) -> float:
         """Extract coverage with protocol-specific logic."""
         protocol = result.get('protocol', '').upper()
         
         if protocol == 'MERCURY':
-            # ✅ MERCURY-SPECIFIC COVERAGE EXTRACTION
+            # MERCURY-SPECIFIC COVERAGE EXTRACTION
             if 'result' in result and result['result']:
                 test_result = result['result']
                 
@@ -904,10 +904,10 @@ def display_test_results(results: List[Dict]):
         
         if success:
             successful_tests += 1
-            print(f"✅ {protocol}: {config_name}")
+            print(f" {protocol}: {config_name}")
             if result.get('json_file'):
                 print(f"   📄 JSON: {result['json_file']}")
-            logger.info(f"✅ {protocol} optimized test passed: {config_name}")
+            logger.info(f" {protocol} optimized test passed: {config_name}")
             
             if 'result' in result and result['result']:
                 test_result = result['result']
@@ -915,13 +915,13 @@ def display_test_results(results: List[Dict]):
                     metrics = test_result['metrics']
                     basic = metrics.get('basic', {})
                     
-                    # ✅ FIXED: Extract detailed metrics with proper protocol handling
+                    #  FIXED: Extract detailed metrics with proper protocol handling
                     duration = basic.get('real_duration', 0)
                     blocks = basic.get('successful_blocks', 0)
                     total_nodes = basic.get('total_nodes', 0)
                     total_callbacks = basic.get('total_callbacks', 0)
                     
-                    # ✅ CRITICAL FIX: Use proper extraction functions
+                    #  CRITICAL FIX: Use proper extraction functions
                     avg_latency = extract_proper_latency(result)
                     coverage = extract_proper_coverage(result)
                     
@@ -931,16 +931,16 @@ def display_test_results(results: List[Dict]):
                         coverage = min(100.0, (avg_nodes_per_block / total_nodes) * 100.0)
                     
                     # Show detailed metrics
-                    print(f"   ⚡ DURATION: {duration:.1f}s")
-                    print(f"   📦 BLOCKS: {blocks} blocks completed")
-                    print(f"   👥 NODES: {total_nodes} total, {total_callbacks} callbacks")
-                    print(f"   📊 COVERAGE: {coverage:.1f}%")
+                    print(f"    DURATION: {duration:.1f}s")
+                    print(f"    BLOCKS: {blocks} blocks completed")
+                    print(f"    NODES: {total_nodes} total, {total_callbacks} callbacks")
+                    print(f"    COVERAGE: {coverage:.1f}%")
                     
-                    # ✅ CRITICAL FIX: Always show latency if > 0
+                    #  CRITICAL FIX: Always show latency if > 0
                     if avg_latency > 0:
-                        print(f"   ⏱️  LATENCY: {avg_latency:.3f}s average")
+                        print(f"     LATENCY: {avg_latency:.3f}s average")
                     else:
-                        print(f"   ⚠️  LATENCY: Not available")
+                        print(f"     LATENCY: Not available")
                     
                     # Protocol-specific detailed metrics
                     if protocol == "KADCAST":
@@ -952,14 +952,14 @@ def display_test_results(results: List[Dict]):
                         chunk_completion = kadcast_metrics.get('chunk_completion_rate', 0)
                         
                         if fec_efficiency > 0:
-                            print(f"   🔧 FEC EFFICIENCY: {fec_efficiency:.1f}%")
+                            print(f"    FEC EFFICIENCY: {fec_efficiency:.1f}%")
                         if chunk_completion > 0:
-                            print(f"   🧩 CHUNK COMPLETION: {chunk_completion:.1f}%")
+                            print(f"    CHUNK COMPLETION: {chunk_completion:.1f}%")
                         
                         if early_term.get('enabled', False):
                             terminated_blocks = early_term.get('blocks_terminated', 0)
                             time_saved = early_term.get('time_saved', 0)
-                            print(f"   ⚡ EARLY TERMINATION: {terminated_blocks} blocks, {time_saved:.1f}s saved")
+                            print(f"    EARLY TERMINATION: {terminated_blocks} blocks, {time_saved:.1f}s saved")
                     
                     elif protocol == "COUGAR":
                         cougar_metrics = metrics.get('cougar_specific', {})
@@ -970,18 +970,18 @@ def display_test_results(results: List[Dict]):
                         protocol_params = cougar_metrics.get('protocol_parameters', {})
                         
                         if header_prop_time > 0:
-                            print(f"   📤 HEADER PROPAGATION: {header_prop_time:.3f}s")
+                            print(f"    HEADER PROPAGATION: {header_prop_time:.3f}s")
                         if body_success_rate > 0:
-                            print(f"   📥 BODY TRANSFER: {body_success_rate:.1f}% success")
+                            print(f"    BODY TRANSFER: {body_success_rate:.1f}% success")
                         if parallelism_eff > 0:
-                            print(f"   🔄 PARALLELISM: {parallelism_eff:.1f}% efficiency")
+                            print(f"    PARALLELISM: {parallelism_eff:.1f}% efficiency")
                         
                         p_param = protocol_params.get('P', 0)
                         if p_param > 0:
-                            print(f"   🐱 P PARAMETER: {p_param} (parallelism level)")
+                            print(f"    P PARAMETER: {p_param} (parallelism level)")
                     
                     elif protocol == "MERCURY":
-                        # ✅ ENHANCED MERCURY METRICS DISPLAY
+                        #  ENHANCED MERCURY METRICS DISPLAY
                         vcs_metrics = metrics.get('mercury_vcs', {})
                         clustering_metrics = metrics.get('mercury_clustering', {})
                         mercury_specific = metrics.get('mercury_specific', {})
@@ -993,15 +993,15 @@ def display_test_results(results: List[Dict]):
                         clustering_rate = clustering_metrics.get('clustering_rate', 0)
                         
                         if stability_rate > 0:
-                            print(f"   💫 VCS CONVERGENCE: {stability_rate:.1f}% stable")
+                            print(f"    VCS CONVERGENCE: {stability_rate:.1f}% stable")
                         if avg_error > 0:
-                            print(f"   📊 VCS ERROR: {avg_error:.3f} average")
+                            print(f"    VCS ERROR: {avg_error:.3f} average")
                         if actual_clusters > 0:
-                            print(f"   🌌 CLUSTERS: {actual_clusters} formed")
+                            print(f"    CLUSTERS: {actual_clusters} formed")
                         if clustering_rate > 0:
-                            print(f"   📈 CLUSTERING: {clustering_rate:.1f}% success")
+                            print(f"    CLUSTERING: {clustering_rate:.1f}% success")
                         
-                        # ✅ NEW: Show latency details for Mercury
+                        #: Show latency details for Mercury
                         if latency_metrics:
                             min_lat = latency_metrics.get('min_latency', 0)
                             max_lat = latency_metrics.get('max_latency', 0)
@@ -1009,16 +1009,16 @@ def display_test_results(results: List[Dict]):
                             samples = latency_metrics.get('total_samples', 0)
                             
                             if min_lat > 0 and max_lat > 0:
-                                print(f"   📊 LATENCY RANGE: {min_lat:.3f}s - {max_lat:.3f}s")
+                                print(f"    LATENCY RANGE: {min_lat:.3f}s - {max_lat:.3f}s")
                             if p95_lat > 0:
-                                print(f"   📈 95TH PERCENTILE: {p95_lat:.3f}s")
+                                print(f"   95TH PERCENTILE: {p95_lat:.3f}s")
                             if samples > 0:
-                                print(f"   📊 LATENCY SAMPLES: {samples}")
+                                print(f"    LATENCY SAMPLES: {samples}")
                         
                         k_param = mercury_specific.get('K', 0)
                         if k_param > 0:
                             nodes_per_cluster = total_nodes // k_param if k_param > 0 else 0
-                            print(f"   💫 K PARAMETER: {k_param} (clusters), ~{nodes_per_cluster} nodes/cluster")
+                            print(f"    K PARAMETER: {k_param} (clusters), ~{nodes_per_cluster} nodes/cluster")
                     
                     elif protocol == "CHUNKEDKAD":
                         chunkedkad_metrics = metrics.get('chunkedkad_specific', {})
@@ -1029,13 +1029,13 @@ def display_test_results(results: List[Dict]):
                         exchanges_completed = chunkedkad_metrics.get('proactive_exchanges_completed', 0)
                         
                         if bandwidth_eff > 0:
-                            print(f"   🔄 BANDWIDTH EFFICIENCY: {bandwidth_eff:.1f}% (target: 87%)")
+                            print(f"    BANDWIDTH EFFICIENCY: {bandwidth_eff:.1f}% (target: 87%)")
                         if memory_eff > 0:
-                            print(f"   💾 MEMORY EFFICIENCY: {memory_eff:.1f}% (target: 50%)")
+                            print(f"    MEMORY EFFICIENCY: {memory_eff:.1f}% (target: 50%)")
                         if exchange_rate > 0:
-                            print(f"   🤝 EXCHANGE SUCCESS: {exchange_rate:.1f}% (target: 98%)")
+                            print(f"    EXCHANGE SUCCESS: {exchange_rate:.1f}% (target: 98%)")
                         if exchanges_completed > 0:
-                            print(f"   🔄 EXCHANGES COMPLETED: {exchanges_completed}")
+                            print(f"    EXCHANGES COMPLETED: {exchanges_completed}")
                     
                     # Check for real data
                     real_blocks = len(test_result.get('blocks', []))
@@ -1045,7 +1045,7 @@ def display_test_results(results: List[Dict]):
                     
                     total_real_blocks = max(real_blocks, captured_blocks)
                     if total_real_blocks > 0:
-                        print(f"   ✅ REAL DATA: {total_real_blocks} blocks captured")
+                        print(f"    REAL DATA: {total_real_blocks} blocks captured")
                         real_data_summary['total_real_blocks'] += total_real_blocks
                         real_data_summary['protocols_with_real_data'].add(protocol)
                         
@@ -1059,10 +1059,10 @@ def display_test_results(results: List[Dict]):
                                 total_transactions += len(transactions)
                         
                         if total_transactions > 0:
-                            print(f"   📊 TRANSACTIONS: {total_transactions} total")
+                            print(f"    TRANSACTIONS: {total_transactions} total")
                             real_data_summary['total_real_transactions'] += total_transactions
                     else:
-                        print(f"   ⚠️  Real data: Not captured")
+                        print(f"     Real data: Not captured")
                     
                     # Collect metrics for comparison
                     if protocol not in protocol_metrics:
@@ -1093,42 +1093,42 @@ def display_test_results(results: List[Dict]):
                         protocol_metrics[protocol]['coverages'].append(coverage)
         else:
             failed_tests += 1
-            print(f"❌ {protocol}: {config_name}")
-            print(f"   💬 {result['message']}")
-            logger.error(f"❌ {protocol} optimized test failed: {config_name}")
+            print(f" {protocol}: {config_name}")
+            print(f"    {result['message']}")
+            logger.error(f" {protocol} optimized test failed: {config_name}")
     
     # Real Data Summary
-    print(f"\n🧱 REAL DATA CAPTURE SUMMARY:")
-    print(f"   📦 Total real blocks captured: {real_data_summary['total_real_blocks']}")
-    print(f"   📊 Total real transactions: {real_data_summary['total_real_transactions']}")
-    print(f"   ✅ Protocols with real data: {', '.join(real_data_summary['protocols_with_real_data'])}")
+    print(f"\n REAL DATA CAPTURE SUMMARY:")
+    print(f"    Total real blocks captured: {real_data_summary['total_real_blocks']}")
+    print(f"    Total real transactions: {real_data_summary['total_real_transactions']}")
+    print(f"    Protocols with real data: {', '.join(real_data_summary['protocols_with_real_data'])}")
     
     if real_data_summary['total_real_blocks'] > 0:
-        print(f"   🎯 Academic integrity: VERIFIED (Real data from RealisticBlockGenerator)")
+        print(f"    Academic integrity: VERIFIED (Real data from RealisticBlockGenerator)")
     else:
-        print(f"   ⚠️  Warning: No real block data captured across all tests")
+        print(f"     Warning: No real block data captured across all tests")
     
     # JSON Files Summary
     if json_files:
         print("\n📄 GENERATED OPTIMIZED JSON FILES:")
         for json_info in json_files:
             print(f"   {json_info['protocol']}: {json_info['file']}")
-        print(f"   📊 Total JSON files: {len(json_files)}")
+        print(f"    Total JSON files: {len(json_files)}")
     
-    print("\n📋 OPTIMIZED FAIR COMPARISON SUMMARY:")
-    print(f"   ✅ Successful tests: {successful_tests}")
-    print(f"   ❌ Failed tests: {failed_tests}")
-    print(f"   📊 Total tests: {len(results)}")
+    print("\n OPTIMIZED FAIR COMPARISON SUMMARY:")
+    print(f"    Successful tests: {successful_tests}")
+    print(f"    Failed tests: {failed_tests}")
+    print(f"    Total tests: {len(results)}")
     
     success_rate = (successful_tests / len(results)) * 100 if results else 0
-    print(f"   📈 Success rate: {success_rate:.1f}%")
-    print(f"   ⚡ SPEED IMPROVEMENT: Tests complete in 2-3 minutes instead of 16+ hours!")
-    print(f"   🐍 MERCURY OPTIMIZATION: 250 node baseline for stable Mercury performance")
+    print(f"    Success rate: {success_rate:.1f}%")
+    print(f"   SPEED IMPROVEMENT: Tests complete in 2-3 minutes instead of 16+ hours!")
+    print(f"    MERCURY OPTIMIZATION: 250 node baseline for stable Mercury performance")
     
     # Enhanced protocol performance comparison
     if len(protocol_metrics) > 1 and successful_tests > 0:
         print("\n" + "="*100)
-        print("🏆 DETAILED PROTOCOL PERFORMANCE COMPARISON - MERCURY OPTIMIZED")
+        print(" DETAILED PROTOCOL PERFORMANCE COMPARISON - MERCURY OPTIMIZED")
         print("="*100)
         
         # Header
@@ -1159,7 +1159,7 @@ def display_test_results(results: List[Dict]):
         
         # Performance analysis
         if comparison_data:
-            print(f"\n🔍 DETAILED PERFORMANCE ANALYSIS:")
+            print(f"\n DETAILED PERFORMANCE ANALYSIS:")
             
             # Find best performers
             best_coverage = max(comparison_data.items(), key=lambda x: x[1]['avg_coverage'])
@@ -1168,32 +1168,32 @@ def display_test_results(results: List[Dict]):
             best_duration = min(comparison_data.items(), key=lambda x: x[1]['avg_duration'])
             best_real_data = max(comparison_data.items(), key=lambda x: x[1]['real_blocks'])
             
-            print(f"   🥇 Best Coverage: {best_coverage[0]} ({best_coverage[1]['avg_coverage']:.1f}%)")
+            print(f"    Best Coverage: {best_coverage[0]} ({best_coverage[1]['avg_coverage']:.1f}%)")
             if best_latency[0]:
-                print(f"   🚀 Best Latency: {best_latency[0]} ({best_latency[1]['avg_latency']:.3f}s)")
-            print(f"   ⚡ Fastest Duration: {best_duration[0]} ({best_duration[1]['avg_duration']:.1f}s)")
-            print(f"   🧱 Most Real Data: {best_real_data[0]} ({best_real_data[1]['real_blocks']} blocks)")
+                print(f"    Best Latency: {best_latency[0]} ({best_latency[1]['avg_latency']:.3f}s)")
+            print(f"   Fastest Duration: {best_duration[0]} ({best_duration[1]['avg_duration']:.1f}s)")
+            print(f"    Most Real Data: {best_real_data[0]} ({best_real_data[1]['real_blocks']} blocks)")
         
-        print(f"\n🎯 OPTIMIZATION ACHIEVEMENTS:")
+        print(f"\n OPTIMIZATION ACHIEVEMENTS:")
         avg_duration = sum(m['total_duration']/m['tests_count'] for m in protocol_metrics.values())/len(protocol_metrics)
         avg_blocks = sum(m['total_blocks']/m['tests_count'] for m in protocol_metrics.values())/len(protocol_metrics)
         avg_coverage = sum(m['total_coverage']/m['tests_count'] for m in protocol_metrics.values())/len(protocol_metrics)
         
-        print(f"   ⚡ Average test duration: {avg_duration:.1f}s")
-        print(f"   📦 Average blocks per test: {avg_blocks:.1f}")
-        print(f"   📊 Average coverage achieved: {avg_coverage:.1f}%")
-        print(f"   🚀 Speed improvement: 99%+ reduction in test time")
-        print(f"   🐍 Mercury baseline: 250 nodes for optimal Mercury performance")
-        print(f"   ✅ All protocols: Fast, practical testing with detailed metrics")
+        print(f"   Average test duration: {avg_duration:.1f}s")
+        print(f"    Average blocks per test: {avg_blocks:.1f}")
+        print(f"    Average coverage achieved: {avg_coverage:.1f}%")
+        print(f"    Speed improvement: 99%+ reduction in test time")
+        print(f"    Mercury baseline: 250 nodes for optimal Mercury performance")
+        print(f"    All protocols: Fast, practical testing with detailed metrics")
     
-    logger.info(f"📊 Enhanced test summary: {successful_tests}/{len(results)} successful ({success_rate:.1f}%)")
+    logger.info(f" Enhanced test summary: {successful_tests}/{len(results)} successful ({success_rate:.1f}%)")
 
 
 def improved_protocol_selection():
     """Improved protocol selection that handles multiple choices including ChunkedKad."""
     logger = logging.getLogger("ProtocolSelection")
     
-    print("   🤔 Which protocols to test?")
+    print("    Which protocols to test?")
     print("   1. Kadcast only")
     print("   2. Cougar only") 
     print("   3. Mercury only")
@@ -1218,23 +1218,23 @@ def improved_protocol_selection():
                     elif choice == 4 and CHUNKEDKAD_AVAILABLE:
                         protocols.append("chunkedkad")
                     elif choice == 1 and not KADCAST_AVAILABLE:
-                        print(f"   ⚠️  Kadcast not available, skipping...")
+                        print(f"     Kadcast not available, skipping...")
                     elif choice == 2 and not COUGAR_AVAILABLE:
-                        print(f"   ⚠️  Cougar not available, skipping...")
+                        print(f"     Cougar not available, skipping...")
                     elif choice == 3 and not MERCURY_AVAILABLE:
-                        print(f"   ⚠️  Mercury not available, skipping...")
+                        print(f"     Mercury not available, skipping...")
                     elif choice == 4 and not CHUNKEDKAD_AVAILABLE:
-                        print(f"   ⚠️  ChunkedKad not available, skipping...")
+                        print(f"     ChunkedKad not available, skipping...")
                 
                 if protocols:
-                    logger.info(f"📋 Selected protocols: {protocols}")
-                    print(f"   ✅ Selected protocols: {', '.join(p.upper() for p in protocols)}")
+                    logger.info(f"Selected protocols: {protocols}")
+                    print(f"    Selected protocols: {', '.join(p.upper() for p in protocols)}")
                     return protocols
                 else:
-                    print("   ❌ No valid protocols selected, try again")
+                    print("    No valid protocols selected, try again")
                     
             except ValueError:
-                print("   ❌ Invalid format. Use numbers separated by commas (e.g., 1,2)")
+                print("    Invalid format. Use numbers separated by commas (e.g., 1,2)")
                 
         else:
             try:
@@ -1257,15 +1257,15 @@ def improved_protocol_selection():
                         available_protocols.append("mercury")
                     if CHUNKEDKAD_AVAILABLE:
                         available_protocols.append("chunkedkad")
-                    logger.info(f"📋 Selected all available protocols: {available_protocols}")
+                    logger.info(f" Selected all available protocols: {available_protocols}")
                     return available_protocols
                 elif choice == 6:
-                    print("   💡 For multiple, use format like: 1,2 or 1,3,4")
+                    print("   For multiple, use format like: 1,2 or 1,3,4")
                     continue
                 else:
-                    print("   ❌ Invalid choice or protocol not available")
+                    print("    Invalid choice or protocol not available")
             except ValueError:
-                print("   ❌ Invalid input. Enter numbers 1-6 or comma-separated like 1,2")
+                print("    Invalid input. Enter numbers 1-6 or comma-separated like 1,2")
 
 def calculate_event_load_estimate(config: Dict) -> Dict:
     """Calculate estimated event load for a configuration with optimized parameters - MERCURY OPTIMIZED."""
@@ -1315,17 +1315,17 @@ def create_custom_test_config(generator: OptimizedUnifiedTestConfigGenerator, ca
     
     logger = logging.getLogger("CustomTestConfig")
     
-    print(f"\n🛠️  CUSTOM OPTIMIZED TEST CONFIGURATION FOR {category_info['name'].upper()}")
-    print(f"📝 Variable parameter: {category_info['variable_parameter']}")
-    print(f"⚡ OPTIMIZED: Default settings for fast testing (2-3 blocks per test)")
-    print(f"🐍 MERCURY OPTIMIZED: 250 node baseline for Mercury stability")
+    print(f"\n  CUSTOM OPTIMIZED TEST CONFIGURATION FOR {category_info['name'].upper()}")
+    print(f" Variable parameter: {category_info['variable_parameter']}")
+    print(f" OPTIMIZED: Default settings for fast testing (2-3 blocks per test)")
+    print(f" MERCURY OPTIMIZED: 250 node baseline for Mercury stability")
     
     try:
         # Start with optimized base config
         config = generator.base_config.copy()
         
         # Basic parameters with optimized defaults
-        print(f"\n📊 BASIC PARAMETERS (MERCURY OPTIMIZED):")
+        print(f"\n BASIC PARAMETERS (MERCURY OPTIMIZED):")
         print(f"Node count (default {config['nodeCount']} - Mercury optimized): ", end='')
         node_input = input().strip()
         config['nodeCount'] = int(node_input) if node_input else config['nodeCount']
@@ -1349,8 +1349,8 @@ def create_custom_test_config(generator: OptimizedUnifiedTestConfigGenerator, ca
         
         # Calculate and show optimized results
         final_blocks = int(config['duration'] / 60 * config['broadcastFrequency'])
-        print(f"⚡ OPTIMIZED RESULT: {final_blocks} blocks in {config['duration']/60:.1f} minutes")
-        print(f"🐍 Mercury optimization: {config['nodeCount']} nodes (recommended: 250 for stability)")
+        print(f" OPTIMIZED RESULT: {final_blocks} blocks in {config['duration']/60:.1f} minutes")
+        print(f" Mercury optimization: {config['nodeCount']} nodes (recommended: 250 for stability)")
         
         # Variable parameter for this category
         variable_param = category_info["variable_parameter"]
@@ -1379,7 +1379,7 @@ def create_custom_test_config(generator: OptimizedUnifiedTestConfigGenerator, ca
             }
             print(f"  Calculated average: {avg:.2f}")
         elif "kadcast" in variable_param:
-            print(f"🎯 KADCAST PARAMETERS:")
+            print(f" KADCAST PARAMETERS:")
             if "fecRatio" in variable_param:
                 fec_input = input("FEC ratio (0.1-0.5, default 0.20): ").strip()
                 fec = float(fec_input) if fec_input else 0.20
@@ -1387,7 +1387,7 @@ def create_custom_test_config(generator: OptimizedUnifiedTestConfigGenerator, ca
             bucket_input = input(f"K-bucket size (default {config['kadcast']['kBucketSize']}): ").strip()
             config['kadcast']['kBucketSize'] = int(bucket_input) if bucket_input else config['kadcast']['kBucketSize']
         elif "cougar" in variable_param:
-            print(f"🐱 COUGAR PARAMETERS:")
+            print(f"COUGAR PARAMETERS:")
             close_input = input(f"Close neighbors (C) (default {config['cougar']['closeNeighbors']}): ").strip()
             config['cougar']['closeNeighbors'] = int(close_input) if close_input else config['cougar']['closeNeighbors']
             random_input = input(f"Random neighbors (R) (default {config['cougar']['randomNeighbors']}): ").strip()
@@ -1397,13 +1397,13 @@ def create_custom_test_config(generator: OptimizedUnifiedTestConfigGenerator, ca
                 parallelism = int(para_input) if para_input else 4
                 config['cougar']['parallelism'] = parallelism
         elif "mercury" in variable_param:
-            print(f"💫 MERCURY PARAMETERS (250 node optimized):")
+            print(f" MERCURY PARAMETERS (250 node optimized):")
             if "K" in variable_param:
                 k_input = input("K clusters (4-10, default 6 for 250 nodes): ").strip()
                 k_clusters = int(k_input) if k_input else 6
                 config['mercury']['K'] = k_clusters
                 nodes_per_cluster = config['nodeCount'] // k_clusters
-                print(f"   💫 With {config['nodeCount']} nodes: ~{nodes_per_cluster} nodes per cluster")
+                print(f"    With {config['nodeCount']} nodes: ~{nodes_per_cluster} nodes per cluster")
             dcluster_input = input(f"Close neighbors per cluster (default {config['mercury']['dcluster']}): ").strip()
             config['mercury']['dcluster'] = int(dcluster_input) if dcluster_input else config['mercury']['dcluster']
             # OPTIMIZED: Reduce coordinate rounds for speed
@@ -1411,7 +1411,7 @@ def create_custom_test_config(generator: OptimizedUnifiedTestConfigGenerator, ca
             rounds_input = input(f"VCS rounds (default {default_rounds} - Mercury optimized): ").strip()
             config['mercury']['coordinate_rounds'] = int(rounds_input) if rounds_input else default_rounds
         elif "chunkedkad" in variable_param:
-            print(f"🔄 CHUNKEDKAD PARAMETERS:")
+            print(f" CHUNKEDKAD PARAMETERS:")
             if "beta" in variable_param:
                 beta_input = input("Beta clusters (2-5, default 3): ").strip()
                 beta_clusters = int(beta_input) if beta_input else 3
@@ -1435,12 +1435,12 @@ def create_custom_test_config(generator: OptimizedUnifiedTestConfigGenerator, ca
         print(f"   Events/sec: {load_estimate['events_per_second']:.1f}")
         print(f"   Expected blocks: {load_estimate['total_blocks']}")
         print(f"   Mercury baseline: {config['nodeCount']} nodes (recommended: 250)")
-        print(f"   Recommended: {'✅ Yes' if load_estimate['recommended'] else '⚠️  May be slow'}")
+        print(f"   Recommended: {' Yes' if load_estimate['recommended'] else '  May be slow'}")
         
         if not load_estimate['recommended']:
-            confirm = input(f"\n⚠️  This configuration may be slow. Continue? (y/N): ").lower()
+            confirm = input(f"\n  This configuration may be slow. Continue? (y/N): ").lower()
             if confirm != 'y':
-                print("❌ Custom test cancelled")
+                print(" Custom test cancelled")
                 return None
         
         # Create final optimized config
@@ -1528,73 +1528,72 @@ def create_custom_test_config(generator: OptimizedUnifiedTestConfigGenerator, ca
                 'coverage_check_interval': 2.0
             })
         
-        logger.info(f"📋 Created custom optimized config: {test_name}")
-        print(f"\n✅ Custom optimized configuration created: {test_name}")
-        print(f"⚡ Optimized for {load_estimate['total_blocks']} blocks in {config['duration']/60:.1f} minutes")
-        print(f"🐍 Mercury settings: {config['nodeCount']} nodes, K={config['mercury']['K']}")
+        logger.info(f" Created custom optimized config: {test_name}")
+        print(f"\n Custom optimized configuration created: {test_name}")
+        print(f" Optimized for {load_estimate['total_blocks']} blocks in {config['duration']/60:.1f} minutes")
+        print(f" Mercury settings: {config['nodeCount']} nodes, K={config['mercury']['K']}")
         return final_config
         
     except (ValueError, KeyboardInterrupt) as e:
-        print(f"\n❌ Error creating custom config: {e}")
+        print(f"\n Error creating custom config: {e}")
         logger.error(f"Error in custom config: {e}")
         return None
 
-# ✅ ENHANCED: run_actual_test function with ChunkedKad support
+#run_actual_test function with ChunkedKad support
 def run_actual_test(protocol: str, config: Dict) -> Dict:
     """Actually run the test with the given configuration and export JSON with REAL DATA."""
     
     logger = logging.getLogger("OptimizedUnifiedTestRunner")
     
-    logger.info(f"🚀 STARTING {protocol.upper()} OPTIMIZED TEST WITH REAL DATA CAPTURE")
-    logger.info(f"📝 Test name: {config.get('name', 'Unknown')}")
-    logger.info(f"📊 Config: {config.get('nodeCount', 0)} nodes, {config.get('duration', 0)/60:.1f} min")
+    logger.info(f" STARTING {protocol.upper()} OPTIMIZED TEST WITH REAL DATA CAPTURE")
+    logger.info(f" Test name: {config.get('name', 'Unknown')}")
+    logger.info(f" Config: {config.get('nodeCount', 0)} nodes, {config.get('duration', 0)/60:.1f} min")
     expected_blocks = int(config.get('duration', 60) / 60 * config.get('broadcastFrequency', 3))
-    logger.info(f"⚡ OPTIMIZED: Expected {expected_blocks} blocks (fast testing!)")
+    logger.info(f  OPTIMIZED: Expected {expected_blocks} blocks (fast testing!)")
     if protocol.lower() == 'mercury':
-        logger.info(f"🐍 MERCURY OPTIMIZED: {config.get('nodeCount', 250)} nodes for stability")
+        logger.info(f" MERCURY OPTIMIZED: {config.get('nodeCount', 250)} nodes for stability")
     
     # Show event load estimate
     load_estimate = calculate_event_load_estimate(config)
-    print(f"\n📊 OPTIMIZED EVENT LOAD ESTIMATE:")
+    print(f"\n OPTIMIZED EVENT LOAD ESTIMATE:")
     print(f"   Total events: {load_estimate['total_events']:,}")
     print(f"   Load status: {load_estimate['load_status']}")
     print(f"   Expected blocks: {expected_blocks}")
     if protocol.lower() == 'mercury':
-        print(f"   🐍 Mercury optimization: {config.get('nodeCount', 250)} nodes")
-    print(f"   Recommended: {'✅ Yes' if load_estimate['recommended'] else '⚠️  May be slow'}")
+        print(f"    Mercury optimization: {config.get('nodeCount', 250)} nodes")
+    print(f"   Recommended: {' Yes' if load_estimate['recommended'] else '  May be slow'}")
     
-    print(f"\n🚀 ACTUALLY RUNNING {protocol.upper()} OPTIMIZED TEST WITH REAL DATA CAPTURE...")
-    print(f"⏱️  Expected duration: {config.get('duration', 0)/60:.1f} minutes")
-    print(f"⚡ Expected blocks: {expected_blocks} (OPTIMIZED for speed!)")
+    print(f"\n ACTUALLY RUNNING {protocol.upper()} OPTIMIZED TEST WITH REAL DATA CAPTURE...")
+    print(f"  Expected duration: {config.get('duration', 0)/60:.1f} minutes")
+    print(f" Expected blocks: {expected_blocks} (OPTIMIZED for speed!)")
     if protocol.lower() == 'mercury':
-        print(f"🐍 Mercury optimized: {config.get('nodeCount', 250)} nodes for stable performance")
-    print(f"✅ Real block data capture: ENABLED")
-    print("📊 Progress will be shown below...")
+        print(f" Mercury optimized: {config.get('nodeCount', 250)} nodes for stable performance")
+    print(f" Real block data capture: ENABLED")
+    print(" Progress will be shown below...")
     
-    # ✅ ENHANCED: Initialize Real Data Aware JSON exporter
+    #  ENHANCED: Initialize Real Data Aware JSON exporter
     json_exporter = RealDataAwareJSONExporter()
     
     try:
         if protocol == "kadcast" and KADCAST_AVAILABLE:
-            logger.info("🎯 Starting Kadcast optimized test with Real Data Capture...")
-            print("🎯 Starting Kadcast optimized test with Real Data Capture...")
+            logger.info(" Starting Kadcast optimized test with Real Data Capture...")
+            print(" Starting Kadcast optimized test with Real Data Capture...")
             
             try:
                 kadcast_log_file = setup_advanced_logging()
-                logger.info(f"📁 Kadcast log file: {kadcast_log_file}")
+                logger.info(f" Kadcast log file: {kadcast_log_file}")
             except Exception as e:
-                logger.warning(f"⚠️  Could not setup Kadcast logging: {e}")
+                logger.warning(f" Could not setup Kadcast logging: {e}")
             
             runner = EnhancedTestRunner()
             kadcast_config_name = f"optimized_{config['name'].replace(' ', '_').lower()}"
             
-            logger.info("🔧 Running Kadcast simulation with Real Data Capture...")
+            logger.info(" Running Kadcast simulation with Real Data Capture...")
             result = runner.run_single_test(kadcast_config_name, config)
             
-            # ✅ ENHANCED: Export JSON data with REAL DATA PRIORITY
             json_filename = json_exporter.export_simulation_results(protocol, config, result)
             
-            logger.info(f"✅ Kadcast optimized test completed - Success: {result.get('success', False)}")
+            logger.info(f" Kadcast optimized test completed - Success: {result.get('success', False)}")
             
             return {
                 "success": result.get('success', False),
@@ -1602,12 +1601,12 @@ def run_actual_test(protocol: str, config: Dict) -> Dict:
                 "config_name": config['name'],
                 "result": result,
                 "json_file": json_filename,
-                "message": "✅ Kadcast optimized test with Real Data Capture completed!" if result.get('success') else "❌ Kadcast test failed"
+                "message": " Kadcast optimized test with Real Data Capture completed!" if result.get('success') else "❌ Kadcast test failed"
             }
             
         elif protocol == "cougar" and COUGAR_AVAILABLE:
-            logger.info("🐱 Starting Cougar optimized test with Real Data Capture...")
-            print("🐱 Starting Cougar optimized test with Real Data Capture...")
+            logger.info(" Starting Cougar optimized test with Real Data Capture...")
+            print(" Starting Cougar optimized test with Real Data Capture...")
             
             runner = CougarTestRunner()
             cougar_config_name = f"optimized_{config['name'].replace(' ', '_').lower()}"
@@ -1615,10 +1614,10 @@ def run_actual_test(protocol: str, config: Dict) -> Dict:
             logger.info("🔧 Running Cougar simulation with Real Data Capture...")
             result = runner.run_single_cougar_test(cougar_config_name, config)
             
-            # ✅ ENHANCED: Export JSON data with REAL DATA PRIORITY
+         
             json_filename = json_exporter.export_simulation_results(protocol, config, result)
             
-            logger.info(f"✅ Cougar optimized test completed - Success: {result.get('success', False)}")
+            logger.info(f" Cougar optimized test completed - Success: {result.get('success', False)}")
             
             return {
                 "success": result.get('success', False),
@@ -1626,14 +1625,14 @@ def run_actual_test(protocol: str, config: Dict) -> Dict:
                 "config_name": config['name'],
                 "result": result,
                 "json_file": json_filename,
-                "message": "✅ Cougar optimized test with Real Data Capture completed!" if result.get('success') else "❌ Cougar test failed"
+                "message": " Cougar optimized test with Real Data Capture completed!" if result.get('success') else " Cougar test failed"
             }
             
         elif protocol == "mercury" and MERCURY_AVAILABLE:
-            logger.info("💫 Starting Mercury optimized test with Real Data Capture...")
-            logger.info(f"🐍 Mercury optimized for {config.get('nodeCount', 250)} nodes")
-            print("💫 Starting Mercury optimized test with Real Data Capture...")
-            print(f"🐍 Mercury optimized for {config.get('nodeCount', 250)} nodes")
+            logger.info("Starting Mercury optimized test with Real Data Capture...")
+            logger.info(f" Mercury optimized for {config.get('nodeCount', 250)} nodes")
+            print(" Starting Mercury optimized test with Real Data Capture...")
+            print(f" Mercury optimized for {config.get('nodeCount', 250)} nodes")
             
             runner = MercuryTestRunner()
             mercury_config_name = f"optimized_{config['name'].replace(' ', '_').lower()}"
@@ -1641,10 +1640,10 @@ def run_actual_test(protocol: str, config: Dict) -> Dict:
             logger.info("🔧 Running Mercury simulation with Real Data Capture...")
             result = runner.run_single_mercury_test(mercury_config_name, config)
             
-            # ✅ ENHANCED: Export JSON data with REAL DATA PRIORITY
+            #  ENHANCED: Export JSON data with REAL DATA PRIORITY
             json_filename = json_exporter.export_simulation_results(protocol, config, result)
             
-            logger.info(f"✅ Mercury optimized test completed - Success: {result.get('success', False)}")
+            logger.info(f"Mercury optimized test completed - Success: {result.get('success', False)}")
             
             return {
                 "success": result.get('success', False),
@@ -1652,12 +1651,12 @@ def run_actual_test(protocol: str, config: Dict) -> Dict:
                 "config_name": config['name'],
                 "result": result,
                 "json_file": json_filename,
-                "message": "✅ Mercury optimized test with Real Data Capture completed!" if result.get('success') else "❌ Mercury test failed"
-            }
+                "message": " Mercury optimized test with Real Data Capture completed!" if result.get('success') else "❌ Mercury test failed"
+            
         
         elif protocol == "chunkedkad" and CHUNKEDKAD_AVAILABLE:
-            logger.info("🔄 Starting ChunkedKad optimized test with Cascade Seeding...")
-            print("🔄 Starting ChunkedKad optimized test with Cascade Seeding...")
+            logger.info(" Starting ChunkedKad optimized test with Cascade Seeding...")
+            print(" Starting ChunkedKad optimized test with Cascade Seeding...")
             
             runner = ChunkedKadTestRunner()
             chunkedkad_config_name = f"optimized_{config['name'].replace(' ', '_').lower()}"
@@ -1665,10 +1664,10 @@ def run_actual_test(protocol: str, config: Dict) -> Dict:
             logger.info("🔧 Running ChunkedKad simulation with Cascade Seeding...")
             result = runner.run_single_chunkedkad_test(chunkedkad_config_name, config)
             
-            # ✅ ENHANCED: Export JSON data with REAL DATA PRIORITY
+            #  ENHANCED: Export JSON data with REAL DATA PRIORITY
             json_filename = json_exporter.export_simulation_results(protocol, config, result)
             
-            logger.info(f"✅ ChunkedKad optimized test completed - Success: {result.get('success', False)}")
+            logger.info(f" ChunkedKad optimized test completed - Success: {result.get('success', False)}")
             
             return {
                 "success": result.get('success', False),
@@ -1676,22 +1675,22 @@ def run_actual_test(protocol: str, config: Dict) -> Dict:
                 "config_name": config['name'],
                 "result": result,
                 "json_file": json_filename,
-                "message": "✅ ChunkedKad optimized test with Cascade Seeding completed!" if result.get('success') else "❌ ChunkedKad test failed"
+                "message": " ChunkedKad optimized test with Cascade Seeding completed!" if result.get('success') else "❌ ChunkedKad test failed"
             }
         
         else:
             error_msg = f"{protocol.upper()} test runner not available"
-            logger.error(f"❌ {error_msg}")
+            logger.error(f" {error_msg}")
             return {
                 "success": False,
                 "protocol": protocol,
                 "config_name": config['name'],
-                "message": f"❌ {error_msg}"
+                "message": f" {error_msg}"
             }
             
     except Exception as e:
         error_msg = f"Error running {protocol} test: {e}"
-        logger.error(f"❌ {error_msg}")
+        logger.error(f" {error_msg}")
         logger.exception("Full error traceback:")
         
         return {
@@ -1699,7 +1698,7 @@ def run_actual_test(protocol: str, config: Dict) -> Dict:
             "protocol": protocol,
             "config_name": config['name'],
             "error": str(e),
-            "message": f"❌ {error_msg}"
+            "message": f" {error_msg}"
         }
 
 def main():
@@ -1709,37 +1708,37 @@ def main():
     log_file = setup_unified_logging()
     logger = logging.getLogger("OptimizedUnifiedTestMain")
     
-    logger.info("🎯 Starting Optimized Unified FAIR COMPARISON Test System with ChunkedKad - MERCURY OPTIMIZED")
+    logger.info(" Starting Optimized Unified FAIR COMPARISON Test System with ChunkedKad - MERCURY OPTIMIZED")
     
     generator = OptimizedUnifiedTestConfigGenerator()
     
-    print("🎯 OPTIMIZED UNIFIED FAIR COMPARISON TEST SYSTEM WITH CHUNKEDKAD")
-    print("🐍 MERCURY OPTIMIZED: 250 node baseline for stable Mercury performance")
+    print(" OPTIMIZED UNIFIED FAIR COMPARISON TEST SYSTEM WITH CHUNKEDKAD")
+    print(" MERCURY OPTIMIZED: 250 node baseline for stable Mercury performance")
     print("=" * 80)
-    print("⚖️  TRUE FAIR COMPARISON - Only ONE parameter changes per test")
-    print("⚡ OPTIMIZED TESTING: 60-90 second tests, 2-3 blocks per test")
-    print("🚀 SPEED IMPROVEMENT: From 16 hours to 2-3 minutes per protocol!")
-    print("📋 Comprehensive JSON output for thesis visualizations")
-    print("🔧 Enhanced with detailed block and transaction tracking")
-    print("✅ REAL DATA CAPTURE - Academic integrity guaranteed")
-    print("🔄 CHUNKEDKAD INTEGRATED - Cascade seeding optimization included")
-    print("🐍 MERCURY STABILITY: 250 node baseline (was 500) for reliable Mercury testing")
+    print("  TRUE FAIR COMPARISON - Only ONE parameter changes per test")
+    print(" OPTIMIZED TESTING: 60-90 second tests, 2-3 blocks per test")
+    print(" SPEED IMPROVEMENT: From 16 hours to 2-3 minutes per protocol!")
+    print(" Comprehensive JSON output for thesis visualizations")
+    print(" Enhanced with detailed block and transaction tracking")
+    print(" REAL DATA CAPTURE - Academic integrity guaranteed")
+    print(" CHUNKEDKAD INTEGRATED - Cascade seeding optimization included")
+    print(" MERCURY STABILITY: 250 node baseline (was 500) for reliable Mercury testing")
     
     # Show availability status
-    print("\n🔍 Protocol Availability (with Real Data Capture):")
-    print(f"   Kadcast: {'✅ Available' if KADCAST_AVAILABLE else '❌ Not Available'}")
-    print(f"   Cougar: {'✅ Available' if COUGAR_AVAILABLE else '❌ Not Available'}")
-    print(f"   Mercury: {'✅ Available (250 node optimized)' if MERCURY_AVAILABLE else '❌ Not Available'}")
-    print(f"   ChunkedKad: {'✅ Available' if CHUNKEDKAD_AVAILABLE else '❌ Not Available'}")
+    print("\n Protocol Availability (with Real Data Capture):")
+    print(f"   Kadcast: {' Available' if KADCAST_AVAILABLE else ' Not Available'}")
+    print(f"   Cougar: {' Available' if COUGAR_AVAILABLE else ' Not Available'}")
+    print(f"   Mercury: {' Available (250 node optimized)' if MERCURY_AVAILABLE else ' Not Available'}")
+    print(f"   ChunkedKad: {'Available' if CHUNKEDKAD_AVAILABLE else ' Not Available'}")
     
     total_available = sum([KADCAST_AVAILABLE, COUGAR_AVAILABLE, MERCURY_AVAILABLE, CHUNKEDKAD_AVAILABLE])
-    print(f"   📊 Total Protocols: {total_available}/4 available")
+    print(f"    Total Protocols: {total_available}/4 available")
     
-    logger.info(f"📊 Protocol availability - Kadcast: {KADCAST_AVAILABLE}, Cougar: {COUGAR_AVAILABLE}, Mercury: {MERCURY_AVAILABLE}, ChunkedKad: {CHUNKEDKAD_AVAILABLE}")
+    logger.info(f" Protocol availability - Kadcast: {KADCAST_AVAILABLE}, Cougar: {COUGAR_AVAILABLE}, Mercury: {MERCURY_AVAILABLE}, ChunkedKad: {CHUNKEDKAD_AVAILABLE}")
     
     categories = generator.get_test_categories()
     
-    print("\n📋 OPTIMIZED FAIR COMPARISON TEST CATEGORIES:")
+    print("\n OPTIMIZED FAIR COMPARISON TEST CATEGORIES:")
     for i, (cat_name, cat_info) in enumerate(categories.items(), 1):
         protocol_info = ""
         if "protocol_specific" in cat_info:
@@ -1755,15 +1754,15 @@ def main():
     while True:
         choice = input("\nSelect category (number, S for samples, E for event analysis, Q to quit): ").strip().upper()
         
-        logger.info(f"🎯 User selected: {choice}")
+        logger.info(f" User selected: {choice}")
         
         if choice == 'Q':
             print("Exiting optimized fair comparison test system...")
-            logger.info("👋 User quit the system")
+            logger.info(" User quit the system")
             return
         elif choice == 'S':
-            print("\n🔍 OPTIMIZED FAIR COMPARISON SAMPLE CONFIGURATIONS:")
-            logger.info("📋 Showing optimized fair comparison sample configurations")
+            print("\n OPTIMIZED FAIR COMPARISON SAMPLE CONFIGURATIONS:")
+            logger.info(" Showing optimized fair comparison sample configurations")
             
             print("\n   Network Size Comparison (250 nodes baseline, 60s, 3 blocks):")
             protocols = ["kadcast", "cougar", "mercury"]
@@ -1784,7 +1783,7 @@ def main():
                     print(f"      Event load: {load_est['total_events']:,} ({load_est['load_status']})")
                     print(f"      Expected blocks: {expected_blocks} (OPTIMIZED!)")
                     if protocol == "mercury":
-                        print(f"      🐍 Mercury optimized: K={config.get('K', 6)}, fanout={config.get('source_fanout', 24)}")
+                        print(f"       Mercury optimized: K={config.get('K', 6)}, fanout={config.get('source_fanout', 24)}")
                     print(f"      Real Data: ENABLED (RealisticBlockGenerator)")
             
             continue
@@ -1813,8 +1812,8 @@ def main():
                     print(f"     Expected blocks: {expected_blocks}")
                     print(f"     Events: {load_est['total_events']:,} ({load_est['load_status']})")
                     print(f"     Events/sec: {load_est['events_per_second']:.1f}")
-                    print(f"     Recommended: {'✅ Yes' if load_est['recommended'] else '⚠️  May be slow'}")
-                    print(f"     Real Data: ✅ ENABLED")
+                    print(f"     Recommended: {' Yes' if load_est['recommended'] else '  May be slow'}")
+                    print(f"     Real Data: ENABLED")
             
             continue
         else:
@@ -1825,7 +1824,7 @@ def main():
                     category_name = list(categories.keys())[choice_num - 1]
                     category_info = categories[category_name]
                     
-                    logger.info(f"📋 Selected optimized category: {category_name}")
+                    logger.info(f" Selected optimized category: {category_name}")
                     
                     # Show category details
                     generator.print_category_summary(category_name)
@@ -1843,7 +1842,7 @@ def main():
                         expected_blocks = int(duration / 60 * frequency)
                         
                         print(f"   {i}. {option_info['description']}")
-                        print(f"      ⚡ Optimized: {duration}s, {expected_blocks} blocks")
+                        print(f"       Optimized: {duration}s, {expected_blocks} blocks")
                     
                     print(f"\n   A. Run ALL options for this category")
                     print(f"   C. Custom test configuration")
@@ -1853,15 +1852,15 @@ def main():
                     while True:
                         option_choice = input(f"\nSelect option for {category_name} (number, A for all, C for custom, B for back): ").strip().upper()
                         
-                        logger.info(f"🎯 User selected option: {option_choice}")
+                        logger.info(f" User selected option: {option_choice}")
                         
                         if option_choice == 'B':
-                            logger.info("👈 User went back to main menu")
+                            logger.info(" User went back to main menu")
                             break
                         elif option_choice == 'C':
-                            print(f"\n🛠️  CUSTOM OPTIMIZED TEST CONFIGURATION")
-                            print(f"📝 Creating custom test for {category_info['name']}")
-                            print(f"🐍 Mercury optimized settings available")
+                            print(f"\n  CUSTOM OPTIMIZED TEST CONFIGURATION")
+                            print(f" Creating custom test for {category_info['name']}")
+                            print(f" Mercury optimized settings available")
                             
                             # Custom test implementation
                             custom_config = create_custom_test_config(generator, category_name, category_info)
@@ -1885,8 +1884,8 @@ def main():
                                     display_test_results(test_results)
                             break
                         elif option_choice == 'A':
-                            print(f"\n🚀 Running ALL optimized options for {category_info['name']}...")
-                            logger.info(f"🚀 Running all optimized options for category: {category_name}")
+                            print(f"\n Running ALL optimized options for {category_info['name']}...")
+                            logger.info(f" Running all optimized options for category: {category_name}")
                             
                             # Determine which protocols to test
                             if "protocol_specific" in category_info:
@@ -1903,18 +1902,18 @@ def main():
                                     print(f"\n🔧 Testing {protocol.upper()} - {category_name} - {option_name}")
                                     config = generator.generate_config(protocol, category_name, option_name)
                                     print(f"   Config: {config['name']}")
-                                    print(f"   ⚙️  {config['description']}")
-                                    print(f"   ⚡ OPTIMIZED: {config['duration']}s duration")
+                                    print(f"     {config['description']}")
+                                    print(f"    OPTIMIZED: {config['duration']}s duration")
                                     
                                     expected_blocks = int(config['duration'] / 60 * config['broadcastFrequency'])
-                                    print(f"   📦 Expected blocks: {expected_blocks} (fast!)")
+                                    print(f"    Expected blocks: {expected_blocks} (fast!)")
                                     if protocol == "mercury":
-                                        print(f"   🐍 Mercury optimized: {config['nodeCount']} nodes")
-                                    print(f"   ✅ Real Data Capture: ENABLED")
+                                        print(f"    Mercury optimized: {config['nodeCount']} nodes")
+                                    print(f"    Real Data Capture: ENABLED")
                                     
                                     # Show event load estimate
                                     load_estimate = calculate_event_load_estimate(config)
-                                    print(f"   📊 Event load: {load_estimate['total_events']:,} ({load_estimate['load_status']})")
+                                    print(f"    Event load: {load_estimate['total_events']:,} ({load_estimate['load_status']})")
                                     
                                     # ACTUALLY RUN THE OPTIMIZED TEST
                                     result = run_actual_test(protocol, config)
@@ -1926,8 +1925,8 @@ def main():
                             if test_results:
                                 display_test_results(test_results)
                             else:
-                                print("\n❌ No tests were run")
-                                logger.warning("❌ No tests were executed")
+                                print("\n No tests were run")
+                                logger.warning(" No tests were executed")
                             
                             break
                         else:
@@ -1937,51 +1936,51 @@ def main():
                                     option_name = options[option_num - 1]
                                     option_info = category_info['options'][option_name]
                                     
-                                    logger.info(f"🎯 Selected option: {option_name}")
-                                    print(f"\n🎯 Selected: {option_info['description']}")
+                                    logger.info(f"Selected option: {option_name}")
+                                    print(f"\n Selected: {option_info['description']}")
                                     
                                     # Determine which protocols to test
                                     if "protocol_specific" in category_info:
                                         protocols = [category_info["protocol_specific"]]
                                         print(f"   Protocol-specific test for: {protocols[0].upper()}")
-                                        logger.info(f"📋 Protocol-specific test: {protocols[0]}")
+                                        logger.info(f" Protocol-specific test: {protocols[0]}")
                                     else:
                                         protocols = improved_protocol_selection()
                                     
                                     # Generate configs and RUN ACTUAL OPTIMIZED TESTS
-                                    print(f"\n🚀 Running {option_info['description']} with optimized settings...")
+                                    print(f"\n Running {option_info['description']} with optimized settings...")
                                     test_results = []
 
                                     for protocol in protocols:
                                         config = generator.generate_config(protocol, category_name, option_name)
                                         print(f"\n{'='*50}")
-                                        print(f"🔧 {protocol.upper()} Optimized Configuration:")
-                                        print(f"📝 {config['name']}")
-                                        print(f"⚙️  {config['description']}")
-                                        print(f"📊 Nodes: {config['nodeCount']}, Duration: {config['duration']/60:.1f} min")
+                                        print(f" {protocol.upper()} Optimized Configuration:")
+                                        print(f" {config['name']}")
+                                        print(f"  {config['description']}")
+                                        print(f" Nodes: {config['nodeCount']}, Duration: {config['duration']/60:.1f} min")
                                         
                                         expected_blocks = int(config['duration'] / 60 * config['broadcastFrequency'])
-                                        print(f"📦 Expected blocks: {expected_blocks} (OPTIMIZED!)")
+                                        print(f" Expected blocks: {expected_blocks} (OPTIMIZED!)")
                                         if protocol == "mercury":
-                                            print(f"🐍 Mercury optimized: {config['nodeCount']} nodes for stability")
-                                        print(f"✅ Real Data Capture: ENABLED")
+                                            print(f" Mercury optimized: {config['nodeCount']} nodes for stability")
+                                        print(f" Real Data Capture: ENABLED")
                                         
                                         # Show protocol-specific parameters
                                         if protocol == "kadcast":
-                                            print(f"🔧 FEC: {config['fecRatio']}, K-bucket: {config['kBucketSize']}")
-                                            print(f"⚡ Early Termination: {config['early_termination_enabled']}")
+                                            print(f" FEC: {config['fecRatio']}, K-bucket: {config['kBucketSize']}")
+                                            print(f" Early Termination: {config['early_termination_enabled']}")
                                         elif protocol == "cougar":
-                                            print(f"🔧 C: {config['closeNeighbors']}, R: {config['randomNeighbors']}, P: {config['parallelism']}")
+                                            print(f" C: {config['closeNeighbors']}, R: {config['randomNeighbors']}, P: {config['parallelism']}")
                                         elif protocol == "mercury":
-                                            print(f"🔧 K: {config['K']}, VCS rounds: {config['coordinate_rounds']}")
-                                            print(f"🐍 Mercury fanout: {config['source_fanout']} (optimized for {config['nodeCount']} nodes)")
+                                            print(f" K: {config['K']}, VCS rounds: {config['coordinate_rounds']}")
+                                            print(f" Mercury fanout: {config['source_fanout']} (optimized for {config['nodeCount']} nodes)")
                                         elif protocol == "chunkedkad":
-                                            print(f"🔧 Beta: {config['beta']}, Chunk: {config['chunkSize']//1024}KB")
-                                            print(f"🔄 Cascade Seeding: ENABLED")
+                                            print(f" Beta: {config['beta']}, Chunk: {config['chunkSize']//1024}KB")
+                                            print(f" Cascade Seeding: ENABLED")
                                         
                                         # Show event load estimate
                                         load_estimate = calculate_event_load_estimate(config)
-                                        print(f"📊 Event load: {load_estimate['total_events']:,} ({load_estimate['load_status']})")
+                                        print(f" Event load: {load_estimate['total_events']:,} ({load_estimate['load_status']})")
                                         
                                         # ACTUALLY RUN THE OPTIMIZED TEST
                                         result = run_actual_test(protocol, config)
@@ -1993,8 +1992,8 @@ def main():
                                     if test_results:
                                         display_test_results(test_results)
                                     else:
-                                        print("\n❌ No tests were run")
-                                        logger.warning("❌ No tests were executed")
+                                        print("\n No tests were run")
+                                        logger.warning(" No tests were executed")
                                     
                                     break
                                 else:
@@ -2012,32 +2011,32 @@ if __name__ == "__main__":
     main()
 
 """
-🎯 KEY OPTIMIZATIONS IN THIS MERCURY-OPTIMIZED VERSION:
+ KEY OPTIMIZATIONS IN THIS MERCURY-OPTIMIZED VERSION:
 
-1. 🐍 MERCURY PERFORMANCE OPTIMIZATION
+1.  MERCURY PERFORMANCE OPTIMIZATION
    - Baseline changed from 500 to 250 nodes for Mercury stability
    - Mercury K parameter optimized: K=6 for 250 nodes (42 nodes per cluster)
    - Coordinate rounds reduced: 20 instead of 30 for faster convergence
    - Source fanout reduced: 24 instead of 32 for 250 node networks
    - Measurements per round reduced: 6 instead of 8 for speed
 
-2. ⚡ MAINTAINED OPTIMIZATION FEATURES
+2.  MAINTAINED OPTIMIZATION FEATURES
    - Duration: 60-90 seconds instead of 3+ minutes
    - Blocks: 2-3 blocks instead of 30-40 blocks
    - Speed improvement: 99%+ reduction in test time
 
-3. 🔄 CHUNKEDKAD INTEGRATION (unchanged)
+3.  CHUNKEDKAD INTEGRATION (unchanged)
    - Full ChunkedKad protocol support
    - Cascade seeding optimization tracking
    - Protocol-specific configurations
    - Beta clustering parameter testing
 
-4. 📊 MERCURY-AWARE EVENT LOAD CALCULATION
+4.  MERCURY-AWARE EVENT LOAD CALCULATION
    - Adjusted thresholds for 250 node baseline
    - Mercury-specific load estimates
    - Better recommendations for Mercury stability
 
-5. 🎯 FAIR COMPARISON MAINTAINED
+5.  FAIR COMPARISON MAINTAINED
    - Same optimization principles
    - One parameter changes per test
    - Identical baseline conditions except node count
