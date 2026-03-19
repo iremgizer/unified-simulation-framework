@@ -147,7 +147,7 @@ class CougarTCPModel:
     def __init__(self, geo_provider=None):
         self.initial_window_size = 536 * 4  # 4 MSS segments (2144 bytes)
         self.mss = 536  # Maximum Segment Size
-        self.geo_provider = geo_provider  # ✅ GeoDataProvider reference
+        self.geo_provider = geo_provider 
     
     def calculate_transfer_rtts(self, data_size_bytes: int) -> float:
         """
@@ -185,7 +185,7 @@ class CougarTCPModel:
     def get_real_rtt(self, city1: str, city2: str) -> float:
         """Get real RTT between cities using GeoDataProvider."""
         if self.geo_provider:
-            return self.geo_provider.get_rtt(city1, city2)  # ✅ Gerçek RTT verisi
+            return self.geo_provider.get_rtt(city1, city2) 
         else:
             return 100.0  # Fallback
     
@@ -212,7 +212,7 @@ class CougarTCPModel:
     
     def get_timeout_duration_with_cities(self, body_size: int, sender_city: str, receiver_city: str) -> float:
         """Calculate timeout using real RTT data between cities."""
-        real_rtt_ms = self.get_real_rtt(sender_city, receiver_city)  # ✅ Gerçek RTT
+        real_rtt_ms = self.get_real_rtt(sender_city, receiver_city) 
         body_transfer_time = self.get_body_transfer_time(body_size, real_rtt_ms)
         return 2.0 * body_transfer_time
     
@@ -223,7 +223,7 @@ class CougarTCPModel:
         body_transfer_time= real_rtt_ms * rtts_needed
         timeout = 2.0 * body_transfer_time
 
-            # ✅ FULL DEBUG:
+    
         print(f"TIMEOUT DEBUG:")
         print(f"  body_size: {body_size}")
         print(f"  real_rtt_ms: {real_rtt_ms}")
