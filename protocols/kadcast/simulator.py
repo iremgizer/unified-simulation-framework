@@ -1394,5 +1394,5 @@ class KadcastSimulator:
         # Sort by block_id
         exported_blocks.sort(key=lambda x: x['block_id'])
         
-        logger.info(f"📊 Exported {len(exported_blocks)} blocks with REAL RealisticBlockGenerator content")
+        logger.info(f"Exported {len(exported_blocks)} blocks with REAL RealisticBlockGenerator content")
         return exported_blocks        
