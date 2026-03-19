@@ -220,7 +220,7 @@ class MercuryNode:
         self.my_cluster_id = cluster_id
         self.cluster_peers = cluster_peer_ids
         
-        # ✅ NEW: Report cluster assignment to simulation metrics
+        # Report cluster assignment to simulation metrics
         if self.simulation and hasattr(self.simulation, 'metrics_collector'):
             close_neighbors = min(self.config.dcluster, len(cluster_peer_ids))
             random_neighbors = self.config.dmax - close_neighbors
@@ -762,11 +762,11 @@ class MercuryNode:
             else:
                 logger.debug(f"Node {self.node_index}: Not relaying own block {block_id}")
             
-            logger.info(f"✅ Node {self.node_index}: Completed Mercury block {block_id} "
+            logger.info(f"Node {self.node_index}: Completed Mercury block {block_id} "
                        f"({len(reconstructed_data)} bytes, {expected_chunks} chunks)")
             
         except Exception as e:
-            logger.error(f"❌ Node {self.node_index}: Mercury block {block_id} completion failed: {e}")
+            logger.error(f" Node {self.node_index}: Mercury block {block_id} completion failed: {e}")
             # Don't mark as completed if reconstruction failed
             if block_id in self.completed_blocks:
                 self.completed_blocks.remove(block_id)
@@ -825,7 +825,7 @@ class MercuryNode:
             logger.debug(f"Node {self.node_index}: Relayed block {block_id} digest to {relayed_count} peers")
             
         except Exception as e:
-            logger.error(f"❌ Node {self.node_index}: Error relaying block {block_id}: {e}")
+            logger.error(f" Node {self.node_index}: Error relaying block {block_id}: {e}")
     
     # ===============================================================
     # MESSAGING AND UTILITIES
@@ -869,7 +869,7 @@ class MercuryNode:
             return True  # No hash to verify against
             
         except Exception as e:
-            logger.error(f"❌ Node {self.node_index}: Error verifying block {block_id}: {e}")
+            logger.error(f" Node {self.node_index}: Error verifying block {block_id}: {e}")
             return False
     
     def get_block_completion_progress(self, block_id: int) -> float:
