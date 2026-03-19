@@ -200,7 +200,7 @@ class CougarNode:
                        transactions: List[Dict[str, Any]]):
         """FIXED: Start broadcasting with immediate source completion."""
         
-        logger.error(f"🟢 BROADCAST_NEW_BLOCK: Node {self.node_index} starting for {block_hash[:8]}")
+        logger.error(f"BROADCAST_NEW_BLOCK: Node {self.node_index} starting for {block_hash[:8]}")
         
         if block_hash in self.processed_blocks:
             return  # Already processed this block
@@ -209,9 +209,8 @@ class CougarNode:
         self.received_blocks[block_hash] = (header_data, transactions)
         self.received_headers[block_hash] = header_data
         self.processed_blocks.add(block_hash)
-        self.blocks_received += 1  # ✅ INCREMENT COUNTER
+        self.blocks_received += 1 
         
-        # ✅ CRITICAL: Source node callback immediately
         self._trigger_block_completion_callback(block_hash, header_data, transactions)
         
         # Push header to all neighbors
@@ -253,25 +252,25 @@ class CougarNode:
         block_hash = header_msg.block_hash
         sender_id = header_msg.sender_id
         
-        # ✅ FIX: If this is a source node receiving its own header, mark as completed
+    
         if sender_id == self.node_id:
-            logger.error(f"🎯 SOURCE NODE: Node {self.node_index} processing own block {block_hash[:8]}")
+            logger.error(f"SOURCE NODE: Node {self.node_index} processing own block {block_hash[:8]}")
             # Source node has the complete block immediately
             if block_hash not in self.processed_blocks:
                 self.processed_blocks.add(block_hash)
                 self.blocks_received += 1
-                # ✅ TRIGGER CALLBACK FOR SOURCE NODE
+              
                 self._trigger_block_completion_callback(block_hash, header_msg.header_data, [])
             return
         
-        # ✅ Skip if already have complete block
+       
         if block_hash in self.received_blocks:
             return
         
         # Store header and track sources
         if block_hash not in self.received_headers:
             self.received_headers[block_hash] = header_msg.header_data
-            self.headers_received += 1  # ✅ INCREMENT COUNTER
+            self.headers_received += 1  
         
         # Track header sources for P parameter
         if block_hash not in self.received_headers_sources:
@@ -280,10 +279,10 @@ class CougarNode:
         if sender_id not in self.received_headers_sources[block_hash]:
             self.received_headers_sources[block_hash].append(sender_id)
         
-        # ✅ Forward header to neighbors
+        
         self._push_header_to_neighbors(block_hash, header_msg.header_data)
         
-        # ✅ Request body from sources
+       
         self._request_body_from_multiple_peers(block_hash)
     
     def _process_validated_header(self, block_hash: str):
@@ -389,9 +388,9 @@ class CougarNode:
         requester_id = body_request.sender_id
         
 
-        logger.error(f"🔵 BODY REQUEST: Node {self.node_index} got request for {block_hash[:8]} from {requester_id[:8]}")
-        logger.error(f"🔵 Current received_blocks: {len(self.received_blocks)} blocks")
-        logger.error(f"🔵 Block {block_hash[:8]} in received_blocks: {block_hash in self.received_blocks}")
+        logger.error(f" BODY REQUEST: Node {self.node_index} got request for {block_hash[:8]} from {requester_id[:8]}")
+        logger.error(f" Current received_blocks: {len(self.received_blocks)} blocks")
+        logger.error(f" Block {block_hash[:8]} in received_blocks: {block_hash in self.received_blocks}")
     
         # Check if we have the complete block
         if block_hash not in self.received_blocks:
@@ -431,10 +430,10 @@ class CougarNode:
         """FIXED: Ensure proper completion callback after block reception."""
         block_hash = body_response.block_hash
         
-        logger.error(f"🟢 BODY RESPONSE RECEIVED: Node {self.node_index} got response for {block_hash[:8]}")
+        logger.error(f" BODY RESPONSE RECEIVED: Node {self.node_index} got response for {block_hash[:8]}")
         
         if block_hash in self.processed_blocks:
-            logger.error(f"🔴 ALREADY PROCESSED: {block_hash[:8]}")
+            logger.error(f" ALREADY PROCESSED: {block_hash[:8]}")
             return
         
         # Cancel other pending requests
@@ -444,9 +443,9 @@ class CougarNode:
         header_data = self.received_headers[block_hash]
         self.received_blocks[block_hash] = (header_data, body_response.transactions)
         self.processed_blocks.add(block_hash)
-        self.blocks_received += 1  # ✅ INCREMENT COUNTER
+        self.blocks_received += 1  
         
-        # ✅ CRITICAL FIX: Call completion callback immediately
+        
         self._trigger_block_completion_callback(block_hash, header_data, body_response.transactions)
         
         # Forward header to remaining neighbors
@@ -457,10 +456,10 @@ class CougarNode:
         """FIXED: Ensure proper completion callback after block reception."""
         block_hash = body_response.block_hash
         
-        logger.error(f"🟢 BODY RESPONSE RECEIVED: Node {self.node_index} got response for {block_hash[:8]}")
+        logger.error(f" BODY RESPONSE RECEIVED: Node {self.node_index} got response for {block_hash[:8]}")
         
         if block_hash in self.processed_blocks:
-            logger.error(f"🔴 ALREADY PROCESSED: {block_hash[:8]}")
+            logger.error(f" ALREADY PROCESSED: {block_hash[:8]}")
             return
         
         # Cancel other pending requests
@@ -470,9 +469,8 @@ class CougarNode:
         header_data = self.received_headers[block_hash]
         self.received_blocks[block_hash] = (header_data, body_response.transactions)
         self.processed_blocks.add(block_hash)
-        self.blocks_received += 1  # ✅ INCREMENT COUNTER
-        
-        # ✅ CRITICAL FIX: Call completion callback immediately
+        self.blocks_received += 1 
+       
         self._trigger_block_completion_callback(block_hash, header_data, body_response.transactions)
         
         # Forward header to remaining neighbors
@@ -499,10 +497,10 @@ class CougarNode:
 
     def _trigger_block_completion_callback(self, block_hash: str, header_data: Dict[str, Any], 
                              transactions: List[Dict[str, Any]]):
-        """✅ ENHANCED: Trigger block completion callback with proper simulator integration."""
+      
         try:
             if self.simulation and hasattr(self.simulation, 'on_block_completed'):
-                # ✅ IMPROVED: Better block_id extraction with simulator help
+              
                 block_id = None
                 
                 # Method 1: Ask simulator to resolve hash to ID
@@ -522,23 +520,23 @@ class CougarNode:
                 
                 current_time = self.simulation.event_queue.current_time
                 
-                logger.error(f"🔥 TRIGGERING CALLBACK: Node {self.node_index}, Block {block_id} (hash: {block_hash[:8]})")
+                logger.error(f" TRIGGERING CALLBACK: Node {self.node_index}, Block {block_id} (hash: {block_hash[:8]})")
                 
-                # ✅ CRITICAL: Update simulator's block_metrics immediately for coverage calculation
+               
                 if hasattr(self.simulation, 'block_metrics') and block_id in self.simulation.block_metrics:
                     if self.node_index not in self.simulation.block_metrics[block_id]["completion_times"]:
                         self.simulation.block_metrics[block_id]["completion_times"][self.node_index] = current_time
                         self.simulation.block_metrics[block_id]["nodes_completed"] += 1
                         
-                        logger.error(f"✅ BLOCK METRICS UPDATED: Block {block_id} now has {self.simulation.block_metrics[block_id]['nodes_completed']} completions")
+                        logger.error(f" BLOCK METRICS UPDATED: Block {block_id} now has {self.simulation.block_metrics[block_id]['nodes_completed']} completions")
                 
                 # Call the callback with resolved block_id
                 self.simulation.on_block_completed(self.node_index, block_id, current_time)
                 
-                logger.error(f"✅ CALLBACK COMPLETED: Node {self.node_index}, Block {block_id}")
+                logger.error(f" CALLBACK COMPLETED: Node {self.node_index}, Block {block_id}")
                 
         except Exception as e:
-            logger.error(f"❌ Error in completion callback: {e}")
+            logger.error(f" Error in completion callback: {e}")
 
 
     def _process_validated_body(self, block_hash: str, header_data: Dict[str, Any], 
@@ -652,12 +650,12 @@ class CougarNode:
         """Handle body request timeout event (called from simulator)."""
         # Report timeout metrics
 
-         # ✅ FIX: Eğer block zaten complete ise timeout'u ignore et
+        
         if block_hash in self.processed_blocks:
             logger.debug(f"Node {self.node_index} ignoring timeout for {block_hash[:8]} - already completed")
             return
     
-    # ✅ FIX: Eğer block zaten received_blocks'ta ise ignore et  
+   
         if block_hash in self.received_blocks:
             logger.debug(f"Node {self.node_index} ignoring timeout for {block_hash[:8]} - already have block")
             return
