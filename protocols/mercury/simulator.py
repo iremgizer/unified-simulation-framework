@@ -2,15 +2,14 @@
 # MERCURY COMPLETE IMPLEMENTATION - KADCAST STYLE
 # ===============================================================
 
-# 🚀 SIMULATOR.PY - COMPLETE KADCAST-STYLE IMPLEMENTATION
+#  SIMULATOR.PY - COMPLETE KADCAST-STYLE IMPLEMENTATION
 """
 Mercury Protocol Simulator - COMPLETE KADCAST-STYLE IMPLEMENTATION
 
 Clean implementation following Kadcast's architectural pattern exactly.
 Key Flow: run_simulation() → initialize_network() → start_broadcasting()
 
-✅ FIXED VERSION: Coverage tracking, time consistency, metrics pipeline
-"""
+
 
 import logging
 import random
@@ -47,7 +46,7 @@ logger = logging.getLogger("MercurySimulator")
 class MercurySimulator:
     """
     Mercury protocol simulator - EXACT KADCAST STYLE IMPLEMENTATION
-    ✅ FIXED: Coverage tracking, time consistency, metrics pipeline
+   
     """
     
     def __init__(self, config: Dict[str, Any]):
@@ -94,11 +93,11 @@ class MercurySimulator:
         self.running = False
         self.phase = "initialization"
         
-        # ✅ VCS convergence tracking (replaces peer_discovery_flags)
+        #  VCS convergence tracking (replaces peer_discovery_flags)
         self.vcs_convergence_flags: Dict[int, bool] = {}
         self.vcs_convergence_complete = False
         
-        # ✅ Centralized clustering results  
+        #  Centralized clustering results  
         self.cluster_assignments: Dict[int, int] = {}  # node_index -> cluster_id
         self.cluster_peers: Dict[int, List[str]] = {}  # cluster_id -> [node_ids]
         
@@ -116,7 +115,7 @@ class MercurySimulator:
         self.clustering_metrics = {}
         self.simulation_callbacks = []
         
-        # ✅ FIXED: Mercury Coverage Tracking
+     
         self.block_completions_by_block = {}  # block_id -> {node_index: completion_time}
         self.coverage_snapshots = {}  # block_id -> [(time, coverage_percentage)]
         self.block_metrics = {}  # Store block metadata for processing delays
@@ -166,7 +165,7 @@ class MercurySimulator:
         
         return config
 
-    # ✅ EXACT KADCAST STYLE MAIN FLOW
+    
     def run_simulation(self) -> bool:
         """Run the complete Mercury simulation (centralized approach) - EXACT KADCAST STYLE."""
         try:
@@ -190,7 +189,7 @@ class MercurySimulator:
 
             self.engine.run(max_time=total_simulation_time)
 
-            logger.info("✅ Mercury simulation completed successfully")
+            logger.info(" Mercury simulation completed successfully")
             return True
 
         except Exception as e:
@@ -200,12 +199,12 @@ class MercurySimulator:
         finally:
             self.running = False
 
-    # ✅ EXACT KADCAST STYLE NETWORK INITIALIZATION
+  
     def initialize_network(self) -> bool:
         """Initialize network - EXACT KADCAST STYLE but with Mercury features."""
         try:
             self.phase = "network_initialization"
-            logger.info("🔄 Initializing Mercury network...")
+            logger.info(" Initializing Mercury network...")
 
             # Assign performance types to nodes (same as Kadcast)
             self.node_performance_assignments = self._assign_node_performances()
@@ -243,7 +242,7 @@ class MercurySimulator:
                 # Get performance type for this node
                 performance_type = self.node_performance_assignments.get(node_index, "average_performance")
 
-                # ✅ CREATE MERCURY NODE (instead of KadcastNode)
+                #  CREATE MERCURY NODE (instead of KadcastNode)
                 node = MercuryNode(
                     node_index=node_index,
                     node_id=node_id,
@@ -257,7 +256,7 @@ class MercurySimulator:
                 self.nodes[node_index] = node
                 self.nodes_by_id[node_id] = node
 
-                # ✅ Initialize VCS convergence flag (replaces bootstrap logic)
+                # Initialize VCS convergence flag (replaces bootstrap logic)
                 self.vcs_convergence_flags[node_index] = False
 
                 # Debug log (first 10 nodes)
@@ -265,8 +264,8 @@ class MercurySimulator:
                     logger.debug(f"Mercury Node {node_index}: ID={node_id}, City={assignment['city']}, "
                                f"Performance={performance_type}")
 
-            # ✅ CENTRALIZED APPROACH: Give all nodes complete network knowledge (same as Kadcast)
-            logger.info("🎯 CENTRALIZED APPROACH: Giving all nodes complete network knowledge...")
+            #  CENTRALIZED APPROACH: Give all nodes complete network knowledge (same as Kadcast)
+            logger.info(" CENTRALIZED APPROACH: Giving all nodes complete network knowledge...")
             for node_index, node in self.nodes.items():
                 # Give each node all other node IDs
                 other_node_ids = [nid for nid in all_node_ids if nid != node.node_id]
@@ -275,10 +274,10 @@ class MercurySimulator:
             # Setup network connections
             self._setup_network_connections()
 
-            # ✅ START VCS CONVERGENCE + CLUSTERING (Mercury-specific)
+            #  START VCS CONVERGENCE + CLUSTERING (Mercury-specific)
             self._start_vcs_convergence_and_clustering()
 
-            # ✅ Send network initialization update (same structure as Kadcast)
+            #  Send network initialization update (same structure as Kadcast)
             self._send_update("network_initialized", {
                 "nodeCount": self.node_count,
                 "geoDistribution": node_assignments,
@@ -300,11 +299,11 @@ class MercurySimulator:
                 }
             })
 
-            logger.info(f"✅ Mercury network initialized with {self.node_count} nodes")
+            logger.info(f" Mercury network initialized with {self.node_count} nodes")
             return True
 
         except Exception as e:
-            logger.error(f"❌ Failed to initialize Mercury network: {e}")
+            logger.error(f" Failed to initialize Mercury network: {e}")
             return False
 
     def _assign_node_performances(self) -> Dict[int, str]:
@@ -332,16 +331,16 @@ class MercurySimulator:
                         )
                         node_i.set_peer_rtt(node_j.node_id, rtt)
             
-            logger.info("✅ Network connections and RTT matrix established")
+            logger.info("Network connections and RTT matrix established")
             
         except Exception as e:
-            logger.error(f"❌ Failed to setup network connections: {e}")
+            logger.error(f" Failed to setup network connections: {e}")
 
-    # ✅ MERCURY-SPECIFIC: VCS CONVERGENCE + CLUSTERING
+    #  MERCURY-SPECIFIC: VCS CONVERGENCE + CLUSTERING
     def _start_vcs_convergence_and_clustering(self):
         """Start VCS convergence and schedule clustering after completion."""
         try:
-            logger.info("🌐 Starting VCS convergence phase...")
+            logger.info(" Starting VCS convergence phase...")
             self.phase = "vcs_convergence"
             
             # Schedule VCS convergence rounds
@@ -365,12 +364,12 @@ class MercurySimulator:
                 data={"action": "perform_centralized_clustering"}
             )
             
-            logger.info(f"📅 Scheduled {self.mercury_config.coordinate_rounds} VCS rounds + clustering")
+            logger.info(f" Scheduled {self.mercury_config.coordinate_rounds} VCS rounds + clustering")
             
         except Exception as e:
-            logger.error(f"❌ Failed to start VCS convergence: {e}")
+            logger.error(f" Failed to start VCS convergence: {e}")
 
-    # ✅ EXACT KADCAST STYLE BROADCASTING START
+    #  EXACT KADCAST STYLE BROADCASTING START
     def start_broadcasting(self) -> bool:
         """Start Mercury block broadcasting phase - EXACT KADCAST STYLE."""
         try:
@@ -382,13 +381,13 @@ class MercurySimulator:
             total_blocks = int((duration / 60.0) * self.broadcast_frequency)
             block_interval = duration / total_blocks if total_blocks > 0 else 60.0
             
-            logger.info(f"📊 Mercury broadcasting configuration:")
+            logger.info(f" Mercury broadcasting configuration:")
             logger.info(f"   - Duration: {duration}s")
             logger.info(f"   - Frequency: {self.broadcast_frequency} blocks/minute")
             logger.info(f"   - Total blocks: {total_blocks}")
             logger.info(f"   - Block interval: {block_interval:.2f}s")
             
-            # ✅ Schedule Mercury block generation events (same pattern as Kadcast)
+            #  Schedule Mercury block generation events (same pattern as Kadcast)
             current_time = 1.0  # Start after 1 second
             for block_id in range(total_blocks):
                 # Select random source node
@@ -429,14 +428,14 @@ class MercurySimulator:
                 "phase": "broadcasting"
             })
 
-            logger.info(f"📅 Scheduled {total_blocks} Mercury block broadcasts")
+            logger.info(f" Scheduled {total_blocks} Mercury block broadcasts")
             return True
             
         except Exception as e:
-            logger.error(f"❌ Mercury broadcasting start failed: {e}")
+            logger.error(f" Mercury broadcasting start failed: {e}")
             return False
 
-    # ✅ REGISTER EVENT HANDLERS
+    #  REGISTER EVENT HANDLERS
     def _register_event_handlers(self):
         """Register event handlers with the simulation engine - Mercury-specific."""
         try:
@@ -452,10 +451,10 @@ class MercurySimulator:
             # Simulation control events
             self.engine.register_handler(EventType.TIMEOUT, self._handle_timeout_event)
             
-            logger.info("✅ Mercury event handlers registered")
+            logger.info(" Mercury event handlers registered")
             
         except Exception as e:
-            logger.error(f"❌ Failed to register event handlers: {e}")
+            logger.error(f" Failed to register event handlers: {e}")
 
     def _handle_message_received_event(self, event: Event):
         """Handle Mercury message reception with processing delays."""
@@ -525,7 +524,7 @@ class MercurySimulator:
                 logger.warning(f"Unknown Mercury message type: {type(message).__name__}")
                 
         except Exception as e:
-            logger.error(f"❌ Error handling Mercury message: {e}")
+            logger.error(f"Error handling Mercury message: {e}")
 
     def _handle_vcs_convergence_event(self, event: Event):
         """Handle VCS convergence round."""
@@ -533,7 +532,7 @@ class MercurySimulator:
             round_number = event.data.get("round_number")
             total_rounds = event.data.get("total_rounds")
             
-            logger.debug(f"🌐 VCS convergence round {round_number + 1}/{total_rounds}")
+            logger.debug(f"VCS convergence round {round_number + 1}/{total_rounds}")
             
             # Each node performs Vivaldi updates
             for node_index, node in self.nodes.items():
@@ -559,7 +558,7 @@ class MercurySimulator:
             
             # Check if this is the last round
             if round_number == total_rounds - 1:
-                logger.info("✅ VCS convergence rounds completed")
+                logger.info("VCS convergence rounds completed")
                 
                 # Mark convergence flags
                 for node_index, node in self.nodes.items():
@@ -570,7 +569,7 @@ class MercurySimulator:
                 self.vcs_convergence_complete = True
                 
         except Exception as e:
-            logger.error(f"❌ Error in VCS convergence: {e}")
+            logger.error(f" Error in VCS convergence: {e}")
 
     def _handle_clustering_event(self, event: Event):
         """Handle centralized clustering."""
@@ -578,7 +577,7 @@ class MercurySimulator:
             action = event.data.get("action")
             
             if action == "perform_centralized_clustering":
-                logger.info("📊 Performing centralized K-means clustering...")
+                logger.info(" Performing centralized K-means clustering...")
                 
                 # Collect stable node coordinates
                 stable_coordinates = []
@@ -650,10 +649,10 @@ class MercurySimulator:
                     "total_nodes": self.node_count
                 }
                 
-                logger.info(f"✅ Clustering completed: {effective_K} clusters, sizes: {cluster_sizes}")
+                logger.info(f" Clustering completed: {effective_K} clusters, sizes: {cluster_sizes}")
                 
         except Exception as e:
-            logger.error(f"❌ Error in clustering: {e}")
+            logger.error(f" Error in clustering: {e}")
 
     def _handle_digest_event(self, event: Event):
         """Handle Mercury block digest processing."""
@@ -673,10 +672,10 @@ class MercurySimulator:
                            len(chunk_request.chunk_ids), message.sender_id,
                            self.event_queue.current_time
                        )
-                        logger.debug(f"📥 Node {receiver_node.node_index}: Requested chunks for block {message.block_id}")
+                        logger.debug(f" Node {receiver_node.node_index}: Requested chunks for block {message.block_id}")
                         
         except Exception as e:
-            logger.error(f"❌ Error processing digest: {e}")
+            logger.error(f" Error processing digest: {e}")
 
     def _handle_chunk_response_event(self, event: Event):
         """Handle Mercury chunk response processing."""
@@ -701,7 +700,7 @@ class MercurySimulator:
                     receiver_node.handle_chunk_response(message)
                     
         except Exception as e:
-            logger.error(f"❌ Error processing chunk: {e}")
+            logger.error(f" Error processing chunk: {e}")
 
     def _handle_timeout_event(self, event: Event):
         """Handle timeout events."""
@@ -709,12 +708,12 @@ class MercurySimulator:
             timeout_type = event.data.get("timeout_type")
             
             if timeout_type == "broadcasting_complete":
-                logger.info("⏰ Broadcasting timeout reached")
+                logger.info(" Broadcasting timeout reached")
                 
         except Exception as e:
-            logger.error(f"❌ Error handling timeout: {e}")
+            logger.error(f" Error handling timeout: {e}")
 
-    # ✅ MESSAGING SYSTEM
+    # MESSAGING SYSTEM
     def send_message(self, sender_id: str, receiver_id: str, message):
         """Send message with transmission delays - SAME AS KADCAST."""
         try:
@@ -762,13 +761,13 @@ class MercurySimulator:
               self.event_queue.current_time                  # current_time
             )
         except Exception as e:
-            logger.error(f"❌ Error sending Mercury message: {e}")
+            logger.error(f" Error sending Mercury message: {e}")
 
     def _get_node_by_id(self, node_id: str) -> Optional[MercuryNode]:
         """Get node by ID."""
         return self.nodes_by_id.get(node_id)
 
-    # ✅ FIXED: COVERAGE TRACKING METHODS
+ 
     def calculate_current_coverage(self, block_id: int) -> float:
         """
         Calculate current coverage percentage for a block.
@@ -829,7 +828,7 @@ class MercurySimulator:
             "coverage_distribution": coverage_percentages
         }
 
-    # ✅ FIXED: BLOCK COMPLETION CALLBACK WITH COVERAGE TRACKING
+    
     # ===============================================================
 # MERCURY SIMULATOR.PY - LATENCY CALCULATION FIX
 # ===============================================================
@@ -845,15 +844,15 @@ class MercurySimulator:
         """
         try:
             # Log the completion
-            logger.debug(f"📦 Mercury Block {block_id} completed on Node {node_index} at {completion_time:.3f}s")
+            logger.debug(f" Mercury Block {block_id} completed on Node {node_index} at {completion_time:.3f}s")
             
-            # ✅ FIXED: Track completions by block (for coverage calculation)
+           
             if block_id not in self.block_completions_by_block:
                 self.block_completions_by_block[block_id] = {}
             
             self.block_completions_by_block[block_id][node_index] = completion_time
             
-            # ✅ NEW: STORE COMPLETION TIMES IN BLOCK METRICS FOR LATENCY CALCULATION
+         
             if block_id not in self.block_metrics:
                 # Initialize if missing
                 self.block_metrics[block_id] = {
@@ -869,10 +868,10 @@ class MercurySimulator:
             # Store completion time for this node
             self.block_metrics[block_id]['completion_times'][node_index] = completion_time
             
-            # ✅ FIXED: Calculate current coverage
+            
             current_coverage = self.calculate_current_coverage(block_id)
             
-            # ✅ FIXED: Store coverage snapshot
+       
             if block_id not in self.coverage_snapshots:
                 self.coverage_snapshots[block_id] = []
             self.coverage_snapshots[block_id].append((completion_time, current_coverage))
@@ -883,7 +882,7 @@ class MercurySimulator:
             # [Processing delays and event scheduling code here]
             
         except Exception as e:
-            logger.error(f"❌ Error in Mercury block completion callback: {e}")
+            logger.error(f"Error in Mercury block completion callback: {e}")
 
     def _handle_block_generate_event(self, event: Event):
         """Handle Mercury block generation with chunking and Real Block Data Capture - LATENCY FIX."""
@@ -893,35 +892,35 @@ class MercurySimulator:
             block_id = event.data.get("block_id", 0)
             block_size = event.data.get("block_size", self.block_size)
         
-            logger.info(f"🌟 Generating Mercury block {block_id} from node {source_node_index}")
+            logger.info(f" Generating Mercury block {block_id} from node {source_node_index}")
             
             # ... [Block generation code] ...
             
-            # ✅ FIX: Store block metrics with proper completion_times structure
+            #  Store block metrics with proper completion_times structure
             current_time = self.event_queue.current_time
             self.block_metrics[block_id] = {
                 'transactions': transactions,
                 'block_size': actual_size,
                 'total_chunks': len(chunks),
-                'generation_time': current_time,  # ✅ CRITICAL FOR LATENCY
+                'generation_time': current_time,  
                 'source_node': source_node_index,
-                'completion_times': {}  # ✅ ESSENTIAL FOR LATENCY CALCULATION
+                'completion_times': {}  
             }
             
-            # ✅ CRITICAL FIX: Source node completion should be recorded in metrics too
+            #  CRITICAL FIX: Source node completion should be recorded in metrics too
             self.block_metrics[block_id]['completion_times'][source_node_index] = current_time
             
-            logger.info(f"🧱 Mercury block {block_id}: {actual_size} bytes → {len(chunks)} chunks (NO FEC)")
+            logger.info(f" Mercury block {block_id}: {actual_size} bytes → {len(chunks)} chunks (NO FEC)")
             
             # Rest of method...
             
         except Exception as e:
-            logger.error(f"❌ Error in Mercury block generation: {e}")
+            logger.error(f"Error in Mercury block generation: {e}")
             import traceback
             logger.error(f"Traceback: {traceback.format_exc()}")
 
 
-    # ✅ MERCURY_BLOCK_COMPLETE event handler
+    # MERCURY_BLOCK_COMPLETE event handler
     def _handle_mercury_block_complete_event(self, event: Event):
         """Handle Mercury block completion after processing delays."""
         try:
@@ -929,7 +928,7 @@ class MercurySimulator:
             block_id = event.data.get("block_id")
             final_completion_time = event.data.get("completion_time")
         
-            logger.info(f"🌟 Mercury Block {block_id} FULLY PROCESSED on Node {node_index} at {final_completion_time:.3f}s")
+            logger.info(f" Mercury Block {block_id} FULLY PROCESSED on Node {node_index} at {final_completion_time:.3f}s")
         
             # Update metrics with final completion
             if hasattr(self, 'metrics_collector'):
@@ -944,7 +943,7 @@ class MercurySimulator:
             })
         
         except Exception as e:
-            logger.error(f"❌ Error handling Mercury block complete event: {e}")
+            logger.error(f" Error handling Mercury block complete event: {e}")
 
     def _handle_block_generate_event(self, event: Event):
         """Handle Mercury block generation with chunking and Real Block Data Capture."""
@@ -954,7 +953,7 @@ class MercurySimulator:
             block_id = event.data.get("block_id", 0)
             block_size = event.data.get("block_size", self.block_size)
         
-            logger.info(f"🌟 Generating Mercury block {block_id} from node {source_node_index}")
+            logger.info(f" Generating Mercury block {block_id} from node {source_node_index}")
         
             # Initialize variables with default values
             actual_size = block_size  # Default fallback
@@ -975,7 +974,6 @@ class MercurySimulator:
                 block_data = self.block_generator.serialize_block(header_data, transactions)
                 actual_size = len(block_data)
                 
-                # ✅ NEW: REAL BLOCK DATA CAPTURE (Mercury pattern)
                 import hashlib
                 block_hash = hashlib.sha256(block_data).hexdigest()
                 
@@ -989,10 +987,10 @@ class MercurySimulator:
                     'protocol': 'mercury'
                 }
                 
-                logger.info(f"✅ MERCURY REAL BLOCK DATA CAPTURED for block {block_id} - {len(transactions)} transactions")
+                logger.info(f"MERCURY REAL BLOCK DATA CAPTURED for block {block_id} - {len(transactions)} transactions")
             
             except Exception as e:
-                logger.error(f"❌ Error generating block data for Mercury block {block_id}: {e}")
+                logger.error(f" Error generating block data for Mercury block {block_id}: {e}")
                 # Use fallback values
                 block_data = f"fallback_block_{block_id}".encode('utf-8') * (block_size // 20)
                 actual_size = len(block_data)
@@ -1000,7 +998,7 @@ class MercurySimulator:
                 header_data = {"fallback": True}
                 logger.warning(f"Using fallback data for Mercury block {block_id}: {actual_size} bytes")
         
-            # ✅ 3. MERCURY CHUNKING (NO FEC) - SIMULATOR DOES THIS
+            #  3. MERCURY CHUNKING (NO FEC) - SIMULATOR DOES THIS
             try:
                 from data.realistic_payload import RealisticChunkGenerator
                 chunks = RealisticChunkGenerator.chunkify_block_mercury(
@@ -1009,7 +1007,7 @@ class MercurySimulator:
                     block_id=block_id
                 )
             except Exception as e:
-                logger.error(f"❌ Error chunking Mercury block {block_id}: {e}")
+                logger.error(f" Error chunking Mercury block {block_id}: {e}")
                 # Fallback chunking
                 chunk_size = self.mercury_config.chunk_size
                 chunks = [block_data[i:i+chunk_size] for i in range(0, len(block_data), chunk_size)]
@@ -1021,7 +1019,7 @@ class MercurySimulator:
             import hashlib
             final_block_hash = hashlib.sha256(block_data).hexdigest()
         
-            # ✅ 4. Store chunks in source node
+            #  4. Store chunks in source node
             source_node.block_chunks[block_id] = {i: chunk for i, chunk in enumerate(chunks)}
             source_node.block_metadata[block_id] = {
                 'hash': final_block_hash,
@@ -1033,16 +1031,16 @@ class MercurySimulator:
             source_node.block_original_data[block_id] = block_data
             source_node.generated_blocks.add(block_id)
         
-            # ✅ CRITICAL FIX: Source node should complete its own block immediately
+            #  Source node should complete its own block immediately
             current_time = self.event_queue.current_time
             source_node.completed_blocks.add(block_id)
             source_node.block_completion_times[block_id] = current_time
             
-            # ✅ CRITICAL FIX: Trigger completion callback for source node
-            logger.info(f"✅ Source Node {source_node_index}: Auto-completed own block {block_id}")
+            # Trigger completion callback for source node
+            logger.info(f" Source Node {source_node_index}: Auto-completed own block {block_id}")
             self.on_block_completed(source_node_index, block_id, current_time)
         
-            # ✅ Store block metrics for completion delays
+            # Store block metrics for completion delays
             self.block_metrics[block_id] = {
                 'transactions': transactions,
                 'block_size': actual_size,
@@ -1051,15 +1049,15 @@ class MercurySimulator:
                 'source_node': source_node_index
             }
         
-            logger.info(f"🧱 Mercury block {block_id}: {actual_size} bytes → {len(chunks)} chunks (NO FEC)")
+            logger.info(f" Mercury block {block_id}: {actual_size} bytes → {len(chunks)} chunks (NO FEC)")
             
-            # ✅ NEW: REPORT BLOCK START TO METRICS (with current_time)
+            #  REPORT BLOCK START TO METRICS (with current_time)
             if hasattr(self, 'metrics_collector'):
                 self.metrics_collector.report_block_start(
                     block_id, source_node_index, current_time
                 )
         
-            # ✅ 5. Calculate generation delays
+            
             try:
                 generation_delay = self.delay_calculator.calculate_block_generation_delay(
                     source_node_index, transactions, actual_size
@@ -1069,14 +1067,14 @@ class MercurySimulator:
                 )
                 total_generation_delay = generation_delay + chunkify_delay
             except Exception as e:
-                logger.error(f"❌ Error calculating delays for Mercury block {block_id}: {e}")
+                logger.error(f" Error calculating delays for Mercury block {block_id}: {e}")
                 total_generation_delay = 0.001  # Minimal delay fallback
         
-            # ✅ 6. Start broadcasting with early outburst
+         
             try:
                 relay_peers = source_node.select_relay_peers(is_source=True)
             
-                # ✅ NEW: REPORT EARLY OUTBURST METRICS
+                
                 immediate_coverage = (len(relay_peers) / self.node_count) * 100
                 if hasattr(self, 'metrics_collector'):
                     self.metrics_collector.report_early_outburst(
@@ -1094,7 +1092,7 @@ class MercurySimulator:
                     block_size=actual_size
                 )
             
-                # ✅ 7. Schedule digest broadcasting after generation delay
+               
                 for peer_id in relay_peers:
                     receiver_node = self._get_node_by_id(peer_id)
                     if receiver_node:
@@ -1113,15 +1111,15 @@ class MercurySimulator:
                 logger.info(f"📡 Mercury block {block_id} digest scheduled to {len(relay_peers)} peers")
             
             except Exception as e:
-                logger.error(f"❌ Error in Mercury block broadcasting: {e}")
+                logger.error(f"Error in Mercury block broadcasting: {e}")
             
         except Exception as e:
-            logger.error(f"❌ Error in Mercury block generation: {e}")
+            logger.error(f" Error in Mercury block generation: {e}")
             import traceback
             logger.error(f"Traceback: {traceback.format_exc()}")
 
 
-    # ✅ UTILITY METHODS (same structure as Kadcast)
+   
     def _send_update(self, event_type: str, data: Dict[str, Any]):
         """Send simulation update to callbacks."""
         update = {
@@ -1141,11 +1139,10 @@ class MercurySimulator:
         """Add simulation callback."""
         self.simulation_callbacks.append(callback)
 
-    # ✅ FIXED: GET SIMULATION RESULTS WITH COVERAGE METRICS
+   
     def get_simulation_results(self) -> Dict[str, Any]:
         """Get complete simulation results with coverage metrics."""
         
-        # ✅ Calculate final coverage metrics
         coverage_metrics = self.calculate_final_coverage_metrics()
         
         return {
@@ -1160,7 +1157,7 @@ class MercurySimulator:
                 "source_fanout": self.mercury_config.source_fanout
             },
             "metrics": self.metrics_collector.get_all_metrics(),
-            "coverage_metrics": coverage_metrics,  # ✅ NEW
+            "coverage_metrics": coverage_metrics,  
             "vcs_convergence": self.vcs_convergence_metrics,
             "clustering": self.clustering_metrics,
             "node_count": self.node_count,
