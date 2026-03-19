@@ -176,10 +176,10 @@ class Metrics:
         initial_coverage = 1.0 / self.node_count * 100 if self.node_count > 0 else 0.0
         self.coverage_time_series[block_id].append((0.0, initial_coverage))
         
-        # ✅ NEW: Initialize milestone tracking
+        #  Initialize milestone tracking
         self.coverage_milestones[block_id] = {}
         
-        # ✅ NEW: Initialize node completion timeline
+        #  Initialize node completion timeline
         self.node_completion_timeline[block_id].append((current_time, 1))  # Source node completed
         
         logger.debug(f"Started tracking block {block_id} from node {source_node_id} at {current_time}")
@@ -210,20 +210,20 @@ class Metrics:
                 
             self.block_propagation_times[block_id][node_id] = propagation_time
             
-            # ✅ ENHANCED: Coverage calculation with milestone tracking
+            #  Coverage calculation with milestone tracking
             nodes_reached = len(self.block_propagation_times[block_id])
             coverage = (nodes_reached / self.node_count) * 100 if self.node_count > 0 else 0.0
             
             # Update coverage time series
             self.coverage_time_series[block_id].append((current_time, coverage))
             
-            # ✅ NEW: Track coverage milestones
+            #  Track coverage milestones
             self._track_coverage_milestones(block_id, coverage, current_time)
             
-            # ✅ NEW: Update latency time-series
+            #  Update latency time-series
             self._update_latency_time_series(block_id, current_time)
             
-            # ✅ NEW: Update node completion timeline
+            #  Update node completion timeline
             self.node_completion_timeline[block_id].append((current_time, nodes_reached))
             
             logger.debug(f"Node {node_id} received first chunk of block {block_id} in {propagation_time:.6f}s (Coverage: {coverage:.1f}%)")
@@ -239,10 +239,10 @@ class Metrics:
             if coverage >= milestone and milestone not in self.coverage_milestones[block_id]:
                 self.coverage_milestones[block_id][milestone] = current_time
                 
-                # ✅ KICK-OFF REQUIREMENT: 95% coverage time
+                
                 if milestone == 95:
                     self.ninety_five_percent_times[block_id] = current_time
-                    logger.info(f"🎯 Block {block_id} reached 95% coverage at {current_time:.3f}s")
+                    logger.info(f" Block {block_id} reached 95% coverage at {current_time:.3f}s")
     
     def _update_latency_time_series(self, block_id: int, current_time: float):
         """Update latency time-series for real-time graphing."""
@@ -323,10 +323,10 @@ class Metrics:
             self.bandwidth_usage[source_id] = {}
         self.bandwidth_usage[source_id][target_id] = self.bandwidth_usage[source_id].get(target_id, 0) + bytes_sent
         
-        # ✅ NEW: Calculate real-time congestion using KICK-OFF FORMULA
+        #  Calculate real-time congestion using KICK-OFF FORMULA
         self._calculate_real_time_congestion(source_id, target_id, bytes_sent, current_time)
         
-        # ✅ NEW: Update system-wide metrics timeline
+        #  Update system-wide metrics timeline
         self._update_system_timeline(current_time)
         
         return utilization
@@ -350,7 +350,7 @@ class Metrics:
             available_bandwidth = 12500000  # Default 100 Mbps
         
         if available_bandwidth > 0:
-            # ✅ KICK-OFF FORMULA: Traffic Load / Available Bandwidth × 100
+            #  Traffic Load / Available Bandwidth × 100
             congestion_percentage = (current_usage / available_bandwidth) * 100
             
             # Cap at 100% for realistic representation
@@ -639,7 +639,7 @@ class Metrics:
         enhanced_summary = {
             **basic_summary,
             
-            # ✅ KICK-OFF REQUIREMENTS
+            
             "coverage_95_percent": {
                 "average_time": self.get_average_95_percent_coverage_time(),
                 "per_block": {str(bid): time for bid, time in self.ninety_five_percent_times.items()}
@@ -651,10 +651,10 @@ class Metrics:
                 "formula": "Traffic Load / Available Bandwidth × 100"
             },
             
-            # ✅ TIME-SERIES DATA FOR GRAPHING
+            # TIME-SERIES DATA FOR GRAPHING
             "time_series_data": self.get_system_timeline_data(),
             
-            # ✅ COVERAGE MILESTONES
+            #  COVERAGE MILESTONES
             "coverage_milestones": {
                 str(bid): milestones for bid, milestones in self.coverage_milestones.items()
             }
@@ -686,14 +686,14 @@ class Metrics:
                 "duration": duration,
                 "config": self.config
             },
-            "summary": self.get_enhanced_summary(),  # ✅ NEW: Use enhanced summary
+            "summary": self.get_enhanced_summary(),  
             "coverage": {
                 "average": self.get_average_coverage(),
                 "per_block": {str(block_id): self.get_coverage(block_id) 
                              for block_id in self.block_propagation_times},
                 "time_series": {str(block_id): [(t, c) for t, c in series]
                                for block_id, series in self.coverage_time_series.items()},
-                # ✅ NEW: 95% coverage tracking
+                #  95% coverage tracking
                 "ninety_five_percent_times": {str(bid): time for bid, time in self.ninety_five_percent_times.items()},
                 "milestones": {str(bid): milestones for bid, milestones in self.coverage_milestones.items()}
             },
@@ -701,7 +701,7 @@ class Metrics:
                 "average": self.get_average_latency(),
                 "per_block": {str(block_id): self.get_latency(block_id)
                              for block_id in self.block_propagation_times},
-                # ✅ NEW: Latency time series
+              
                 "time_series": {str(block_id): [(t, l) for t, l in series]
                                for block_id, series in self.latency_time_series.items()}
             },
@@ -712,7 +712,7 @@ class Metrics:
                 "high_utilization_nodes": self.get_high_utilization_node_count(),
                 "utilization_distribution": self.get_connection_utilization_distribution(),
                 "utilization_time_series": self.get_utilization_time_series(),
-                # ✅ NEW: System timeline
+              
                 "system_timeline": self.bandwidth_utilization_timeline
             },
             "congestion": {
@@ -721,7 +721,7 @@ class Metrics:
                                   for (node1, node2), cong in self.get_congestion().items()},
                 "time_series": {f"{node1}_{node2}": [(t, c) for t, c in series]
                                for (node1, node2), series in self.congestion_time_series.items()},
-                # ✅ NEW: Kick-off formula congestion
+               
                 "kick_off_formula": {
                     "peak_percentage": self.peak_congestion,
                     "average_percentage": self.get_average_congestion_kick_off_formula(),
@@ -869,7 +869,7 @@ class Metrics:
             coverage = (nodes_reached / self.node_count) * 100 if self.node_count > 0 else 0.0
             self.coverage_time_series[block_id].append((current_time, coverage))
             
-            # ✅ NEW: Track coverage milestones for headers too
+           
             self._track_coverage_milestones(block_id, coverage, current_time)
             
             # Track protocol-specific header metrics
