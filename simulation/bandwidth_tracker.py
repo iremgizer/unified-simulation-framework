@@ -4,7 +4,7 @@ Bandwidth tracking and congestion modeling for the blockchain simulation.
 This module provides classes for tracking bandwidth usage and modeling
 network congestion based on real data flow rather than synthetic formulas.
 
-🔧 FIXED VERSION: Corrected bandwidth utilization calculations and overflow issues
+
 """
 
 import time
@@ -16,7 +16,7 @@ logger = logging.getLogger(__name__)
 
 class ConnectionBandwidthTracker:
     """
-    🔧 FIXED: Tracks bandwidth usage for network connections with proper utilization calculations.
+    
     
     Provides real-time bandwidth utilization data for calculating
     realistic congestion effects without overflow issues.
@@ -35,11 +35,11 @@ class ConnectionBandwidthTracker:
         self.usage_history = defaultdict(list)  # (node1, node2) -> [(time, usage), ...]
         self.message_queue = defaultdict(list)  # (node1, node2) -> [(message_size, arrival_time), ...]
         
-        # 🔧 NEW: Time-based usage tracking for accurate calculations
+      
         self.usage_window = 1.0  # 1 second sliding window
         self.recent_transmissions = defaultdict(deque)  # (node1, node2) -> deque of (timestamp, bytes)
         
-        # 🔧 NEW: System-wide metrics tracking
+    
         self.total_bytes_transmitted = 0
         self.peak_utilization = 0.0
         self.last_cleanup_time = 0.0
@@ -87,7 +87,7 @@ class ConnectionBandwidthTracker:
         
     def report_message(self, src_id: int, dst_id: int, message_size: int, current_time: float) -> float:
         """
-        🔧 FIXED: Report a message being sent over a connection with proper utilization calculation.
+       
         
         Args:
             src_id: Source node ID
@@ -139,7 +139,7 @@ class ConnectionBandwidthTracker:
         
     def _update_current_usage(self, connection: Tuple[int, int], current_time: float):
         """
-        🔧 NEW: Update current usage based on recent transmissions within the time window.
+        
         
         Args:
             connection: (node1, node2) tuple
