@@ -58,9 +58,7 @@ class EventType(Enum):
     COUGAR_BODY_REQUEST_TIMEOUT = "COUGAR_BODY_REQUEST_TIMEOUT"
     COUGAR_BLOCK_COMPLETED = "COUGAR_BLOCK_COMPLETED"
     
-    # =============================================================================
-    # 🔥 NEW CHUNKEDKAD OPTIMIZED EVENTS (CASCADE SEEDING)
-    # =============================================================================
+
     # ChunkedKad Core Events
     CHUNKEDKAD_CLUSTER_ASSIGNMENT = "CHUNKEDKAD_CLUSTER_ASSIGNMENT"
     CHUNKEDKAD_PROACTIVE_EXCHANGE = "CHUNKEDKAD_PROACTIVE_EXCHANGE"
@@ -68,7 +66,7 @@ class EventType(Enum):
     CHUNKEDKAD_BLOCK_HEADER = "CHUNKEDKAD_BLOCK_HEADER"
     CHUNKEDKAD_CHUNK_FORWARD = "CHUNKEDKAD_CHUNK_FORWARD"
     
-    # 🔥 CASCADE SEEDING OPTIMIZED EVENTS
+   
     DELAYED_CLUSTER_ASSIGNMENT = "DELAYED_CLUSTER_ASSIGNMENT"
     DELAYED_EXCHANGE_INITIATION = "DELAYED_EXCHANGE_INITIATION"
     CASCADE_SEEDING_PHASE_1 = "CASCADE_SEEDING_PHASE_1"
@@ -248,7 +246,7 @@ class EventQueue:
     def remove_events_by_condition(self, condition_func):
         """
         Remove events that match the given condition.
-        🚀 OPTIMIZED: Single-pass filtering instead of multiple remove() calls
+         Single-pass filtering instead of multiple remove() calls
         
         Args:
             condition_func: Function that takes an event and returns True if it should be removed
@@ -261,19 +259,19 @@ class EventQueue:
         if original_count == 0:
             return 0
         
-        # ✅ PERFORMANCE FIX: Single-pass filtering instead of O(n²) removal
+        #  PERFORMANCE FIX: Single-pass filtering instead of O(n²) removal
         # Original: for each event -> self.events.remove() -> O(n) operation = O(n²) total
         # Optimized: Single list comprehension -> O(n) operation
         self.events = [event for event in self.events if not condition_func(event)]
         
-        # ✅ PERFORMANCE FIX: Single heapify instead of multiple heapify calls
+        #  PERFORMANCE FIX: Single heapify instead of multiple heapify calls
         # Re-heapify once after all removals
         heapq.heapify(self.events)
         
         removed_count = original_count - len(self.events)
         
         if removed_count > 0:
-            logger.info(f"🚀 Removed {removed_count} events in single pass "
+            logger.info(f" Removed {removed_count} events in single pass "
                     f"(queue size: {original_count} → {len(self.events)})")
         else:
             logger.debug(f"No events matched removal condition")
