@@ -42,7 +42,7 @@ class KadcastSimulator:
         self.deterministic_performance = self.config.get("deterministicPerformance", True)
         self.random_seed = self.config.get("randomSeed", 42)
 
-        # ✅ ENHANCED: Early termination configuration with adaptive thresholds
+      
         self.early_termination_enabled = self.config.get("early_termination_enabled", True)
         
         # 🔧 ADAPTIVE THRESHOLDS: Büyük ağlarda daha agresif early termination
@@ -50,7 +50,7 @@ class KadcastSimulator:
             # 64+ node ağlarda daha agresif settings
             self.coverage_threshold = min(92.0, self.config.get("coverage_threshold", 95.0))
             self.coverage_check_interval = min(2.0, self.config.get("coverage_check_interval", 5.0))
-            logger.info(f"🔧 Large network detected ({self.node_count} nodes): Aggressive early termination")
+            logger.info(f" Large network detected ({self.node_count} nodes): Aggressive early termination")
             logger.info(f"   Coverage threshold: {self.coverage_threshold}%")
             logger.info(f"   Check interval: {self.coverage_check_interval}s")
         else:
@@ -122,7 +122,7 @@ class KadcastSimulator:
         # Early termination log
         termination_status = "ENABLED" if self.early_termination_enabled else "DISABLED"
         logger.info(f"KadcastSimulator initialized with {self.node_count} nodes (CENTRALIZED + CHUNK-BASED BROADCASTING + PERFORMANCE MODELING)")
-        logger.info(f"🎯 Early Termination: {termination_status} (Threshold: {self.coverage_threshold}%)")
+        logger.info(f" Early Termination: {termination_status} (Threshold: {self.coverage_threshold}%)")
 
     def _setup_default_config(self, config: Dict[str, Any]) -> Dict[str, Any]:
         """Setup default configuration with performance parameters."""
@@ -142,7 +142,7 @@ class KadcastSimulator:
             "nodePerformanceVariation": 0.1,  # ±10% random variation
             "deterministicPerformance": True,   # Same seed = same assignments
             "randomSeed": 42,
-            # ✅ YENİ: Early termination defaults
+          
             "early_termination_enabled": True,
             "coverage_threshold": 95.0,
             "coverage_check_interval": 5.0
@@ -184,16 +184,14 @@ class KadcastSimulator:
             
             # 90% coverage'da terminate et
             if coverage >= 90.0:
-                logger.info(f"🔥 TERMINATING Block {block_id}: {coverage:.1f}%")
+                logger.info(f" TERMINATING Block {block_id}: {coverage:.1f}%")
                 self.terminate_block_propagation(block_id)
                 self.early_terminated_blocks.add(block_id)
                 
 
     def terminate_block_propagation(self, block_id: int):
-        """
-        🚨 SAFE + FAST: Block propagation termination using optimized removal
-        """
-        # ✅ Use the optimized event queue removal method
+   
+        #  Use the optimized event queue removal method
         def is_block_related(event):
             return self.is_block_related_event(event, block_id)
         
@@ -204,7 +202,7 @@ class KadcastSimulator:
         if block_id in self.active_blocks:
             self.active_blocks.remove(block_id)
         
-        logger.info(f"✅ Terminated {terminated_events} orphan events for block {block_id}")
+        logger.info(f"Terminated {terminated_events} orphan events for block {block_id}")
         
         return terminated_events
 
@@ -278,7 +276,7 @@ class KadcastSimulator:
         for perf_type in assignments.values():
             type_counts[perf_type] = type_counts.get(perf_type, 0) + 1
         
-        logger.info("🎯 Node Performance Assignment:")
+        logger.info(" Node Performance Assignment:")
         for perf_type, count in type_counts.items():
             percentage = (count / self.node_count) * 100
             logger.info(f"   - {perf_type}: {count} nodes ({percentage:.1f}%)")
@@ -356,7 +354,7 @@ class KadcastSimulator:
                                f"Performance={performance_type}, Bootstrap={is_bootstrap}")
 
             # MERKEZI YAKLAŞIM: Tüm node'lara ağdaki tüm node'ların bilgisini ver
-            logger.info("🎯 CENTRALIZED APPROACH: Giving all nodes complete network knowledge...")
+            logger.info(" CENTRALIZED APPROACH: Giving all nodes complete network knowledge...")
             
             for node_index, node in self.nodes.items():
                 # Her node'a diğer tüm node'ların ID'lerini ver
@@ -413,7 +411,7 @@ class KadcastSimulator:
                 completed_count += 1
                 self.peer_discovery_flags[node.node_index] = True
         
-        logger.info(f"📊 Initial completion status: {completed_count}/{len(self.nodes)} nodes completed discovery")
+        logger.info(f" Initial completion status: {completed_count}/{len(self.nodes)} nodes completed discovery")
         
         # İstatistikleri logla
         total_peers = sum(len(node.peers) for node in self.nodes.values())
@@ -421,12 +419,12 @@ class KadcastSimulator:
         total_buckets = sum(node.get_filled_bucket_count() for node in self.nodes.values())
         avg_buckets = total_buckets / len(self.nodes) if self.nodes else 0
         
-        logger.info(f"📊 Network stats: Avg peers per node: {avg_peers:.1f}, Avg filled buckets: {avg_buckets:.1f}")
+        logger.info(f"Network stats: Avg peers per node: {avg_peers:.1f}, Avg filled buckets: {avg_buckets:.1f}")
 
     def _analyze_id_distribution(self):
         """KADCAST ORIGINAL: ID distribution analizini yap (bucket dağılımı kontrolü)"""
         try:
-            logger.info("🔍 Analyzing ID distribution (Kadcast original uniform random, 64-bit)...")
+            logger.info(" Analyzing ID distribution (Kadcast original uniform random, 64-bit)...")
             
             # Her node için bucket distribution'ı kontrol et
             sample_nodes = list(self.nodes.values())[:5]  # İlk 5 node'u sample al
@@ -533,7 +531,7 @@ class KadcastSimulator:
     def start_broadcasting(self) -> bool:
         """Chunk-based broadcasting phase'ini başlat"""
         try:
-            logger.info("🎯 Starting chunk-based broadcasting phase...")
+            logger.info(" Starting chunk-based broadcasting phase...")
             self.phase = "broadcasting"
 
             duration = self.config.get('duration', 300.0)
@@ -542,7 +540,7 @@ class KadcastSimulator:
             total_blocks = int((duration / 60.0) * self.broadcast_frequency)
             block_interval = duration / total_blocks if total_blocks > 0 else 60.0
             
-            logger.info(f"📊 Broadcasting configuration:")
+            logger.info(f"Broadcasting configuration:")
             logger.info(f"   - Duration: {duration}s ")
             logger.info(f"   - Frequency: {self.broadcast_frequency} blocks/minute")
             logger.info(f"   - Total blocks: {total_blocks}")
@@ -593,7 +591,7 @@ class KadcastSimulator:
                 "phase": "broadcasting"
             })
             
-            logger.info(f"📅 Scheduled {total_blocks} blocks for generation")
+            logger.info(f" Scheduled {total_blocks} blocks for generation")
             return True
             
         except Exception as e:
@@ -611,10 +609,10 @@ class KadcastSimulator:
         """Run the complete simulation (centralized approach) with enhanced optimizations."""
         try:
             self.running = True
-            logger.info(f"🎯 Starting OPTIMIZED Kadcast simulation {self.simulation_id}")
+            logger.info(f" Starting OPTIMIZED Kadcast simulation {self.simulation_id}")
             
             if self.early_termination_enabled:
-                logger.info(f"🎯 Early termination enabled: {self.coverage_threshold}% threshold, {self.coverage_check_interval}s intervals")
+                logger.info(f" Early termination enabled: {self.coverage_threshold}% threshold, {self.coverage_check_interval}s intervals")
             
             # Register event handlers
             self._register_event_handlers()
@@ -644,10 +642,10 @@ class KadcastSimulator:
                     self.engine._process_event(event)
                     event_count += 1
                     
-                    # ✅ Early termination checks
+                    #  Early termination checks
                     self.check_and_terminate_if_needed(self.event_queue.current_time)
                     
-                    # ✅ Periodic memory cleanup
+                    #  Periodic memory cleanup
                     self._periodic_memory_cleanup(self.event_queue.current_time)
                     
                     # Progress logging (every 10000 events or 30 seconds)
@@ -659,7 +657,7 @@ class KadcastSimulator:
                         active_blocks = len(self.active_blocks)
                         terminated_blocks = len(self.early_terminated_blocks)
                         
-                        logger.info(f"📊 Progress: t={current_time:.1f}s, events={event_count}, "
+                        logger.info(f" Progress: t={current_time:.1f}s, events={event_count}, "
                                 f"queue={queue_size}, active_blocks={active_blocks}, "
                                 f"terminated={terminated_blocks}")
                         
@@ -669,19 +667,19 @@ class KadcastSimulator:
                     if self.update_callback:
                         self.update_callback(self._get_real_time_status())
             
-            logger.info("✅ Simulation completed successfully")
+            logger.info(" Simulation completed successfully")
             
             # Final statistics
             if self.early_termination_enabled:
                 termination_stats = self.metrics_collector.get_termination_statistics()
                 if termination_stats.get("enabled", False):
-                    logger.info(f"🎯 Early termination saved {termination_stats['total_events_saved']} events")
-                    logger.info(f"🎯 {termination_stats['blocks_terminated']} blocks terminated early")
+                    logger.info(f" Early termination saved {termination_stats['total_events_saved']} events")
+                    logger.info(f"{termination_stats['blocks_terminated']} blocks terminated early")
             
             return True
             
         except Exception as e:
-            logger.error(f"❌ Simulation failed: {e}")
+            logger.error(f" Simulation failed: {e}")
             self.running = False
             return False
 
@@ -704,7 +702,7 @@ class KadcastSimulator:
             source_node_index = event.data.get("source_node_index")
             block_size = event.data.get("block_size", self.block_size)
             
-            logger.info(f"🔥 Generating block {block_id} from node {source_node_index} with FEC ratio {self.fec_ratio}")
+            logger.info(f" Generating block {block_id} from node {source_node_index} with FEC ratio {self.fec_ratio}")
             
             # Generate realistic block
             prev_hash = f"0x{'0' * 64}" if block_id == 0 else f"0x{hash(str(block_id - 1)):016x}{'0' * 48}"
@@ -733,12 +731,12 @@ class KadcastSimulator:
             block_data = self.block_generator.serialize_block(header, transactions)
             actual_size = len(block_data)
             
-            # ✅ ADD BLOCK GENERATION DELAY
+            #  ADD BLOCK GENERATION DELAY
             generation_delay = self.delay_calculator.calculate_block_generation_delay(
                 source_node_index, transactions, actual_size
             )
             
-            # ✅ ADD CHUNKIFY DELAY
+            # ADD CHUNKIFY DELAY
             chunkify_delay = self.delay_calculator.calculate_chunkify_delay(
                 source_node_index, actual_size, self.chunk_size, self.fec_ratio
             )
@@ -783,7 +781,7 @@ class KadcastSimulator:
                 fec_ratio=self.fec_ratio
             )
             
-            logger.info(f"📦 Block {block_id}: {actual_size} bytes → {len(chunks)} chunks")
+            logger.info(f" Block {block_id}: {actual_size} bytes → {len(chunks)} chunks")
             
             # Initialize block metrics
             self.block_metrics[block_id] = {
@@ -817,20 +815,20 @@ class KadcastSimulator:
     def _start_chunk_broadcasting(self, source_node: KadcastNode, chunks: List[bytes], block_id: int):
         """Chunk broadcasting'i başlat - WITH TRANSMISSION DELAYS"""
         try:
-            logger.info(f"📡 Starting chunk broadcasting for block {block_id} from node {source_node.node_index}")
+            logger.info(f" Starting chunk broadcasting for block {block_id} from node {source_node.node_index}")
             
             # Get broadcast peers using Kadcast routing
             initial_height = 64  # 64-bit için height 64
             broadcast_peers = source_node.get_broadcast_peers(block_id, initial_height)
 
-            logger.info(f"🎯 Broadcasting to {len(broadcast_peers)} peers with height {initial_height}")
+            logger.info(f"Broadcasting to {len(broadcast_peers)} peers with height {initial_height}")
             
             # Send each chunk to broadcast peers
             for chunk_bytes in chunks:
                 chunk_message = ChunkMessage(sender_id=source_node.node_id, chunk_bytes=chunk_bytes)
                 
                 for peer_id in broadcast_peers:
-                    # ✅ ADD TRANSMISSION DELAY (RTT + Bandwidth)
+                    #  ADD TRANSMISSION DELAY (RTT + Bandwidth)
                     peer_node = self._get_node_by_id(peer_id)
                     if peer_node:
                         transmission_delays = self.delay_calculator.calculate_transmission_delay(
@@ -869,7 +867,7 @@ class KadcastSimulator:
         """Handle timeout events."""
         timeout_type = event.data.get("timeout_type")
         
-        logger.info(f"🕐 Timeout event triggered: {timeout_type}")
+        logger.info(f" Timeout event triggered: {timeout_type}")
         
         if timeout_type == "peer_discovery_complete":
             self._complete_peer_discovery()
@@ -923,7 +921,7 @@ class KadcastSimulator:
     def _calculate_final_metrics(self) -> Dict[str, Any]:
         """Calculate final simulation metrics."""
         try:
-            logger.info("📊 Calculating final metrics...")
+            logger.info("Calculating final metrics...")
             
             # Calculate final statistics
             total_blocks = len(self.block_metrics)
@@ -971,10 +969,10 @@ class KadcastSimulator:
                 "blocks_completed_count": len([m for m in self.block_metrics.values() if m["completion_times"]]),
                 "chunk_efficiency": (total_chunks / (total_blocks * 1000)) if total_blocks > 0 else 0.0,
                 "performance_distribution": perf_summary,
-                "early_termination": termination_stats  # ✅ YENİ
+                "early_termination": termination_stats  
             }
             
-            logger.info(f"📈 Final Statistics:")
+            logger.info(f" Final Statistics:")
             logger.info(f"   - Total blocks: {total_blocks}")
             logger.info(f"   - Total chunks: {total_chunks}")
             logger.info(f"   - Average latency: {avg_latency:.3f}s")
@@ -1034,7 +1032,7 @@ class KadcastSimulator:
         # Message type'a göre uygun handler'ı çağır
         try:
             if message_type == "CHUNK":
-                # ✅ ADD CHUNK PROCESSING DELAY
+               
                 chunk_size = len(message.full_chunk_bytes) if hasattr(message, 'full_chunk_bytes') else 1024
                 processing_delay = self.delay_calculator.calculate_chunk_processing_delay(
                     receiver_node.node_index, chunk_size
@@ -1114,7 +1112,7 @@ class KadcastSimulator:
             logger.warning(f"[SEND FAIL] Sender or receiver not found: {sender_id} -> {receiver_id}")
             return
 
-        # ✅ USE NEW TRANSMISSION DELAY CALCULATION
+       
         message_size = getattr(message, 'size', 64)  # Default size for simple messages
         
         transmission_delays = self.delay_calculator.calculate_transmission_delay(
@@ -1173,8 +1171,8 @@ class KadcastSimulator:
             "blocks_generated": self.blocks_generated,
             "active_blocks": len(self.active_blocks),
             "performance_distribution": self.node_performance_assignments,
-            "early_termination_enabled": self.early_termination_enabled,  # ✅ YENİ
-            "early_terminated_blocks": len(self.early_terminated_blocks)   # ✅ YENİ
+            "early_termination_enabled": self.early_termination_enabled,  
+            "early_terminated_blocks": len(self.early_terminated_blocks),
         }
     
     def _get_node_index_by_id(self, node_id: str) -> int:
@@ -1235,14 +1233,14 @@ class KadcastSimulator:
                 self.block_metrics[block_id]["completion_times"][node_index] = completion_time
                 self.block_metrics[block_id]["nodes_completed"] += 1
                 
-                # ✅ HEMEN KONTROL ET!
+             
                 completed_nodes = self.block_metrics[block_id]["nodes_completed"]
                 total_nodes = self.node_count
                 coverage = (completed_nodes / total_nodes) * 100.0
                 
-                # %100 coverage'da HEMEN terminate et
+              
                 if coverage >= 100.0 and block_id in self.active_blocks:
-                    logger.info(f"🎯 Block {block_id} reached 100% - IMMEDIATE TERMINATION!")
+                    logger.info(f" Block {block_id} reached 100% - IMMEDIATE TERMINATION!")
                     self.terminate_block_propagation(block_id)
                     self.early_terminated_blocks.add(block_id)
                 
@@ -1261,9 +1259,9 @@ class KadcastSimulator:
                 node_index, node_index, 0, completion_time  # 0 bytes = completion marker
             )
                 
-                # ✅ NEW: Log important milestones
+          
                 if coverage >= 95.0:
-                 logger.info(f"🎯 Block {block_id} reached {coverage:.1f}% completion "
+                 logger.info(f" Block {block_id} reached {coverage:.1f}% completion "
                         f"({completed_nodes}/{total_nodes} nodes)")
         
         except Exception as e:
@@ -1290,7 +1288,7 @@ class KadcastSimulator:
                 selected_peers = random.sample(forward_peers, max_forwards)
                 
                 for peer_id in selected_peers:
-                    # ✅ ADD TRANSMISSION DELAY FOR FORWARDING
+                    # ADD TRANSMISSION DELAY FOR FORWARDING
                     peer_node = self._get_node_by_id(peer_id)
                     if peer_node:
                         chunk_size = len(chunk_message.full_chunk_bytes) if hasattr(chunk_message, 'full_chunk_bytes') else 1024
@@ -1351,13 +1349,13 @@ class KadcastSimulator:
                         blocks_cleaned += 1
             
             if blocks_cleaned > 0:
-                logger.info(f"🧹 Cleaned up detailed data for {blocks_cleaned} terminated blocks")
+                logger.info(f" Cleaned up detailed data for {blocks_cleaned} terminated blocks")
             
             # Python garbage collection
             import gc
             collected = gc.collect()
             if collected > 0:
-                logger.debug(f"🧹 Garbage collected {collected} objects")
+                logger.debug(f" Garbage collected {collected} objects")
             
             self._last_cleanup_time = current_time    
 
