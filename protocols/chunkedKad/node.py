@@ -5,7 +5,6 @@ import hashlib
 from typing import Dict, List, Set, Tuple, Optional, Any
 from collections import defaultdict
 
-# 🔥 FIX: EventType import eklendi
 from simulation.event_queue import EventType
 
 from src.protocols.chunkedKad.messages import (
@@ -20,19 +19,7 @@ from src.data.realistic_payload import RealisticChunkGenerator
 class ChunkedKadNode:
     """
     ChunkedKad Node - FULLY OPTIMIZED IMPLEMENTATION WITH FIXED EXCHANGE LOGIC
-    
-    🔥 CRITICAL FIXES APPLIED:
-    - ✅ Exchange logic completely rewritten (was rejecting perfect matches!)
-    - ✅ Block completion check before exchange initiation
-    - ✅ Improved assignment deduplication (receiver-based)
-    - ✅ Faster exchange timing (3s → 1s)
-    - ✅ Enhanced chunk availability verification
-    
-    Expected Performance Improvements:
-    - Coverage: 67.7% → 95%+
-    - Exchange Success: 0% → 80%+
-    - Bandwidth Efficiency: 0% → 70%+
-    """
+ 
     
     def __init__(self, node_index: int, node_id: str = None, city: str = None,
                  coordinates: Tuple[float, float] = None, performance_type: str = "average_performance", 
@@ -64,7 +51,7 @@ class ChunkedKadNode:
         self.self_lookup_done = False
 
         # ==================================================================================
-        # 🔥 NEW: RTT-BASED CLUSTERING SYSTEM
+        
         # ==================================================================================
         self.peer_rtts = {}  # peer_id -> RTT_ms (Bitcoin-native timing data)
         self.rtt_clusters = {
@@ -118,7 +105,7 @@ class ChunkedKadNode:
             "delayed_exchanges": 0,
             "duplicate_assignments_prevented": 0,
             "propagation_loops_prevented": 0,
-            # 🔥 NEW: RTT-based stats
+        
             "rtt_based_selections": 0,
             "geographic_diversity_achieved": 0,
             "bitcoin_native_operations": 0
@@ -240,7 +227,7 @@ class ChunkedKadNode:
 
     def get_exchange_candidates(self, block_id: int) -> List[str]:
         """
-        🔥 ENHANCED: RTT-based diverse candidate selection for Bitcoin-native geography.
+       
         
         This replaces geographic selection with RTT-based selection:
         - Maintains same diversity as geographic approach
@@ -251,7 +238,7 @@ class ChunkedKadNode:
         try:
             candidates = []
             
-            # 🔥 RTT-based diverse selection (Bitcoin-native)
+          
             if self.rtt_clusters['close'] or self.rtt_clusters['medium'] or self.rtt_clusters['far']:
                 # Select from each RTT cluster for maximum diversity
                 close_count = min(4, len(self.rtt_clusters['close']))
@@ -272,7 +259,7 @@ class ChunkedKadNode:
                 self.logger.debug(f"Node {self.node_index}: RTT-based selection: "
                                 f"Close: {close_count}, Medium: {medium_count}, Far: {far_count}")
             
-            # 🔥 Fallback: Use bucket structure if RTT clustering not ready
+   
             if len(candidates) < 8:
                 self.logger.debug(f"Node {self.node_index}: Using fallback bucket selection")
                 fallback_candidates = []
@@ -287,8 +274,7 @@ class ChunkedKadNode:
                 for candidate in fallback_candidates:
                     if candidate not in candidates:
                         candidates.append(candidate)
-            
-            # 🔥 Ensure minimum diversity
+      
             final_candidates = candidates[:16]  # Max 16 candidates
             
             if len(final_candidates) >= 8:
@@ -326,20 +312,16 @@ class ChunkedKadNode:
             if self.simulation and hasattr(self.simulation, 'mark_node_discovery_complete'):
                 self.simulation.mark_node_discovery_complete(self.node_index)
 
-    # ==================================================================================
-    # 🔥 FULLY FIXED CLUSTER ASSIGNMENT HANDLING
-    # ==================================================================================
+
 
     def handle_cluster_assignment(self, assignment_msg: ClusterAssignmentMessage):
-        """
-        🔥 FULLY FIXED: Process cluster assignment with improved deduplication.
-        """
+       
         try:
             block_id = assignment_msg.block_id
             bucket_id = assignment_msg.bucket_id
             sender_id = assignment_msg.sender_id
             
-            # 🔥 CRITICAL FIX: Receiver-based deduplication (more effective)
+           
             assignment_key = f"{block_id}_{bucket_id}_{self.node_id}"
             if assignment_key in self.processed_assignments:
                 self.exchange_stats["duplicate_assignments_prevented"] += 1
@@ -365,7 +347,7 @@ class ChunkedKadNode:
                 
                 self.logger.info(f"Node {self.node_index}: Assigned {len(my_chunks)} chunks for block {block_id}: {my_chunks}")
                 
-                # 🔥 OPTIMIZED: Faster exchange timing (3s → 1s)
+                
                 if len(self.chunk_to_node_mapping[block_id]) > 0:
                     self.logger.info(f"Node {self.node_index}: Scheduling DELAYED proactive exchanges for block {block_id}")
                     self._schedule_delayed_proactive_exchanges(block_id, delay=1.0)  # FASTER: 3s → 1s
@@ -374,7 +356,7 @@ class ChunkedKadNode:
             else:
                 self.logger.info(f"Node {self.node_index}: No chunks assigned for block {block_id}")
             
-            # 🔥 FIX 2: Send assignment to other nodes with loop prevention
+
             self._propagate_cluster_assignment(assignment_msg)
             
         except Exception as e:
@@ -395,12 +377,10 @@ class ChunkedKadNode:
         return sorted(my_chunks)
 
     def _schedule_delayed_proactive_exchanges(self, block_id: int, delay: float):
-        """
-        🔥 FIXED: Schedule proactive exchanges with proper event queue.
-        """
+
         try:
             if self.simulation and hasattr(self.simulation, 'event_queue'):
-                # 🔥 CRITICAL FIX: Use the correct event type
+           
                 self.simulation.event_queue.schedule_event(
                     EventType.DELAYED_EXCHANGE_INITIATION,
                     node_id=self.node_index,
@@ -415,7 +395,7 @@ class ChunkedKadNode:
                 
                 self.logger.debug(f"Node {self.node_index}: Scheduled delayed exchange for block {block_id} in {delay}s")
             else:
-                # 🔥 FALLBACK: Direct execution if event queue not available
+               
                 self.logger.warning(f"Node {self.node_index}: Event queue not available, executing exchange immediately")
                 self._initiate_proactive_exchanges(block_id)
         
@@ -425,9 +405,7 @@ class ChunkedKadNode:
             self._initiate_proactive_exchanges(block_id)
 
     def handle_delayed_exchange_initiation(self, block_id: int):
-        """
-        🔥 NEW: Handle delayed exchange initiation event.
-        """
+       
         try:
             self.logger.info(f"Node {self.node_index}: Executing delayed proactive exchanges for block {block_id}")
             self._initiate_proactive_exchanges(block_id)
@@ -435,11 +413,9 @@ class ChunkedKadNode:
             self.logger.error(f"Node {self.node_index}: Error in delayed exchange initiation: {e}")
 
     def _initiate_proactive_exchanges(self, block_id: int):
-        """
-        🔥 CRITICAL FIX: Added block completion check + enhanced verification.
-        """
+       
         try:
-            # 🔥 CRITICAL FIX 1: Don't exchange if block already completed
+           
             if block_id in self.processed_blocks:
                 self.logger.info(f"Node {self.node_index}: Block {block_id} already processed, skipping exchange")
                 return
@@ -463,11 +439,11 @@ class ChunkedKadNode:
                 self.logger.info(f"Node {self.node_index}: No assigned chunks for exchange, block {block_id}")
                 return
             
-            # 🔥 CRITICAL OPTIMIZATION: Verify chunk availability BEFORE starting exchanges
+           
             verified_chunks = self._verify_available_chunks(block_id, my_chunks)
             
             if not verified_chunks:
-                # 🔥 NEW: Schedule retry instead of failing
+              
                 retry_count = self.delayed_exchange_retries.get(block_id, 0)
                 if retry_count < 3:  # Max 3 retries
                     retry_delay = 1.0 + retry_count * 0.5  # Increasing delay
@@ -513,7 +489,7 @@ class ChunkedKadNode:
             sorted_partners = sorted(potential_partners.items(), 
                                    key=lambda x: len(x[1]), reverse=True)
             
-            # 🔥 OPTIMIZATION: Increase max exchanges (3 → 5)
+            #  OPTIMIZATION: Increase max exchanges (3 → 5)
             max_exchanges = min(5, len(sorted_partners))
             initiated_count = 0
             
@@ -534,9 +510,7 @@ class ChunkedKadNode:
             traceback.print_exc()
 
     def _verify_available_chunks(self, block_id: int, my_chunks: List[int]) -> List[int]:
-        """
-        🔥 NEW: Verify which chunks I actually have available for exchange.
-        """
+        
         verified_chunks = []
         
         for chunk_id in my_chunks:
@@ -551,9 +525,9 @@ class ChunkedKadNode:
 
     def _send_proactive_exchange_request(self, block_id: int, partner_id: str, 
                                        chunks_to_offer: List[int], chunks_to_request: List[int]) -> bool:
-        """🔥 ENHANCED: Send proactive exchange request with better verification."""
+       
         try:
-            # 🔥 ENHANCED: More thorough chunk availability check
+           
             chunks_i_actually_have = []
             for chunk_id in chunks_to_offer:
                 chunk_key = (block_id, chunk_id)
@@ -616,14 +590,12 @@ class ChunkedKadNode:
             return False
 
     def _propagate_cluster_assignment(self, assignment_msg: ClusterAssignmentMessage):
-        """
-        🔥 FULLY FIXED: Propagate cluster assignment with loop prevention and TTL.
-        """
+       
         try:
             block_id = assignment_msg.block_id
             sender_id = assignment_msg.sender_id
             
-            # 🔥 FIX 3: TTL (Time-To-Live) kontrolü
+            
             if not hasattr(assignment_msg, 'propagation_ttl'):
                 assignment_msg.propagation_ttl = 2  # Max 2 hop
             
@@ -631,7 +603,7 @@ class ChunkedKadNode:
                 self.logger.debug(f"Node {self.node_index}: TTL expired, not propagating assignment for block {block_id}")
                 return
             
-            # 🔥 FIX 4: Propagation history check
+
             propagation_key = f"{block_id}_{sender_id}_{self.node_id}"
             if propagation_key in self.assignment_propagation_history:
                 self.exchange_stats["propagation_loops_prevented"] += 1
@@ -646,10 +618,9 @@ class ChunkedKadNode:
             # Get candidates
             candidates = self.get_exchange_candidates(block_id)
             
-            # 🔥 FIX 5: Exclude sender to prevent back-propagation
+   
             candidates = [c for c in candidates if c != sender_id]
-            
-            # 🔥 OPTIMIZATION: Reduce propagation to prevent explosion (5 → 3)
+          
             max_propagations = min(3, len(candidates))
             if max_propagations > 0:
                 selected_peers = random.sample(candidates, max_propagations)
@@ -675,12 +646,9 @@ class ChunkedKadNode:
         except Exception as e:
             self.logger.error(f"Node {self.node_index}: Error propagating cluster assignment: {e}")
 
-    # ==================================================================================
-    # 🔥 CRITICAL FIX: PROACTIVE EXCHANGE HANDLING (COMPLETELY REWRITTEN)
-    # ==================================================================================
-
+  
     def handle_proactive_exchange_request(self, exchange_msg: ProactiveExchangeMessage):
-        """🔥 ENHANCED: Handle incoming proactive exchange request with FIXED logic."""
+        """ Handle incoming proactive exchange request with FIXED logic."""
         try:
             block_id = exchange_msg.block_id
             requester_id = exchange_msg.sender_id
@@ -688,7 +656,7 @@ class ChunkedKadNode:
             self.logger.debug(f"Node {self.node_index}: Received exchange request from {requester_id[:8]} "
                         f"for block {block_id}")
             
-            # 🔥 CRITICAL: Use the FIXED exchange fulfillment check
+            
             can_fulfill = self._can_fulfill_exchange_fixed(exchange_msg)
             
             if can_fulfill:
@@ -708,7 +676,7 @@ class ChunkedKadNode:
                 
                 self.exchange_stats["successful_exchanges"] += 1
                 
-                self.logger.info(f"✅ Node {self.node_index}: ACCEPTED exchange with {requester_id[:8]}")
+                self.logger.info(f" Node {self.node_index}: ACCEPTED exchange with {requester_id[:8]}")
                 
             else:
                 response = ProactiveExchangeResponse(
@@ -722,14 +690,14 @@ class ChunkedKadNode:
                 self.send_message(requester_id, response)
                 self.exchange_stats["failed_exchanges"] += 1
                 
-                self.logger.debug(f"❌ Node {self.node_index}: Declined exchange with {requester_id[:8]}")
+                self.logger.debug(f" Node {self.node_index}: Declined exchange with {requester_id[:8]}")
             
         except Exception as e:
             self.logger.error(f"Node {self.node_index}: Error handling proactive exchange request: {e}")
 
     def _can_fulfill_exchange_fixed(self, exchange_msg: ProactiveExchangeMessage) -> bool:
         """
-        🔥 CRITICAL FIX: Completely rewritten exchange logic - was rejecting perfect matches!
+        Completely rewritten exchange logic - was rejecting perfect matches!
         
         OLD PROBLEM: 
         - Node 7 has chunk 0, needs chunk 1
@@ -749,28 +717,28 @@ class ChunkedKadNode:
             chunks_they_want = exchange_msg.chunks_requesting  # What they're asking ME for
             chunks_they_offer = exchange_msg.chunks_offering   # What they're offering ME
             
-            # 🔥 FIX: Check what I can give them (do I have what they want?)
+          
             chunks_i_can_give = []
             for chunk_id in chunks_they_want:
                 chunk_key = (block_id, chunk_id)
                 if chunk_key in self.received_chunks:
                     chunks_i_can_give.append(chunk_id)
             
-            # 🔥 FIX: Check what I can get from them (do I need what they offer?)
+      
             chunks_i_can_get = []
             for chunk_id in chunks_they_offer:
                 chunk_key = (block_id, chunk_id)
                 if chunk_key not in self.received_chunks:  # I DON'T have it, so I need it
                     chunks_i_can_get.append(chunk_id)
             
-            # 🔥 CRITICAL FIX: CORRECT LOGIC
+           
             can_give_something = len(chunks_i_can_give) > 0     # I have chunks they want
             will_get_something = len(chunks_i_can_get) > 0      # They have chunks I need
             
-            # 🔥 THE FIX: Both sides must benefit for exchange to happen
+           
             mutual_benefit = can_give_something and will_get_something
             
-            # 🔥 Enhanced logging for debugging
+           
             self.logger.debug(f"Node {self.node_index}: FIXED exchange check for block {block_id}:")
             self.logger.debug(f"  - They want: {chunks_they_want}, I can give: {chunks_i_can_give}")
             self.logger.debug(f"  - They offer: {chunks_they_offer}, I can get: {chunks_i_can_get}")
@@ -790,7 +758,7 @@ class ChunkedKadNode:
             partner_id = response.sender_id
             
             if response.accepted:
-                self.logger.info(f"✅ Node {self.node_index}: Exchange ACCEPTED by {partner_id[:8]}")
+                self.logger.info(f" Node {self.node_index}: Exchange ACCEPTED by {partner_id[:8]}")
                 
                 if block_id not in self.exchange_partners:
                     self.exchange_partners[block_id] = {}
@@ -804,7 +772,7 @@ class ChunkedKadNode:
                 self.exchange_stats["successful_exchanges"] += 1
                 
             else:
-                self.logger.debug(f"❌ Node {self.node_index}: Exchange declined by {partner_id[:8]}: {response.reason}")
+                self.logger.debug(f" Node {self.node_index}: Exchange declined by {partner_id[:8]}: {response.reason}")
                 self.exchange_stats["failed_exchanges"] += 1
             
         except Exception as e:
@@ -822,7 +790,7 @@ class ChunkedKadNode:
             
             sent_count = 0
             
-            self.logger.info(f"🔄 Node {self.node_index}: Executing chunk exchange with {partner_id[:8]} "
+            self.logger.info(f" Node {self.node_index}: Executing chunk exchange with {partner_id[:8]} "
                        f"for block {block_id}, sending chunks: {chunks_to_send}")
             
             for chunk_id in chunks_to_send:
@@ -843,21 +811,16 @@ class ChunkedKadNode:
                     self.logger.warning(f"⚠️ Node {self.node_index}: Cannot send chunk {chunk_id} - not available")
             
             if sent_count > 0:
-                self.logger.info(f"✅ Node {self.node_index}: Successfully executed exchange - sent {sent_count} chunks to {partner_id[:8]}")
+                self.logger.info(f" Node {self.node_index}: Successfully executed exchange - sent {sent_count} chunks to {partner_id[:8]}")
             else:
-                self.logger.warning(f"❌ Node {self.node_index}: Exchange execution failed - no chunks sent to {partner_id[:8]}")
+                self.logger.warning(f" Node {self.node_index}: Exchange execution failed - no chunks sent to {partner_id[:8]}")
             
         except Exception as e:
             self.logger.error(f"Node {self.node_index}: Error executing chunk exchange: {e}")
 
-    # ==================================================================================
-    # 🔥 CHUNK RECEPTION (NO TRADITIONAL FORWARDING)
-    # ==================================================================================
-
+   
     def receive_chunk(self, chunk: ChunkMessage, sender_id: str):
-        """
-        🔥 OPTIMIZED: Receive chunk without traditional forwarding.
-        """
+       
         try:
             block_id = chunk.block_id
             chunk_id = chunk.chunk_id
@@ -927,7 +890,7 @@ class ChunkedKadNode:
                     
                     if len(partner_info["chunks_received"]) >= len(partner_info["expecting_chunks"]):
                         exchange_time = time.time() - partner_info["exchange_start_time"]
-                        self.logger.info(f"✅ Node {self.node_index}: Completed exchange with {sender_id[:8]} "
+                        self.logger.info(f" Node {self.node_index}: Completed exchange with {sender_id[:8]} "
                                    f"in {exchange_time:.3f}s")
                         
                         exchange_id = create_exchange_id(self.node_id, sender_id, block_id, 
@@ -1005,12 +968,12 @@ class ChunkedKadNode:
                     self.exchange_stats["bandwidth_saved"] += bandwidth_saved
                     self.memory_stats["memory_saved_vs_traditional"] += bandwidth_saved
                     
-                    # 🔥 NEW: SECONDARY CASCADE SEEDING
+                    #  SECONDARY CASCADE SEEDING
                     # If this is NOT the source node, initiate secondary cascade seeding
                     is_source_node = self._is_source_node_for_block(block_id)
                     
                     if not is_source_node:
-                        self.logger.info(f"🔥 Node {self.node_index}: Initiating SECONDARY CASCADE SEEDING for block {block_id}")
+                        self.logger.info(f" Node {self.node_index}: Initiating SECONDARY CASCADE SEEDING for block {block_id}")
                         self._initiate_secondary_cascade_seeding(block_id, chunk_data)
                         
                         # Track secondary cascade events
@@ -1059,15 +1022,9 @@ class ChunkedKadNode:
             return False    
         
 
-    def _initiate_secondary_cascade_seeding(self, block_id: int, chunk_data: List[bytes]):
-        """
-        🔥 NEW: Initiate secondary cascade seeding for completed blocks.
-        
-        This node has completed the block and will now re-broadcast it to expand coverage.
-        Uses the same aggressive cascade seeding strategy as the source node.
-        """
+    def
         try:
-            self.logger.info(f"🔥 SECONDARY CASCADE: Node {self.node_index} starting re-broadcast for block {block_id}")
+            self.logger.info(f" SECONDARY CASCADE: Node {self.node_index} starting re-broadcast for block {block_id}")
             
             # Get candidates for secondary seeding (fewer than primary to avoid network flooding)
             secondary_candidates = self.get_exchange_candidates(block_id)
@@ -1104,7 +1061,7 @@ class ChunkedKadNode:
                     chunks_distributed[chunk_index] = sent_to_count
                     total_transmissions += sent_to_count
                     
-                    self.logger.debug(f"🔥 SECONDARY CASCADE: Chunk {chunk_index} sent to {sent_to_count} recipients")
+                    self.logger.debug(f" SECONDARY CASCADE: Chunk {chunk_index} sent to {sent_to_count} recipients")
                 
                 # Update metrics
                 self.exchange_stats["secondary_cascade_transmissions"] = self.exchange_stats.get("secondary_cascade_transmissions", 0) + total_transmissions
@@ -1114,7 +1071,7 @@ class ChunkedKadNode:
                     self.simulation.exchange_statistics["secondary_cascade_events"] = self.simulation.exchange_statistics.get("secondary_cascade_events", 0) + total_transmissions
                     self.simulation.protocol_purity_stats["cascade_seeding_dissemination"] += total_transmissions
                 
-                self.logger.info(f"🔥 SECONDARY CASCADE COMPLETE: Node {self.node_index} sent {total_transmissions} "
+                self.logger.info(f" SECONDARY CASCADE COMPLETE: Node {self.node_index} sent {total_transmissions} "
                             f"transmissions for block {block_id} to expand network coverage")
             else:
                 self.logger.debug(f"Node {self.node_index}: No candidates available for secondary cascade seeding")
@@ -1174,7 +1131,7 @@ class ChunkedKadNode:
         try:
             block_id = header_msg.block_id
             
-            # 🔥 FIX: Prevent duplicate header processing
+           
             if block_id in self.received_headers:
                 self.logger.debug(f"Node {self.node_index}: Already processed header for block {block_id}")
                 return
@@ -1231,7 +1188,7 @@ class ChunkedKadNode:
         try:
             block_id = header_msg.block_id
             
-            # 🔥 FIX: Prevent multiple forwarding of same header
+           
             forward_key = f"forwarded_header_{block_id}"
             if not hasattr(self, 'forwarded_header_keys'):
                 self.forwarded_header_keys = set()
@@ -1259,12 +1216,7 @@ class ChunkedKadNode:
             self.logger.error(f"Node {self.node_index}: Error forwarding block header: {e}")
 
     def get_known_peers_from_buckets(self) -> List[str]:
-        """
-        🔥 NEW: Get all peers from k-buckets for realistic clustering.
-        
-        Returns list of peer IDs that this node knows from its Kademlia k-buckets.
-        This provides realistic network knowledge scope for cluster creation.
-        """
+       
         known_peers = []
         
         # Get peers from k-buckets
@@ -1364,7 +1316,7 @@ class ChunkedKadNode:
             "traditional_forwarding_eliminated": True
         }
         
-        # 🔥 NEW: RTT-based statistics
+        
         rtt_stats = {
             "rtt_clustering": {
                 "close_peers": len(self.rtt_clusters['close']),
@@ -1464,7 +1416,7 @@ class ChunkedKadNode:
 
     def update_rtt_clusters(self):
         """
-        🔥 NEW: Update RTT-based peer clusters for Bitcoin-native geographic diversity.
+       Update RTT-based peer clusters for Bitcoin-native geographic diversity.
         
         This method provides the same geographic diversity as location-based selection
         but uses only network timing data (Bitcoin-compatible):
