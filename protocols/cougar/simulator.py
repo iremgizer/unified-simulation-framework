@@ -131,7 +131,7 @@ class CougarSimulator:
             "body_responses_sent": 0,
             "bandwidth_usage": 0,
             "timeouts_occurred": 0,
-            # ✅ NEW: P parameter specific metrics
+     
             "parallel_requests_stats": {
                 "total_blocks_with_parallel_requests": 0,
                 "avg_requests_per_block": 0.0,
@@ -142,7 +142,7 @@ class CougarSimulator:
 
         self.generated_blocks_content = {}
         
-        # ✅ FIXED: Enhanced timeout tracking for P parameter
+   
         self.pending_body_timeouts = {}  # (node_index, block_hash, peer_id) -> timeout_event_id
         self.block_request_counts = {}   # block_hash -> {node_index -> request_count}
         
@@ -151,7 +151,7 @@ class CougarSimulator:
         
         logger.info(f"CougarSimulator initialized with {self.node_count} nodes")
         logger.info(f"Protocol parameters: C={self.default_C}, R={self.default_R}, P={self.default_P}")
-        logger.info(f"✅ P parameter parallelism support: ENABLED")
+        logger.info(f" P parameter parallelism support: ENABLED")
     
     def _setup_default_config(self, config: Dict[str, Any]) -> Dict[str, Any]:
         """Setup default configuration values."""
@@ -185,7 +185,7 @@ class CougarSimulator:
     def initialize_network(self) -> bool:
         """Initialize the Cougar network (same pattern as Kadcast)."""
         try:
-            logger.info("🌐 Initializing Cougar network...")
+            logger.info(" Initializing Cougar network...")
             
             # Create nodes with P parameter support
             self._create_nodes()
@@ -199,11 +199,11 @@ class CougarSimulator:
             # Perform neighbor selection
             self._perform_neighbor_selection()
             
-            logger.info(f"✅ Network initialized with {len(self.nodes)} Cougar nodes (P={self.default_P})")
+            logger.info(f" Network initialized with {len(self.nodes)} Cougar nodes (P={self.default_P})")
             return True
             
         except Exception as e:
-            logger.error(f"❌ Network initialization failed: {e}")
+            logger.error(f" Network initialization failed: {e}")
             return False
     
     def _create_nodes(self):
@@ -232,7 +232,7 @@ class CougarSimulator:
             # Generate node ID
             node_id = f"{i:016x}"
             
-            # ✅ FIXED: Create Cougar node with proper P parameter
+          
             node = CougarNode(
                 node_index=i,
                 node_id=node_id,
@@ -369,7 +369,7 @@ class CougarSimulator:
             return True
             
         except Exception as e:
-            logger.error(f"❌ Broadcasting start failed: {e}")
+            logger.error(f" Broadcasting start failed: {e}")
             return False
     
     def _schedule_block_generation(self):
@@ -469,30 +469,29 @@ class CougarSimulator:
             logger.error(f"Traceback: {traceback.format_exc()}")
     
     def _handle_cougar_block_generated(self, event: Event):
-        """✅ FIXED: Block generation completion with proper ID tracking."""
+     
         try:
             generator_node_index = event.node_id
             block_id = event.data["block_id"]  # This should be the original numeric ID
             block_hash = event.data["block_hash"]
-            header_data = event.data["header_data"]  # ✅ CRITICAL FIX: Extract from event data
-            transactions = event.data["transactions"]  # ✅ CRITICAL FIX: Extract from event data
+            header_data = event.data["header_data"] 
+            transactions = event.data["transactions"]  
             
-            # ✅ CRITICAL: Use ACTUAL simulation time
+            
             actual_generation_time = self.event_queue.current_time
             
-            # ✅ CRITICAL: Store with ORIGINAL block_id (not hash-derived)
             self.block_metrics[block_id] = {
                 'transactions': transactions,
                 'block_size': len(json.dumps(transactions).encode()),
                 'source_node': generator_node_index,
-                'generation_time': actual_generation_time,  # ✅ FIXED: Use actual sim time!
+                'generation_time': actual_generation_time, 
                 'start_time': actual_generation_time,
                 'completion_times': {},
                 'nodes_completed': 0,
-                'block_hash': block_hash  # ✅ NEW: Store hash for reverse lookup
+                'block_hash': block_hash 
             }
             
-            # ✅ Store real block data with SAME key
+        
             self.generated_blocks_content[block_id] = {
                 'block_id': block_id,
                 'block_hash': block_hash,
@@ -503,9 +502,9 @@ class CougarSimulator:
                 'generation_time': actual_generation_time
             }
             
-            logger.error(f"✅ BLOCK {block_id} GENERATED AT TIME {actual_generation_time:.3f}s (hash: {block_hash[:8]})")
+            logger.error(f"BLOCK {block_id} GENERATED AT TIME {actual_generation_time:.3f}s (hash: {block_hash[:8]})")
             
-            # ✅ Call test runner callback with CORRECT block_id
+            #  Call test runner callback with CORRECT block_id
             if hasattr(self, '_test_runner_callback'):
                 try:
                     self._test_runner_callback('block_generated', {
@@ -678,7 +677,7 @@ class CougarSimulator:
             node = self.nodes[node_index]
             node.handle_body_request_timeout(block_hash, peer_id)
             
-            # ✅ UPDATE: Enhanced timeout metrics for P parameter analysis
+           
             self.real_time_metrics["timeouts_occurred"] += 1
             
             # Track timeout efficiency for P parameter analysis
@@ -697,13 +696,13 @@ class CougarSimulator:
             logger.error(f"Error in body request timeout: {e}")
     
     def _handle_cougar_block_completed(self, event: Event):
-        """✅ FIXED: Handle block completion for final metrics."""
+       
         try:
             node_index = event.data.get("node_index")
             block_id = event.data.get("block_id")
             completion_time = event.data.get("completion_time")
             
-            # ✅ Update block metrics properly
+     
             if block_id in self.block_metrics:
                 self.block_metrics[block_id]["completion_times"][node_index] = completion_time
                 self.block_metrics[block_id]["nodes_completed"] += 1
@@ -718,7 +717,7 @@ class CougarSimulator:
                 completed_nodes = self.block_metrics[block_id]["nodes_completed"]
                 coverage = (completed_nodes / total_nodes) * 100
                 
-                logger.debug(f"✅ Block {block_id} completed by node {node_index} (coverage: {coverage:.1f}%)")
+                logger.debug(f" Block {block_id} completed by node {node_index} (coverage: {coverage:.1f}%)")
             
         except Exception as e:
             logger.error(f"Error handling Cougar block completion: {e}")
@@ -726,14 +725,12 @@ class CougarSimulator:
     # MESSAGE ROUTING - ENHANCED FOR P PARAMETER
     # =============================================================================
     def on_block_completed(self, node_index: int, block_id: int, completion_time: float):
-        """
-        ✅ ENHANCED: Handle Cougar block completion with proper timing and metrics integration.
-        """
+        
         try:
-            # ✅ Use ACTUAL simulation time instead of passed completion_time
+            #  Use ACTUAL simulation time instead of passed completion_time
             actual_completion_time = self.event_queue.current_time
             
-            # ✅ Ensure block metrics exist with correct generation time
+            #  Ensure block metrics exist with correct generation time
             if block_id not in self.block_metrics:
                 # If somehow missing, create with estimated time
                 estimated_gen_time = max(0.0, actual_completion_time - 10.0)  # Estimate 10s ago
@@ -748,20 +745,20 @@ class CougarSimulator:
                 }
                 self.logger.warning(f"Block {block_id} metrics missing - created with estimated generation time")
             
-            # ✅ Get ACTUAL generation time from block metrics
+       
             generation_time = self.block_metrics[block_id]['generation_time']
             
-            # ✅ Calculate PROPER latency using simulation times
+          
             actual_latency = actual_completion_time - generation_time
             
-            # ✅ Sanity check for latency
+           
             if actual_latency < 0:
                 self.logger.warning(f"Negative latency for block {block_id}: {actual_latency:.3f}s - using 0")
                 actual_latency = 0.0
             elif actual_latency > 300:  # More than 5 minutes
                 self.logger.warning(f"Excessive latency for block {block_id}: {actual_latency:.3f}s")
             
-            # ✅ Add computational processing delays (like Kadcast)
+        
             transactions = self.block_metrics[block_id].get("transactions", [])
             block_size = self.block_metrics[block_id]["block_size"]
             
@@ -778,11 +775,10 @@ class CougarSimulator:
             final_completion_time = actual_completion_time + body_validation_delay
             final_latency = final_completion_time - generation_time
             
-            # ✅ Update block metrics immediately
+            
             self.block_metrics[block_id]["completion_times"][node_index] = final_completion_time
             self.block_metrics[block_id]["nodes_completed"] += 1
-            
-            # ✅ CRITICAL: Report to metrics collector with proper data
+          
             if hasattr(self, 'metrics_collector'):
                 # Report basic completion
                 self.metrics_collector.report_block_processed(node_index, block_id, final_completion_time)
@@ -791,18 +787,18 @@ class CougarSimulator:
                 if hasattr(self.metrics_collector, 'report_block_completed'):
                     self.metrics_collector.report_block_completed(node_index, block_id, final_completion_time)
                     
-                # ✅ NEW: Add direct latency tracking to metrics collector
+                
                 if hasattr(self.metrics_collector, 'add_latency_sample'):
                     self.metrics_collector.add_latency_sample(block_id, node_index, final_latency)
                 
-                # ✅ NEW: Add coverage tracking to metrics collector
+            
                 if hasattr(self.metrics_collector, 'update_coverage'):
                     total_nodes = self.node_count
                     nodes_completed = self.block_metrics[block_id]["nodes_completed"]
                     coverage_percentage = (nodes_completed / total_nodes) * 100
                     self.metrics_collector.update_coverage(block_id, coverage_percentage)
             
-            # ✅ Schedule final completion event after processing delays
+        
             self.event_queue.schedule_event(
                 EventType.COUGAR_BLOCK_COMPLETED,
                 node_id=node_index,
@@ -816,11 +812,11 @@ class CougarSimulator:
                 }
             )
             
-            self.logger.debug(f"✅ Cougar Block {block_id} completion: gen={generation_time:.3f}s, "
+            self.logger.debug(f" Cougar Block {block_id} completion: gen={generation_time:.3f}s, "
                             f"comp={final_completion_time:.3f}s, latency={final_latency:.3f}s")
             
         except Exception as e:
-            self.logger.error(f"❌ Error in Cougar block completion callback: {e}")
+            self.logger.error(f" Error in Cougar block completion callback: {e}")
             import traceback
             self.logger.error(f"Traceback: {traceback.format_exc()}")
 
@@ -828,9 +824,9 @@ class CougarSimulator:
     def _calculate_final_metrics(self) -> Dict[str, Any]:
         """Calculate final simulation metrics with enhanced Cougar tracking."""
         try:
-            self.logger.info("📊 Calculating enhanced Cougar final metrics...")
+            self.logger.info(" Calculating enhanced Cougar final metrics...")
             
-            # ✅ CRITICAL: Calculate coverage and latency from actual data
+          
             total_blocks = len(self.block_metrics)
             total_nodes = self.node_count
             
@@ -857,7 +853,7 @@ class CougarSimulator:
             avg_coverage = sum(coverage_values) / len(coverage_values) if coverage_values else 0.0
             avg_latency = sum(latency_values) / len(latency_values) if latency_values else 0.0
             
-            # ✅ OVERRIDE: Update metrics collector with real values
+         
             if hasattr(self, 'metrics_collector'):
                 # Force update the metrics collector with our calculated values
                 self.metrics_collector._coverage_samples = coverage_values
@@ -878,8 +874,8 @@ class CougarSimulator:
             
             # Continue with rest of calculation...
             base_metrics = {
-                "coverage": avg_coverage,    # ✅ Now calculated correctly
-                "latency": avg_latency,      # ✅ Now calculated correctly
+                "coverage": avg_coverage,  
+                "latency": avg_latency,      
                 "bandwidth_utilization": 0.0
             }
             
@@ -903,7 +899,7 @@ class CougarSimulator:
             if total_body_requests > 0:
                 timeout_rate = total_timeouts / total_body_requests
             
-            # ✅ P parameter effectiveness metrics
+       
             parallel_stats = self.real_time_metrics["parallel_requests_stats"]
             blocks_with_parallel = parallel_stats["total_blocks_with_parallel_requests"]
             
@@ -918,8 +914,8 @@ class CougarSimulator:
                 "simulation_id": self.simulation_id,
                 "simulation_time": self.event_queue.current_time,
                 "total_blocks": total_blocks,
-                "avg_coverage": avg_coverage,      # ✅ Now correct
-                "avg_latency": avg_latency,        # ✅ Now correct
+                "avg_coverage": avg_coverage,     
+                "avg_latency": avg_latency,        
                 "bandwidth_utilization": base_metrics.get("bandwidth_utilization", 0.0),
                 "message_efficiency": {
                     "headers_sent": total_headers,
@@ -956,10 +952,10 @@ class CougarSimulator:
                 }
             }
             
-            self.logger.info(f"📈 Enhanced Cougar Final Statistics:")
+            self.logger.info(f" Enhanced Cougar Final Statistics:")
             self.logger.info(f"   - Total blocks: {total_blocks}")
-            self.logger.info(f"   - ✅ Average coverage: {avg_coverage:.1f}%")
-            self.logger.info(f"   - ✅ Average latency: {avg_latency:.3f}s")
+            self.logger.info(f"   -  Average coverage: {avg_coverage:.1f}%")
+            self.logger.info(f"   -  Average latency: {avg_latency:.3f}s")
             self.logger.info(f"   - Coverage samples: {len(coverage_values)}")
             self.logger.info(f"   - Latency samples: {len(latency_values)}")
             
@@ -1189,7 +1185,7 @@ class CougarSimulator:
                 "completion_times": {},
                 "nodes_completed": 0,
                 "coverage_timeline": [],
-                # ✅ NEW: P parameter specific metrics
+            
                 "parallel_request_stats": {
                     "total_parallel_requests": 0,
                     "nodes_using_parallel": 0,
@@ -1205,8 +1201,8 @@ class CougarSimulator:
         """Run the complete Cougar simulation with P parameter support."""
         try:
             self.running = True
-            logger.info(f"🎯 Starting Cougar simulation {self.simulation_id}")
-            logger.info(f"🔧 P parameter: {self.default_P} (parallel body requests per block)")
+            logger.info(f" Starting Cougar simulation {self.simulation_id}")
+            logger.info(f"P parameter: {self.default_P} (parallel body requests per block)")
             
             # Register event handlers
             self._register_event_handlers()
@@ -1230,18 +1226,18 @@ class CougarSimulator:
             # Calculate final metrics
             final_metrics = self._calculate_final_metrics()
             
-            logger.info(f"✅ Cougar simulation completed successfully in {end_time - start_time:.2f} real seconds")
+            logger.info(f" Cougar simulation completed successfully in {end_time - start_time:.2f} real seconds")
             return True
             
         except Exception as e:
-            logger.error(f"❌ Cougar simulation failed: {e}")
+            logger.error(f" Cougar simulation failed: {e}")
             self.running = False
             return False
     
     def _calculate_final_metrics(self) -> Dict[str, Any]:
         """Calculate final simulation metrics with P parameter analysis."""
         try:
-            logger.info("📊 Calculating Cougar final metrics...")
+            logger.info(" Calculating Cougar final metrics...")
             
             # Get base metrics from metrics collector
             base_metrics = self.metrics_collector.get_summary()
@@ -1271,7 +1267,8 @@ class CougarSimulator:
             if total_body_requests > 0:
                 timeout_rate = total_timeouts / total_body_requests
             
-            # ✅ NEW: Calculate P parameter effectiveness metrics
+          
+        
             parallel_stats = self.real_time_metrics["parallel_requests_stats"]
             blocks_with_parallel = parallel_stats["total_blocks_with_parallel_requests"]
             
@@ -1297,7 +1294,7 @@ class CougarSimulator:
                     "timeout_rate": timeout_rate,
                     "total_bandwidth_usage": self.real_time_metrics["bandwidth_usage"]
                 },
-                # ✅ NEW: P parameter specific metrics
+             
                 "parallelism_metrics": {
                     "P_parameter": self.default_P,
                     "avg_requests_per_block": avg_requests_per_block,
@@ -1319,7 +1316,7 @@ class CougarSimulator:
                 "performance_distribution": self.performance_distribution
             }
             
-            logger.info(f"📈 Final Cougar Statistics (P={self.default_P}):")
+            logger.info(f" Final Cougar Statistics (P={self.default_P}):")
             logger.info(f"   - Total blocks: {total_blocks}")
             logger.info(f"   - Average coverage: {avg_coverage:.1f}%")
             logger.info(f"   - Average latency: {avg_latency:.3f}s")
@@ -1328,9 +1325,9 @@ class CougarSimulator:
             logger.info(f"   - Body responses: {total_body_responses}")
             logger.info(f"   - Request/Response ratio: {request_response_ratio:.3f}")
             logger.info(f"   - Timeout rate: {timeout_rate:.3f}")
-            logger.info(f"   - 🔧 Avg requests/block: {avg_requests_per_block:.2f} (P={self.default_P})")
-            logger.info(f"   - 🔧 Blocks with parallel requests: {blocks_with_parallel}")
-            logger.info(f"   - 🔧 Parallel efficiency: {parallel_efficiency:.3f}")
+            logger.info(f"   -  Avg requests/block: {avg_requests_per_block:.2f} (P={self.default_P})")
+            logger.info(f"   -  Blocks with parallel requests: {blocks_with_parallel}")
+            logger.info(f"   -  Parallel efficiency: {parallel_efficiency:.3f}")
             
             return final_metrics
             
@@ -1487,7 +1484,7 @@ class CougarSimulator:
 # =============================================================================
 
 if __name__ == "__main__":
-    # ✅ ENHANCED: P parameter test configurations
+
     test_configs = [
         {
             "name": "P=1 (Conservative)",
@@ -1530,7 +1527,7 @@ if __name__ == "__main__":
     logging.basicConfig(level=logging.INFO)
     
     for test in test_configs:
-        print(f"\n🧪 Testing {test['name']}...")
+        print(f"\n Testing {test['name']}...")
         simulator = CougarSimulator(test['config'])
         success = simulator.run_simulation()
         
@@ -1538,18 +1535,17 @@ if __name__ == "__main__":
             metrics = simulator.get_metrics()
             final_metrics = simulator._calculate_final_metrics()
             
-            print(f"✅ {test['name']} completed successfully!")
-            print(f"   📊 P parameter: {final_metrics['parallelism_metrics']['P_parameter']}")
-            print(f"   📊 Avg requests/block: {final_metrics['parallelism_metrics']['avg_requests_per_block']:.2f}")
-            print(f"   📊 Parallel efficiency: {final_metrics['parallelism_metrics']['parallel_efficiency']:.3f}")
-            print(f"   📊 Coverage: {final_metrics['avg_coverage']:.1f}%")
-            print(f"   📊 Latency: {final_metrics['avg_latency']:.3f}s")
+            print(f" {test['name']} completed successfully!")
+            print(f"    P parameter: {final_metrics['parallelism_metrics']['P_parameter']}")
+            print(f"    Avg requests/block: {final_metrics['parallelism_metrics']['avg_requests_per_block']:.2f}")
+            print(f"    Parallel efficiency: {final_metrics['parallelism_metrics']['parallel_efficiency']:.3f}")
+            print(f"    Coverage: {final_metrics['avg_coverage']:.1f}%")
+            print(f"    Latency: {final_metrics['avg_latency']:.3f}s")
         else:
-            print(f"❌ {test['name']} failed!")
+            print(f" {test['name']} failed!")
         
         print("-" * 60)
 
 
-    # cougar/simulator.py - YENİ METHOD EKLE:
 
     
